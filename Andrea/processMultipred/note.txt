@@ -1,0 +1,17 @@
+Global performances over  100 -times statified crossvalidation:
+
+
+Sen = 0.706, standard deviation: 0.068 
+Spe = 0.707, standard deviation: 0.064 
+Acc = 0.706, standard deviation: 0.016 
+Bac = 0.706, standard deviation: 0.015 
+Pre = 0.667, standard deviation: 0.036 
+MCC = 0.415, standard deviation: 0.033 
+AUC = 0.790, standard deviation: 0.010 
+Most important features: 0, 2, 4, 6 
+
+Features in ascending order, from the less important to the more important 5, 1, 3, 8, 7, 4, 0, 2, 6 
+
+best tresh: 
+0.429837957393
+

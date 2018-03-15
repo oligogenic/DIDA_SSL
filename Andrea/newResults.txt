@@ -1,0 +1,91 @@
+DEO
+
+Global performances over  100 -times statified crossvalidation:
+
+
+Sen = 0.630, standard deviation: 0.039 
+Spe = 0.682, standard deviation: 0.047 
+Acc = 0.659, standard deviation: 0.016 
+Bac = 0.656, standard deviation: 0.014 
+Pre = 0.619, standard deviation: 0.025 
+MCC = 0.313, standard deviation: 0.028 
+AUC = 0.644, standard deviation: 0.009 
+Most important features: 0, 2 
+
+Features in ascending order, from the less important to the more important 3, 1, 0, 2 
+
+DEO + ESS
+
+Global performances over  100 -times statified crossvalidation:
+
+
+Sen = 0.628, standard deviation: 0.039 
+Spe = 0.701, standard deviation: 0.046 
+Acc = 0.668, standard deviation: 0.018 
+Bac = 0.664, standard deviation: 0.017 
+Pre = 0.633, standard deviation: 0.028 
+MCC = 0.330, standard deviation: 0.034 
+AUC = 0.652, standard deviation: 0.009 
+Most important features: 0, 2 
+
+Features in ascending order, from the less important to the more important 1, 3, 4, 5, 0, 2 
+
+DEO+rec
+
+
+Global performances over  100 -times statified crossvalidation:
+
+
+Sen = 0.660, standard deviation: 0.060 
+Spe = 0.614, standard deviation: 0.055 
+Acc = 0.635, standard deviation: 0.014 
+Bac = 0.637, standard deviation: 0.014 
+Pre = 0.584, standard deviation: 0.019 
+MCC = 0.274, standard deviation: 0.028 
+AUC = 0.664, standard deviation: 0.012 
+Most important features: 0, 2, 3, 5 
+
+Features in ascending order, from the less important to the more important 4, 1, 0, 3, 2, 5 
+
+
+
+
+
+DEO+ess+rec
+
+Global performances over  100 -times statified crossvalidation:
+
+
+Sen = 0.717, standard deviation: 0.068 
+Spe = 0.659, standard deviation: 0.062 
+Acc = 0.685, standard deviation: 0.013 
+Bac = 0.688, standard deviation: 0.013 
+Pre = 0.635, standard deviation: 0.027 
+MCC = 0.378, standard deviation: 0.028 
+AUC = 0.739, standard deviation: 0.010 
+Most important features: 0, 2, 4, 6 
+
+Features in ascending order, from the less important to the more important 1, 5, 3, 7, 0, 4, 2, 6 
+
+
+
+-----------------------------------
+
+
+DEO+ess+rec+path
+Global performances over  100 -times statified crossvalidation:
+
+
+Sen = 0.716, standard deviation: 0.068 
+Spe = 0.700, standard deviation: 0.064 
+Acc = 0.707, standard deviation: 0.016 
+Bac = 0.708, standard deviation: 0.015 
+Pre = 0.664, standard deviation: 0.034 
+MCC = 0.417, standard deviation: 0.032 
+AUC = 0.790, standard deviation: 0.010 
+Most important features: 0, 2, 4, 6 
+
+Features in ascending order, from the less important to the more important 5, 1, 3, 8, 7, 4, 0, 2, 6 
+
+
+
