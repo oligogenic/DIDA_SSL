@@ -11,13 +11,18 @@ class Circle {
 
         this.shown = false;
 
-        this.means = [0, 0, 0, 0, 0];
-        this.stds  = [0, 0, 0, 0, 0];
+        // RecA, EssA, RecB, EssB, Path, TD, CO, UK
+        this.means = [0, 0, 0, 0, 0, 0, 0, 0];
+        this.stds  = [0, 0, 0, 0, 0, 0, 0, 0];
 
         this.bubble_width = 0;
         this.bubble_height = 0;
         this.bubble_width_t = 0;
         this.bubble_height_t = 0;
+
+        this.rotation = 0;
+        this.precision = 0;
+        this.rotation_speed = 0;
     }
 
     update(samples) { // Samples must be active
@@ -72,23 +77,29 @@ class Circle {
             if (dy * dy2 <= 0) this.y = this.dest_y;
         }
 
-        this.means = [0, 0, 0, 0, 0]; // EssA, RecA, EssB, RecB, Path
+        this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // EssA, RecA, EssB, RecB, Path
         samples.map( sample => {
             this.means[0] += parseInt(sample.EssA);
             this.means[1] += parseFloat(sample.RecA);
             this.means[2] += parseInt(sample.EssB);
             this.means[3] += parseFloat(sample.RecB);
             this.means[4] += parseInt(sample.Path);
+            this.means[5] += (sample.DE == "TD");
+            this.means[6] += (sample.DE == "CO");
+            this.means[7] += (sample.DE == "UK");
         })
         this.means = this.means.map(x => x/samples.length);
 
-        this.stds = [0, 0, 0, 0, 0];
+        this.stds = [0, 0, 0, 0, 0, 0, 0, 0];
         samples.map( sample => {
             this.stds[0] += Math.pow(parseInt(sample.EssA) -   this.means[0], 2);
             this.stds[1] += Math.pow(parseFloat(sample.RecA) - this.means[1], 2);
             this.stds[2] += Math.pow(parseInt(sample.EssB) -   this.means[2], 2);
             this.stds[3] += Math.pow(parseFloat(sample.RecB) - this.means[3], 2);
             this.stds[4] += Math.pow(parseInt(sample.Path) -   this.means[4], 2);
+            this.stds[5] += Math.pow((sample.DE == "TD") -   this.means[2], 2);
+            this.stds[6] += Math.pow((sample.DE == "CO") - this.means[3], 2);
+            this.stds[7] += Math.pow((sample.DE == "UK") -   this.means[4], 2);
         });
         this.stds = this.stds.map(x => Math.sqrt(x/samples.length));
 
@@ -134,12 +145,34 @@ class Circle {
         strokeWeight(4);
         stroke(color_from_array(constants.COLOR_CO));
         noFill();
-        ellipse(this.x, this.y, this.radius*2, this.radius*2);
+
+        translate(this.x, this.y);
+        rotate(this.rotation);
+
+        this.precision = this.radius * constants.CIRCLE_DENSITY;
+        this.rotation_speed = 1 / (1 + this.radius);
+        for (let i=0; i < this.precision; ++i) {
+            const x = this.radius * Math.cos(2 * Math.PI * i / this.precision);
+            const y = this.radius * Math.sin(2 * Math.PI * i / this.precision);
+            point(x, y);
+        }
+        rotate(-this.rotation);
+        translate(-this.x, -this.y);
+
+
+        this.rotation += this.rotation_speed;
+        if (this.rotation >= Math.PI*2) this.rotation -= Math.PI*2;
 
         // We show bubble
         if (this.stand_still()) {
-            const tx = (this.x < constants.WIDTH / 2) ? this.radius + 20 : - this.radius - 20 - this.bubble_width;
-            const ty = (this.y < constants.HEIGHT / 2) ? this.radius + 20 : - this.radius - 20 - this.bubble_height;
+            const tx = ( (this.x < constants.WIDTH / 2) ?
+                Math.min(constants.BUBBLE_CIRCLE_MAXDIST, this.radius) :
+                Math.max(-constants.BUBBLE_CIRCLE_MAXDIST - this.bubble_width, - this.radius - this.bubble_width)
+            );
+            const ty = ( (this.y < constants.HEIGHT / 2) ?
+                Math.min(constants.BUBBLE_CIRCLE_MAXDIST, this.radius) :
+                Math.max(-constants.BUBBLE_CIRCLE_MAXDIST - this.bubble_height, - this.radius - this.bubble_height)
+            );
 
             translate(this.x + tx, this.y + ty);
 
@@ -225,7 +258,18 @@ class Circle {
             text("Pathway related (std):", 5, offset_y);
             text(path_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(path_stdround) - 5, offset_y);
 
+            offset_y += 2 * constants.TEXT_SIZES[2];
 
+            // DE
+
+            const de_meanround = [
+                Math.round(this.means[5] * 1000) / 1000, // TD
+                Math.round(this.means[6] * 1000) / 1000, // CO
+                Math.round(this.means[7] * 1000) / 1000 // UK
+            ]
+
+            const de_meanround_str = 'TD: ' + de_meanround[0] + ', CO: ' + de_meanround[1] + ', UK: ' + de_meanround[2];
+            text(de_meanround_str, 5, offset_y);
 
             translate(- (this.x + tx), - (this.y + ty) );
         }

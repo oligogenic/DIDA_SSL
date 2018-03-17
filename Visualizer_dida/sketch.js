@@ -2,6 +2,7 @@ let data_str;
 
 const data = [];
 const circle = new Circle();
+const searcher = new Searcher();
 
 function preload() {
     data_str = loadStrings("Data/dida_v2_tsne.csv");
@@ -24,15 +25,21 @@ function setup() {
     //Removes header
     data.shift();
 
+    // Initialize search system
+    searcher.feed(data);
+
     // Canvas setup
     createCanvas(constants.WIDTH + 1, constants.HEIGHT + 1);
 }
 
 function draw() {
     fill(255);
-    strokeWeight(1);
+    strokeWeight(4);
     stroke(color_from_array(constants.COLOR_TD));
     rect(0, 0, constants.WIDTH, constants.HEIGHT);
+
+    drawGrid();
+
 
     noStroke();
     fill(color_from_array(constants.ACTIVATION_COLOR));
@@ -40,8 +47,14 @@ function draw() {
 
     data.map( sample => {
         sample.update();
-        sample.draw();
+        sample.draw( data.some(sample => sample.highlighted) );
     });
+
+    // Legend
+
+    drawLegend();
+
+    // Circle
 
     circle.update(data.filter(sample => sample.active));
     circle.updateBubble();
@@ -68,6 +81,15 @@ function draw() {
     const ratio = (constants.ACTIVATION_DIST - constants.ACTIVATION_DIST_MIN) / (constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN);
     line(constants.WIDTH - 60, constants.HEIGHT - 50 - ratio*100, constants.WIDTH - 40, constants.HEIGHT - 50 - ratio*100);
 
+    // Searcher
+
+    searcher.draw();
+
+    // Check if user wants to remove a character
+
+    if (keyIsDown(BACKSPACE)) searcher.removeLastChar();
+    else searcher.resetRemoveDelay();
+
 }
 
 function mouseMoved() {
@@ -87,6 +109,8 @@ function mouseMoved() {
     } else {
         cursor(ARROW);
     }
+
+    if (searcher.onto(mouseX, mouseY)) cursor(TEXT);
 }
 
 function mouseClicked() {
@@ -97,6 +121,9 @@ function mouseClicked() {
     if (close_samples.length > 0) {
         close_samples[0].toggleBubble(true);
     }
+
+    if (searcher.onto(mouseX, mouseY)) searcher.toggle(true);
+    else searcher.toggle(false);
 }
 
 function mouseDragged() {
@@ -112,3 +139,20 @@ function mouseDragged() {
         );
     }
 }
+
+function keyTyped() {
+    searcher.sendKey(key);
+}
+
+function keyPressed() {
+    if (keyCode == TAB) searcher.validateSuggestion();
+}
+
+// Ctrl + V
+
+document.addEventListener('paste', function (event) {
+  const clipText = event.clipboardData.getData('Text');
+  for (let i = 0; i < clipText.length; ++i) {
+      searcher.sendKey(clipText[i]);
+  }
+});

@@ -13,6 +13,11 @@ class Sample {
             (this.DE == 'CO') ? color_from_array(constants.COLOR_CO_D) :
             color_from_array(constants.COLOR_UK_D)
         );
+        this.color_l = (
+            (this.DE == 'TD') ? color_from_array(constants.COLOR_TD_L) :
+            (this.DE == 'CO') ? color_from_array(constants.COLOR_CO_L) :
+            color_from_array(constants.COLOR_UK_L)
+        );
         this.radius = constants.RADIUS;
 
         this.active = false;
@@ -31,6 +36,12 @@ class Sample {
         this.bubble_modifier_y = (constants.HEIGHT - this.true_y <= constants.BUBBLE_HEIGHT) ? -1 : 1;
 
         this.name_shown = false;
+
+        this.highlighted = false; // If seach engine suggests it
+    }
+
+    toggleHighlight(bool) {
+        this.highlighted = bool;
     }
 
     toggleActive(bool) {
@@ -66,9 +77,20 @@ class Sample {
         }
     }
 
-    draw() {
-        stroke(this.color);
-        fill(this.color);
+    draw(highlighted_samples) {
+
+        if (!highlighted_samples) {
+            stroke(this.color);
+            fill(this.color);
+        } else if (!this.highlighted) {
+            stroke(this.color_l);
+            fill(this.color_l);
+        } else {
+            stroke(this.color_d);
+            fill(this.color_d);
+        }
+
+        strokeWeight(1);
         ellipse(
             this.true_x,
             this.true_y,
@@ -124,7 +146,7 @@ class Sample {
 
             translate(this.true_x + tx, this.true_y + ty);
 
-            noFill();
+            fill(this.color_d);
             stroke(this.color_d);
 
             // Disease
@@ -133,7 +155,7 @@ class Sample {
             let size = constants.TEXT_SIZES[0];
             textSize(size);
             while (textWidth(this.Name) >= constants.BUBBLE_WIDTH - 10) {
-                size -= 1;
+                size -= 0.2;
                 textSize(size);
             }
             text(this.Name, 2, size);
