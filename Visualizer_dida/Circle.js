@@ -79,20 +79,30 @@ class Circle {
 
         this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // EssA, RecA, EssB, RecB, Path
         samples.map( sample => {
+            if (
+                sample.DE == 'UK' && constants.UK_DISABLED ||
+                sample.DE == 'CO' && constants.CO_DISABLED ||
+                sample.DE == 'TD' && constants.TD_DISABLED
+            ) return;
             this.means[0] += parseInt(sample.EssA);
             this.means[1] += parseFloat(sample.RecA);
             this.means[2] += parseInt(sample.EssB);
             this.means[3] += parseFloat(sample.RecB);
             this.means[4] += parseInt(sample.Path);
-            this.means[5] += (constants.TD_DISABLED ? 0 : (sample.DE == "TD"));
-            this.means[6] += (constants.CO_DISABLED ? 0 : (sample.DE == "CO"));
-            this.means[7] += (constants.UK_DISABLED ? 0 : (sample.DE == "UK"));
+            this.means[5] += (sample.DE == "TD");
+            this.means[6] += (sample.DE == "CO");
+            this.means[7] += (sample.DE == "UK");
         })
         const samplesCount = this.means[5] + this.means[6] + this.means[7];
         this.means = this.means.map(x => x/samplesCount);
 
         this.stds = [0, 0, 0, 0, 0, 0, 0, 0];
         samples.map( sample => {
+            if (
+                sample.DE == 'UK' && constants.UK_DISABLED ||
+                sample.DE == 'CO' && constants.CO_DISABLED ||
+                sample.DE == 'TD' && constants.TD_DISABLED
+            ) return;
             this.stds[0] += Math.pow(parseInt(sample.EssA) -   this.means[0], 2);
             this.stds[1] += Math.pow(parseFloat(sample.RecA) - this.means[1], 2);
             this.stds[2] += Math.pow(parseInt(sample.EssB) -   this.means[2], 2);
