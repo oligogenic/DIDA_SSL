@@ -79,6 +79,12 @@ class Sample {
 
     draw(highlighted_samples) {
 
+        if (
+            this.DE == 'UK' && constants.UK_DISABLED ||
+            this.DE == 'CO' && constants.CO_DISABLED ||
+            this.DE == 'TD' && constants.TD_DISABLED
+        ) return;
+
         if (!highlighted_samples) {
             stroke(this.color);
             fill(this.color);
@@ -120,6 +126,13 @@ class Sample {
 
     drawName() {
         if (!this.name_shown) return;
+
+        if (
+            this.DE == 'UK' && constants.UK_DISABLED ||
+            this.DE == 'CO' && constants.CO_DISABLED ||
+            this.DE == 'TD' && constants.TD_DISABLED
+        ) return;
+
         stroke(this.color_d);
 
         strokeWeight(1);
@@ -130,6 +143,12 @@ class Sample {
 
     drawBubble() {
         if (!this.bubble_width) return;
+
+        if (
+            this.DE == 'UK' && constants.UK_DISABLED ||
+            this.DE == 'CO' && constants.CO_DISABLED ||
+            this.DE == 'TD' && constants.TD_DISABLED
+        ) return;
 
         fill(255);
         stroke(this.color);

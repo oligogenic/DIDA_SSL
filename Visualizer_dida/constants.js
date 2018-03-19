@@ -62,7 +62,11 @@ const constants = {
     SEARCHER_WIDTH: 450,
     SEARCHER_FONT_SIZE: 12,
     SEARCHER_BAR_SPEED: 15,
-    SEARCHER_DEFAULT: "Ex: dd056, Alport syndrome",
+    SEARCHER_DEFAULT: "Ex: dd056, Alport syndrome, BBS2",
     SEARCHER_REMOVE_DELAY: 5,
-    SEARCHER_SUGGEST_COLOR: [150, 150, 150, 130]
+    SEARCHER_SUGGEST_COLOR: [150, 150, 150, 130],
+
+    TD_DISABLED: false,
+    CO_DISABLED: false,
+    UK_DISABLED: true
 };

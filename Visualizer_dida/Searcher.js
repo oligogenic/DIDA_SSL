@@ -25,6 +25,9 @@ class Searcher {
         for (key in data) {
             this.trie.feed(data[key].DidaID.toLowerCase(), data[key]);
             this.trie.feed(data[key].Name.toLowerCase(), data[key]);
+            const genes = data[key].Pair.split('/');
+            this.trie.feed(genes[0].toLowerCase(), data[key]);
+            this.trie.feed(genes[1].toLowerCase(), data[key]);
         }
         this.toggle(false);
     }
@@ -82,10 +85,15 @@ class Searcher {
         const suggested_child = suggestions[0];
         const child_id = suggested_child.DidaID;
         const child_name = suggested_child.Name;
+        const child_genes = suggested_child.Pair.split('/');
         if (child_id.toLowerCase().substr(0, this.text.length) == this.text.toLowerCase()) {
             this.suggestedtext = child_id.substr(this.text.length);
-        } else {
+        } else if (child_name.toLowerCase().substr(0, this.text.length) == this.text.toLowerCase()) {
             this.suggestedtext = child_name.substr(this.text.length);
+        } else if (child_genes[0].toLowerCase().substr(0, this.text.length) == this.text.toLowerCase()) {
+            this.suggestedtext = child_genes[0].substr(this.text.length);
+        } else {
+            this.suggestedtext = child_genes[1].substr(this.text.length);
         }
 
         data.map( sample => sample.toggleHighlight(false));

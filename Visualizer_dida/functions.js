@@ -65,8 +65,13 @@ function drawLegend() {
     textSize(constants.TEXT_SIZES[1]);
     text("True digenic", 30, offset_y)
 
-    stroke(color_from_array(constants.COLOR_TD));
-    fill(color_from_array(constants.COLOR_TD));
+    if (constants.TD_DISABLED) {
+        stroke(constants.COLOR_UK_L);
+        noFill();
+    } else {
+        stroke(color_from_array(constants.COLOR_TD));
+        fill(color_from_array(constants.COLOR_TD));
+    }
     ellipse(20, offset_y - constants.RADIUS, 2*constants.RADIUS, 2*constants.RADIUS);
 
     // Co
@@ -78,8 +83,13 @@ function drawLegend() {
     textSize(constants.TEXT_SIZES[1]);
     text("Composite", 30, offset_y)
 
-    stroke(color_from_array(constants.COLOR_CO));
-    fill(color_from_array(constants.COLOR_CO));
+    if (constants.CO_DISABLED) {
+        stroke(constants.COLOR_UK_L);
+        noFill();
+    } else {
+        stroke(color_from_array(constants.COLOR_CO));
+        fill(color_from_array(constants.COLOR_CO));
+    }
     ellipse(20, offset_y - constants.RADIUS, 2*constants.RADIUS, 2*constants.RADIUS);
 
     // Uk
@@ -91,8 +101,13 @@ function drawLegend() {
     textSize(constants.TEXT_SIZES[1]);
     text("Unknown effect", 30, offset_y)
 
-    stroke(color_from_array(constants.COLOR_UK));
-    fill(color_from_array(constants.COLOR_UK));
+    if (constants.UK_DISABLED) {
+        stroke(constants.COLOR_UK_L);
+        noFill();
+    } else {
+        stroke(color_from_array(constants.COLOR_UK));
+        fill(color_from_array(constants.COLOR_UK));
+    }
     ellipse(20, offset_y - constants.RADIUS, 2*constants.RADIUS, 2*constants.RADIUS);
 
 

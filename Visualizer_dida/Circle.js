@@ -84,11 +84,12 @@ class Circle {
             this.means[2] += parseInt(sample.EssB);
             this.means[3] += parseFloat(sample.RecB);
             this.means[4] += parseInt(sample.Path);
-            this.means[5] += (sample.DE == "TD");
-            this.means[6] += (sample.DE == "CO");
-            this.means[7] += (sample.DE == "UK");
+            this.means[5] += (constants.TD_DISABLED ? 0 : (sample.DE == "TD"));
+            this.means[6] += (constants.CO_DISABLED ? 0 : (sample.DE == "CO"));
+            this.means[7] += (constants.UK_DISABLED ? 0 : (sample.DE == "UK"));
         })
-        this.means = this.means.map(x => x/samples.length);
+        const samplesCount = this.means[5] + this.means[6] + this.means[7];
+        this.means = this.means.map(x => x/samplesCount);
 
         this.stds = [0, 0, 0, 0, 0, 0, 0, 0];
         samples.map( sample => {
@@ -101,7 +102,7 @@ class Circle {
             this.stds[6] += Math.pow((sample.DE == "CO") - this.means[3], 2);
             this.stds[7] += Math.pow((sample.DE == "UK") -   this.means[4], 2);
         });
-        this.stds = this.stds.map(x => Math.sqrt(x/samples.length));
+        this.stds = this.stds.map(x => Math.sqrt(x/samplesCount));
 
         // Bubble update
 
@@ -150,10 +151,11 @@ class Circle {
         rotate(this.rotation);
 
         this.precision = this.radius * constants.CIRCLE_DENSITY;
+        const step = 2 * Math.PI / (1 + parseInt(this.precision));
         this.rotation_speed = 1 / (1 + this.radius);
-        for (let i=0; i < this.precision; ++i) {
-            const x = this.radius * Math.cos(2 * Math.PI * i / this.precision);
-            const y = this.radius * Math.sin(2 * Math.PI * i / this.precision);
+        for (let i=0; i < 2*Math.PI - 1e-6; i += step) {
+            const x = this.radius * Math.cos(i);
+            const y = this.radius * Math.sin(i);
             point(x, y);
         }
         rotate(-this.rotation);

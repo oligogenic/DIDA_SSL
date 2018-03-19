@@ -111,6 +111,18 @@ function mouseMoved() {
     }
 
     if (searcher.onto(mouseX, mouseY)) cursor(TEXT);
+
+    if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
+        let offset_y = 15 + 3*constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+            cursor(HAND)
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+            cursor(HAND)
+        offset_y += constants.TEXT_SIZES[0];
+            if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+                cursor(HAND)
+    }
 }
 
 function mouseClicked() {
@@ -124,6 +136,18 @@ function mouseClicked() {
 
     if (searcher.onto(mouseX, mouseY)) searcher.toggle(true);
     else searcher.toggle(false);
+
+    if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
+        let offset_y = 15 + 3*constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+            constants.TD_DISABLED = !constants.TD_DISABLED;
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+            constants.CO_DISABLED = !constants.CO_DISABLED;
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+            constants.UK_DISABLED = !constants.UK_DISABLED;
+    }
 }
 
 function mouseDragged() {
