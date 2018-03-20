@@ -81,12 +81,12 @@ class Circle {
             if (dy * dy2 <= 0) this.y = this.dest_y;
         }
 
-        this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // EssA, RecA, EssB, RecB, Path
+        this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // RecA, EssA, RecB, EssB, Path
         samples.map( sample => {
-            this.means[0] += parseInt(sample.EssA);
-            this.means[1] += parseFloat(sample.RecA);
-            this.means[2] += parseInt(sample.EssB);
-            this.means[3] += parseFloat(sample.RecB);
+            this.means[0] += parseFloat(sample.RecA);
+            this.means[1] += parseInt(sample.EssA);
+            this.means[2] += parseFloat(sample.RecB);
+            this.means[3] += parseInt(sample.EssB);
             this.means[4] += parseInt(sample.Path);
             this.means[5] += (sample.DE == "TD");
             this.means[6] += (sample.DE == "CO");
@@ -95,16 +95,13 @@ class Circle {
         this.samplesCount = this.means[5] + this.means[6] + this.means[7];
         this.means = this.means.map(x => x/this.samplesCount);
 
-        this.stds = [0, 0, 0, 0, 0, 0, 0, 0];
+        this.stds = [0, 0, 0, 0, 0];
         samples.map( sample => {
-            this.stds[0] += Math.pow(parseInt(sample.EssA) -   this.means[0], 2);
-            this.stds[1] += Math.pow(parseFloat(sample.RecA) - this.means[1], 2);
-            this.stds[2] += Math.pow(parseInt(sample.EssB) -   this.means[2], 2);
-            this.stds[3] += Math.pow(parseFloat(sample.RecB) - this.means[3], 2);
+            this.stds[0] += Math.pow(parseFloat(sample.RecA) -   this.means[0], 2);
+            this.stds[1] += Math.pow(parseInt(sample.EssA) - this.means[1], 2);
+            this.stds[2] += Math.pow(parseFloat(sample.RecB) -   this.means[2], 2);
+            this.stds[3] += Math.pow(parseInt(sample.EssB) - this.means[3], 2);
             this.stds[4] += Math.pow(parseInt(sample.Path) -   this.means[4], 2);
-            this.stds[5] += Math.pow((sample.DE == "TD") -   this.means[2], 2);
-            this.stds[6] += Math.pow((sample.DE == "CO") - this.means[3], 2);
-            this.stds[7] += Math.pow((sample.DE == "UK") -   this.means[4], 2);
         });
         this.stds = this.stds.map(x => Math.sqrt(x/this.samplesCount));
 
@@ -220,7 +217,7 @@ class Circle {
 
             const essA_stdround = Math.round(this.stds[1] * 100) / 100;
             text("Essentiality gene A (std):", 5, offset_y);
-            text(recA_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(recA_stdround) - 5, offset_y);
+            text(recA_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(essA_stdround) - 5, offset_y);
 
             offset_y += constants.TEXT_SIZES[2] + 5;
 
@@ -241,13 +238,13 @@ class Circle {
             // ESS B
 
             const essB_meanround = Math.round(this.means[3] * 100) / 100;
-            text("Essentiality gene A (mean):", 5, offset_y);
+            text("Essentiality gene B (mean):", 5, offset_y);
             text(essB_meanround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(essB_meanround) - 5, offset_y);
 
             offset_y += constants.TEXT_SIZES[2];
 
             const essB_stdround = Math.round(this.stds[3] * 100) / 100;
-            text("Essentiality gene A (std):", 5, offset_y);
+            text("Essentiality gene B (std):", 5, offset_y);
             text(essB_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(essB_stdround) - 5, offset_y);
 
             offset_y += constants.TEXT_SIZES[2] + 5;
@@ -260,7 +257,7 @@ class Circle {
 
             offset_y += constants.TEXT_SIZES[2];
 
-            const path_stdround = Math.round(this.stds[3] * 100) / 100;
+            const path_stdround = Math.round(this.stds[4] * 100) / 100;
             text("Pathway related (std):", 5, offset_y);
             text(path_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(path_stdround) - 5, offset_y);
 
