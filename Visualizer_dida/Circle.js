@@ -217,7 +217,7 @@ class Circle {
 
             const essA_stdround = Math.round(this.stds[1] * 100) / 100;
             text("Essentiality gene A (std):", 5, offset_y);
-            text(recA_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(essA_stdround) - 5, offset_y);
+            text(essA_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(essA_stdround) - 5, offset_y);
 
             offset_y += constants.TEXT_SIZES[2] + 5;
 
