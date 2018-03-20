@@ -29,6 +29,8 @@ class Circle {
 
     update(samples) { // Samples must be active
 
+        samples = samples.filter(sample => !sample.isDisabled());
+
         if (samples.length == 0 && this.maxRadius == 0 && this.radius == 0) {
             this.x = mouseX;
             this.y = mouseY;
@@ -53,14 +55,14 @@ class Circle {
         // Radius goal
         if (this.radius < this.maxRadius) {
             this.shown = true;
-            this.radius += constants.CIRCLE_GROWTH_RATE;
+            this.radius += (1 + this.radius * 0.1);
             if (this.radius > this.maxRadius) this.radius = this.maxRadius;
         } else if (this.radius <= 0) {
             this.shown = false;
             this.radius = 0;
         } else if (this.radius > this.maxRadius) {
             this.shown = true;
-            this.radius -= constants.CIRCLE_GROWTH_RATE;
+            this.radius -= (1 + this.radius * 0.1);
             if (this.radius < this.maxRadius) this.radius = this.maxRadius;
         }
 
@@ -81,7 +83,6 @@ class Circle {
 
         this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // EssA, RecA, EssB, RecB, Path
         samples.map( sample => {
-            if (sample.isDisabled()) return;
             this.means[0] += parseInt(sample.EssA);
             this.means[1] += parseFloat(sample.RecA);
             this.means[2] += parseInt(sample.EssB);
@@ -96,7 +97,6 @@ class Circle {
 
         this.stds = [0, 0, 0, 0, 0, 0, 0, 0];
         samples.map( sample => {
-            if (sample.isDisabled()) return;
             this.stds[0] += Math.pow(parseInt(sample.EssA) -   this.means[0], 2);
             this.stds[1] += Math.pow(parseFloat(sample.RecA) - this.means[1], 2);
             this.stds[2] += Math.pow(parseInt(sample.EssB) -   this.means[2], 2);

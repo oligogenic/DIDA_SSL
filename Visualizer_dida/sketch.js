@@ -30,6 +30,11 @@ function setup() {
 
     // Canvas setup
     createCanvas(constants.WIDTH + 1, constants.HEIGHT + 1);
+
+    // Imgs loading
+    for (let key in constants.IMAGES) {
+        constants.IMAGES[key] = loadImage(constants.IMAGES_PATH + constants.IMAGES[key]);
+    }
 }
 
 function draw() {
@@ -90,16 +95,25 @@ function draw() {
     if (keyIsDown(BACKSPACE)) searcher.removeLastChar();
     else searcher.resetRemoveDelay();
 
+    // Help drawing
+
+    updateHelp();
+
 }
 
 function mouseMoved() {
+    // We activate samples in selection radius (blobbing effect)
     data.map( sample => {
-        sample.toggleActive(distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.ACTIVATION_DIST);
+        sample.toggleActive(
+            pointInCircle(sample.true_x, sample.true_y, mouseX, mouseY, constants.ACTIVATION_DIST
+            )
+        );
         sample.toggleName(false);
     });
 
+    // We gather which samples are hovered
     const samples_hovered = data.filter( sample =>
-        distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.RADIUS &&
+        pointInCircle(sample.true_x, sample.true_y, mouseX, mouseY, constants.RADIUS) &&
         !sample.isDisabled()
     );
     if (samples_hovered.length) {
@@ -111,8 +125,10 @@ function mouseMoved() {
         cursor(ARROW);
     }
 
+    // Searcher detection
     if (searcher.onto(mouseX, mouseY)) cursor(TEXT);
 
+    // Legend dots
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
         if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
@@ -124,12 +140,29 @@ function mouseMoved() {
             if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
                 cursor(HAND)
     }
+
+    // Slider
+    if (pointInRect(
+        mouseX, mouseY,
+        constants.WIDTH - 55, constants.HEIGHT - 150,
+        10, 100)) {
+        cursor(HAND);
+    }
+
+    // Help button
+    if (pointInCircle(
+        mouseX,
+        mouseY,
+        constants.LEGEND_WIDTH + 5 - constants.TEXT_SIZES[0] / 2,
+        18 + constants.TEXT_SIZES[0] / 2,
+        constants.TEXT_SIZES[0]/2, constants.TEXT_SIZES[0]/2
+    )) cursor(HAND);
 }
 
 function mouseClicked() {
     data.map(s => s.toggleBubble(false));
     const close_samples = data.filter( sample =>
-        distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.RADIUS &&
+        pointInCircle(sample.true_x, sample.true_y, mouseX, mouseY, constants.RADIUS) &&
         !sample.isDisabled()
     ).sort( sample => distance(mouseX, mouseY, sample.true_x, sample.true_y) );
     if (close_samples.length > 0) {
@@ -153,11 +186,38 @@ function mouseClicked() {
         if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
             constants.UK_DISABLED = !constants.UK_DISABLED;
     }
+
+    // Slider clicked
+    if (pointInRect(
+        mouseX, mouseY,
+        constants.WIDTH - 55, constants.HEIGHT - 150,
+        10, 100)) {
+
+        constants.ACTIVATION_DIST = Math.min(
+            constants.ACTIVATION_DIST_MAX,
+            Math.max(
+                constants.ACTIVATION_DIST_MIN,
+                (constants.HEIGHT - 50 - mouseY) / 100 * (constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN) + constants.ACTIVATION_DIST_MIN
+            )
+        );
+    }
+
+    // Help button clicked
+    constants.HELP_SHOWN = pointInCircle(
+        mouseX,
+        mouseY,
+        constants.LEGEND_WIDTH + 5 - constants.TEXT_SIZES[0] / 2,
+        18 + constants.TEXT_SIZES[0] / 2,
+        constants.TEXT_SIZES[0]/2, constants.TEXT_SIZES[0]/2
+    );
 }
 
 function mouseDragged() {
-    if (mouseX >= constants.WIDTH - 60 && mouseX <= constants.WIDTH - 40 &&
-        mouseY >= constants.HEIGHT - 150 && mouseY <= constants.HEIGHT - 50) {
+    // Slider dragged
+    if (pointInRect(
+        mouseX, mouseY,
+        constants.WIDTH - 60, constants.HEIGHT - 150,
+        20, 100)) {
 
         constants.ACTIVATION_DIST = Math.min(
             constants.ACTIVATION_DIST_MAX,

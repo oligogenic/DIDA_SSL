@@ -6,6 +6,17 @@ function distance(x, y, a, b) {
     return Math.sqrt( Math.pow(x - a, 2) + Math.pow(y - b, 2) );
 }
 
+function pointInRect(x, y, corx, cory, w, h) {
+    return (
+        x >= corx && x <= corx + w &&
+        y >= cory && y <= cory + h
+    );
+}
+
+function pointInCircle(x, y, cenx, ceny, r) {
+    return distance(x, y, cenx, ceny) <= r;
+}
+
 function drawGrid() {
 
     strokeWeight(1);
@@ -59,6 +70,13 @@ function drawLegend() {
     // Title
     let offset_y = 5 + constants.TEXT_SIZES[0];
     text("Digenic effect", 10, offset_y)
+    tint(255, 127);
+    image(constants.IMAGES.HELP_BUTTON,
+        constants.LEGEND_WIDTH - 5 - constants.TEXT_SIZES[0],
+        offset_y - 12,
+        constants.TEXT_SIZES[0], constants.TEXT_SIZES[0]
+    );
+    tint(255, 255);
 
     // TD
     offset_y += 2*constants.TEXT_SIZES[0];
@@ -112,4 +130,17 @@ function drawLegend() {
 
 
     translate(-10, -10);
+}
+
+function updateHelp() {
+    if (constants.HELP_SHOWN) {
+        constants.HELP_ALPHA = Math.min(255, constants.HELP_ALPHA + constants.HELP_SPEED);
+    } else {
+        constants.HELP_ALPHA = Math.max(0, constants.HELP_ALPHA - constants.HELP_SPEED);
+    }
+
+    if (!constants.HELP_ALPHA) return;
+    tint(255, constants.HELP_ALPHA);
+    image(constants.IMAGES.HELP_WINDOW, 0, 0, constants.WIDTH + 2, constants.HEIGHT + 2);
+    tint(255, 255);
 }

@@ -13,12 +13,11 @@ class Searcher {
 
     // Is mouse onto it ?
     onto(x, y) {
-        return (
-            x >= constants.SEARCHER_LEFT_MARGIN &&
-            x <= constants.SEARCHER_LEFT_MARGIN + constants.SEARCHER_WIDTH &&
-            y >= constants.HEIGHT - constants.SEARCHER_BOTTOM_MARGIN - constants.SEARCHER_FONT_SIZE - 5 &&
-            y <= constants.HEIGHT - constants.SEARCHER_BOTTOM_MARGIN
-        )
+        return(pointInRect(
+            x, y,
+            constants.SEARCHER_LEFT_MARGIN, constants.HEIGHT - constants.SEARCHER_BOTTOM_MARGIN - constants.SEARCHER_FONT_SIZE - 5,
+            constants.SEARCHER_WIDTH, constants.SEARCHER_FONT_SIZE + 5)
+        );
     }
 
     feed(data) {

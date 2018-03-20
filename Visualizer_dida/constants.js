@@ -68,5 +68,15 @@ const constants = {
 
     TD_DISABLED: false,
     CO_DISABLED: false,
-    UK_DISABLED: true
+    UK_DISABLED: true,
+
+    IMAGES_PATH: "Images/",
+    IMAGES: {
+        HELP_BUTTON: "help_button.png",
+        HELP_WINDOW: "help_window.png"
+    },
+
+    HELP_SHOWN: false,
+    HELP_ALPHA: 0,
+    HELP_SPEED: 15
 };
