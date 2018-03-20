@@ -104,6 +104,7 @@ class Searcher {
         if (!this.toggled) return;
         this.text = this.text + this.suggestedtext;
         this.suggestedtext = "";
+        this.suggest();
     }
 
     draw() {
