@@ -65,6 +65,14 @@ class Sample {
         this.bubble_height_t = 0;
     }
 
+    isDisabled() {
+        return (
+            this.DE == 'UK' && constants.UK_DISABLED ||
+            this.DE == 'CO' && constants.CO_DISABLED ||
+            this.DE == 'TD' && constants.TD_DISABLED
+        );
+    }
+
     update() {
         if (!this.active) return;
 
@@ -79,11 +87,7 @@ class Sample {
 
     draw(highlighted_samples) {
 
-        if (
-            this.DE == 'UK' && constants.UK_DISABLED ||
-            this.DE == 'CO' && constants.CO_DISABLED ||
-            this.DE == 'TD' && constants.TD_DISABLED
-        ) return;
+        if (this.isDisabled()) return;
 
         if (!highlighted_samples) {
             stroke(this.color);
@@ -127,11 +131,7 @@ class Sample {
     drawName() {
         if (!this.name_shown) return;
 
-        if (
-            this.DE == 'UK' && constants.UK_DISABLED ||
-            this.DE == 'CO' && constants.CO_DISABLED ||
-            this.DE == 'TD' && constants.TD_DISABLED
-        ) return;
+        if (this.isDisabled()) return;
 
         stroke(this.color_d);
 
@@ -144,11 +144,7 @@ class Sample {
     drawBubble() {
         if (!this.bubble_width) return;
 
-        if (
-            this.DE == 'UK' && constants.UK_DISABLED ||
-            this.DE == 'CO' && constants.CO_DISABLED ||
-            this.DE == 'TD' && constants.TD_DISABLED
-        ) return;
+        if (this.isDisabled()) return;
 
         fill(255);
         stroke(this.color);

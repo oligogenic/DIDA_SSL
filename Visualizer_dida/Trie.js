@@ -10,11 +10,9 @@ class Trie {
             this.values.push(value);
             return;
         }
-
         const firstChar = string[0];
-        const newString = string.substr(1, string.length - 1);
         if (this.sons[firstChar] == undefined) this.sons[firstChar] = new Trie();
-        this.sons[firstChar].feed(newString, value);
+        this.sons[firstChar].feed(string.substr(1, string.length - 1), value);
     }
 
     getChilds(string) {
@@ -27,9 +25,7 @@ class Trie {
         }
 
         const firstChar = string[0];
-        const newString = string.substr(1, string.length - 1);
-
         if (this.sons[firstChar] == undefined) return [];
-        return this.sons[firstChar].getChilds(newString);
+        return this.sons[firstChar].getChilds(string.substr(1, string.length - 1));
     }
 }

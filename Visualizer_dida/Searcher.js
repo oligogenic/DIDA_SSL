@@ -55,7 +55,10 @@ class Searcher {
     removeLastChar() {
         if (!this.toggled) return;
 
-        if (this.text.length == 0) data.map( sample => sample.toggleHighlight(false));
+        if (this.text.length == 0) {
+            data.map( sample => sample.toggleHighlight(false));
+            return;
+        }
 
         this.removeDelay -= 1
         if (this.removeDelay > 0) return;

@@ -99,7 +99,8 @@ function mouseMoved() {
     });
 
     const samples_hovered = data.filter( sample =>
-        distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.RADIUS
+        distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.RADIUS &&
+        !sample.isDisabled()
     );
     if (samples_hovered.length) {
         cursor(HAND);
@@ -128,13 +129,17 @@ function mouseMoved() {
 function mouseClicked() {
     data.map(s => s.toggleBubble(false));
     const close_samples = data.filter( sample =>
-        distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.RADIUS
+        distance(mouseX, mouseY, sample.true_x, sample.true_y) <= constants.RADIUS &&
+        !sample.isDisabled()
     ).sort( sample => distance(mouseX, mouseY, sample.true_x, sample.true_y) );
     if (close_samples.length > 0) {
         close_samples[0].toggleBubble(true);
     }
 
-    if (searcher.onto(mouseX, mouseY)) searcher.toggle(true);
+    if (
+        searcher.onto(mouseX, mouseY) ||
+        close_samples.length && close_samples[0].highlighted
+    ) searcher.toggle(true);
     else searcher.toggle(false);
 
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {

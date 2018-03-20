@@ -15,6 +15,8 @@ class Circle {
         this.means = [0, 0, 0, 0, 0, 0, 0, 0];
         this.stds  = [0, 0, 0, 0, 0, 0, 0, 0];
 
+        this.samplesCount = 0;
+
         this.bubble_width = 0;
         this.bubble_height = 0;
         this.bubble_width_t = 0;
@@ -79,11 +81,7 @@ class Circle {
 
         this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // EssA, RecA, EssB, RecB, Path
         samples.map( sample => {
-            if (
-                sample.DE == 'UK' && constants.UK_DISABLED ||
-                sample.DE == 'CO' && constants.CO_DISABLED ||
-                sample.DE == 'TD' && constants.TD_DISABLED
-            ) return;
+            if (sample.isDisabled()) return;
             this.means[0] += parseInt(sample.EssA);
             this.means[1] += parseFloat(sample.RecA);
             this.means[2] += parseInt(sample.EssB);
@@ -93,16 +91,12 @@ class Circle {
             this.means[6] += (sample.DE == "CO");
             this.means[7] += (sample.DE == "UK");
         })
-        const samplesCount = this.means[5] + this.means[6] + this.means[7];
-        this.means = this.means.map(x => x/samplesCount);
+        this.samplesCount = this.means[5] + this.means[6] + this.means[7];
+        this.means = this.means.map(x => x/this.samplesCount);
 
         this.stds = [0, 0, 0, 0, 0, 0, 0, 0];
         samples.map( sample => {
-            if (
-                sample.DE == 'UK' && constants.UK_DISABLED ||
-                sample.DE == 'CO' && constants.CO_DISABLED ||
-                sample.DE == 'TD' && constants.TD_DISABLED
-            ) return;
+            if (sample.isDisabled()) return;
             this.stds[0] += Math.pow(parseInt(sample.EssA) -   this.means[0], 2);
             this.stds[1] += Math.pow(parseFloat(sample.RecA) - this.means[1], 2);
             this.stds[2] += Math.pow(parseInt(sample.EssB) -   this.means[2], 2);
@@ -112,7 +106,7 @@ class Circle {
             this.stds[6] += Math.pow((sample.DE == "CO") - this.means[3], 2);
             this.stds[7] += Math.pow((sample.DE == "UK") -   this.means[4], 2);
         });
-        this.stds = this.stds.map(x => Math.sqrt(x/samplesCount));
+        this.stds = this.stds.map(x => Math.sqrt(x/this.samplesCount));
 
         // Bubble update
 
@@ -280,7 +274,12 @@ class Circle {
                 Math.round(this.means[7] * 1000) / 1000 // UK
             ]
 
-            const de_meanround_str = 'TD: ' + de_meanround[0] + ', CO: ' + de_meanround[1] + ', UK: ' + de_meanround[2];
+            const de_meanround_str = (
+                'TD: ' + de_meanround[0] +
+                ', CO: ' + de_meanround[1] +
+                ', UK: ' + de_meanround[2] +
+                ', ' + this.samplesCount + ' pairs.'
+            );
             text(de_meanround_str, 5, offset_y);
 
             translate(- (this.x + tx), - (this.y + ty) );
