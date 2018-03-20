@@ -13,7 +13,7 @@ class Trie {
 
         const firstChar = string[0];
         const newString = string.substr(1, string.length - 1);
-        if (this.sons[firstChar] == undefined) this.sons[firstChar] = new Trie;
+        if (this.sons[firstChar] == undefined) this.sons[firstChar] = new Trie();
         this.sons[firstChar].feed(newString, value);
     }
 
