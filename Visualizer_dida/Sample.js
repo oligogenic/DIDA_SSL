@@ -43,6 +43,11 @@ class Sample {
         this.highlighted = false; // If seach engine suggests it
     }
 
+    updateDest(x, y) {
+        this.dest_x = (x - constants.MIN_X) / (constants.MAX_X - constants.MIN_X) * constants.WIDTH;
+        this.dest_y = (y - constants.MIN_Y) / (constants.MAX_Y - constants.MIN_Y) * constants.HEIGHT;
+    }
+
     toggleHighlight(bool) {
         this.highlighted = bool;
     }
@@ -233,12 +238,18 @@ class Sample {
             textSize(constants.TEXT_SIZES[2]);
             text("Recessiveness: " + Math.round(this.RecB * 100)/100, 3, constants.TEXT_SIZES[2] + offset_y);
 
-            offset_y += constants.TEXT_SIZES[2] + 10;
-
             // Pathway
 
+
+            offset_y += constants.TEXT_SIZES[2] + 10;
             textSize(constants.TEXT_SIZES[2]);
             text("Pathway related: " + (this.Path == 1 ? "Yes" : "No"), 3, constants.TEXT_SIZES[2] + offset_y);
+
+            if (constants.DATA == 1) {
+                offset_y += constants.TEXT_SIZES[2] + 10;
+                textSize(constants.TEXT_SIZES[2]);
+                text("Co-expression: " + (this.CoExp == 1 ? "Yes" : "No"), 3, constants.TEXT_SIZES[2] + offset_y);
+            }
 
             // Digenic combination
 

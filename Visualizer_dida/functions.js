@@ -144,3 +144,39 @@ function updateHelp() {
     image(constants.IMAGES.HELP_WINDOW, 0, 0, constants.WIDTH + 2, constants.HEIGHT + 2);
     tint(255, 255);
 }
+
+
+
+function loadData(string, container) {
+    const attributes = string[0].split(',');
+    for (let values of string.map(x => x.split(','))) {
+        const current_obj = {}
+        for (let i=0; i<attributes.length; ++i) {
+            current_obj[attributes[i]] = values[i];
+        }
+        container.push(new Sample(current_obj));
+    }
+
+    //Removes header
+    container.shift();
+}
+
+
+
+function switchData() {
+    constants.DATA = !constants.DATA;
+    data.map(sample => {sample.bubbleDisappear(); });
+    if (constants.DATA == 0) {
+        constants.BUBBLE_HEIGHT = constants.BUBBLE_HEIGHT_SIMPLE;
+        constants.BUBBLE_CIRCLE_HEIGHT = constants.BUBBLE_CIRCLE_HEIGHT_SIMPLE;
+        for (let i=0; i < data.length; ++i) {
+            data[i].updateDest(data_simple[i].x, data_simple[i].y);
+        }
+    } else {
+        constants.BUBBLE_HEIGHT = constants.BUBBLE_HEIGHT_COEXP;
+        constants.BUBBLE_CIRCLE_HEIGHT = constants.BUBBLE_CIRCLE_HEIGHT_COEXP;
+        for (let i=0; i < data.length; ++i) {
+            data[i].updateDest(data_coexp[i].x, data_coexp[i].y);
+        }
+    }
+}

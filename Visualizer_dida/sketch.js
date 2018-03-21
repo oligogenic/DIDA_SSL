@@ -1,11 +1,12 @@
-let data_str;
+let data_str_simple, data_str_coexp, data;
 
-const data = [];
+const data_simple = [], data_coexp = [];
 const circle = new Circle();
 const searcher = new Searcher();
 
 function preload() {
-    data_str = loadStrings("Data/dida_v2_tsne.csv");
+    data_str_simple = loadStrings("Data/dida_v2_tsne.csv");
+    data_str_coexp = loadStrings("Data/dida_v2_tsne_coexp.csv");
 }
 
 function setup() {
@@ -19,21 +20,14 @@ function setup() {
 
     frameRate(30);
 
-    // Csv to Json
-    const attributes = data_str[0].split(',');
-    for (let values of data_str.map(x => x.split(','))) {
-        const current_obj = {}
-        for (let i=0; i<attributes.length; ++i) {
-            current_obj[attributes[i]] = values[i];
-        }
-        data.push(new Sample(current_obj));
-    }
+    loadData(data_str_simple, data_simple);
+    loadData(data_str_coexp, data_coexp);
 
-    //Removes header
-    data.shift();
+    data = data_coexp;
+    switchData();
 
     // Initialize search system
-    searcher.feed(data);
+    searcher.feed(data_coexp);
 
     // Canvas setup
     createCanvas(constants.WIDTH + 1, constants.HEIGHT + 1);
@@ -242,6 +236,7 @@ function keyTyped() {
 
 function keyPressed() {
     if (keyCode == TAB) searcher.validateSuggestion();
+    if (keyCode == 32 && !searcher.toggled) switchData();
 }
 
 // Ctrl + V

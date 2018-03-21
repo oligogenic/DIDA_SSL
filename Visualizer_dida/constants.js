@@ -40,11 +40,15 @@ const constants = {
 
     BUBBLE_WIDTH: 200,
     BUBBLE_HEIGHT: 130,
+    BUBBLE_HEIGHT_SIMPLE: 130,
+    BUBBLE_HEIGHT_COEXP: 150,
     BUBBLE_GROWTH_W: 20,
     BUBBLE_GROWTH_H: 14,
 
     BUBBLE_CIRCLE_WIDTH: 200,
     BUBBLE_CIRCLE_HEIGHT: 140,
+    BUBBLE_CIRCLE_HEIGHT_SIMPLE: 140,
+    BUBBLE_CIRCLE_HEIGHT_COEXP: 170,
     BUBBLE_CIRCLE_MAXDIST: 60,
 
 
@@ -79,5 +83,7 @@ const constants = {
 
     HELP_SHOWN: false,
     HELP_ALPHA: 0,
-    HELP_SPEED: 15
+    HELP_SPEED: 15,
+
+    DATA: 1 // 0 for simple, 1 for coexp
 };

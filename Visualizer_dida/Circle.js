@@ -11,9 +11,9 @@ class Circle {
 
         this.shown = false;
 
-        // RecA, EssA, RecB, EssB, Path, TD, CO, UK
-        this.means = [0, 0, 0, 0, 0, 0, 0, 0];
-        this.stds  = [0, 0, 0, 0, 0, 0, 0, 0];
+        // RecA, EssA, RecB, EssB, Path, TD, CO, UK, coexp
+        this.means = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.stds  = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         this.samplesCount = 0;
 
@@ -81,7 +81,7 @@ class Circle {
             if (dy * dy2 <= 0) this.y = this.dest_y;
         }
 
-        this.means = [0, 0, 0, 0, 0, 0, 0, 0]; // RecA, EssA, RecB, EssB, Path
+        this.means = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // RecA, EssA, RecB, EssB, Path
         samples.map( sample => {
             this.means[0] += parseFloat(sample.RecA);
             this.means[1] += parseInt(sample.EssA);
@@ -91,17 +91,19 @@ class Circle {
             this.means[5] += (sample.DE == "TD");
             this.means[6] += (sample.DE == "CO");
             this.means[7] += (sample.DE == "UK");
+            this.means[8] += parseInt(sample.CoExp);
         })
         this.samplesCount = this.means[5] + this.means[6] + this.means[7];
         this.means = this.means.map(x => x/this.samplesCount);
 
-        this.stds = [0, 0, 0, 0, 0];
+        this.stds = [0, 0, 0, 0, 0, 0];
         samples.map( sample => {
             this.stds[0] += Math.pow(parseFloat(sample.RecA) -   this.means[0], 2);
             this.stds[1] += Math.pow(parseInt(sample.EssA) - this.means[1], 2);
             this.stds[2] += Math.pow(parseFloat(sample.RecB) -   this.means[2], 2);
             this.stds[3] += Math.pow(parseInt(sample.EssB) - this.means[3], 2);
             this.stds[4] += Math.pow(parseInt(sample.Path) -   this.means[4], 2);
+            this.stds[5] += Math.pow(parseInt(sample.CoExp) -   this.means[5], 2);
         });
         this.stds = this.stds.map(x => Math.sqrt(x/this.samplesCount));
 
@@ -262,6 +264,22 @@ class Circle {
             text(path_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(path_stdround) - 5, offset_y);
 
             offset_y += 2 * constants.TEXT_SIZES[2];
+
+            if (constants.DATA == 1) {
+                // coExp
+
+                const coexp_meanround = Math.round(this.means[5] * 100) / 100;
+                text("Co-expression (mean):", 5, offset_y);
+                text(coexp_meanround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(coexp_meanround) - 5, offset_y);
+
+                offset_y += constants.TEXT_SIZES[2];
+
+                const coexp_stdround = Math.round(this.stds[4] * 100) / 100;
+                text("Co-expression (std):", 5, offset_y);
+                text(coexp_stdround, constants.BUBBLE_CIRCLE_WIDTH - textWidth(coexp_stdround) - 5, offset_y);
+
+                offset_y += 2 * constants.TEXT_SIZES[2];
+            }
 
             // DE
 
