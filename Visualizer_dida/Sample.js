@@ -26,6 +26,9 @@ class Sample {
         this.true_x = (this.x - constants.MIN_X) / (constants.MAX_X - constants.MIN_X) * constants.WIDTH;
         this.true_y = (this.y - constants.MIN_Y) / (constants.MAX_Y - constants.MIN_Y) * constants.HEIGHT;
 
+        this.dest_x = this.true_x;
+        this.dest_y = this.true_y;
+
         this.bubble_width = 0;
         this.bubble_height = 0;
 
@@ -74,6 +77,18 @@ class Sample {
     }
 
     update() {
+
+        if (this.true_x != this.dest_x || this.true_y != this.dest_y) {
+            const dP = createVector(this.dest_x - this.true_x, this.dest_y - this.true_y);
+            const dP_normed = dP.div(constants.SAMPLES_SPEED);
+            this.true_x += dP_normed.x;
+            this.true_y += dP_normed.y;
+            const dP2 = createVector(this.dest_x - this.true_x, this.dest_y - this.true_y);
+            if (dP.x * dP2.x < 0) this.true_x = this.dest_x;
+            if (dP.y * dP2.y < 0) this.true_y = this.dest_y;
+        }
+
+
         if (!this.active) return;
 
         if ( this.sense == 0 ) { // Increasing
@@ -135,10 +150,14 @@ class Sample {
 
         stroke(this.color_d);
 
-        strokeWeight(1);
+        strokeWeight(2);
+        stroke(255);
         fill(this.color_d);
+        textStyle(BOLD);
         textSize(constants.TEXT_SIZES[0] - 2);
-        text(this.Pair, this.true_x + 5, this.true_y - 2);
+        text(this.Pair, this.true_x + 5, this.true_y - constants.TEXT_SIZES[0] - 2);
+        text(this.Name, this.true_x + 5, this.true_y - 2);
+        textStyle(NORMAL);
     }
 
     drawBubble() {
