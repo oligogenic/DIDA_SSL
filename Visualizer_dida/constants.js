@@ -10,10 +10,10 @@ const constants = {
     MAX_RADIUS: 5,
     SAMPLE_GROWTH_RATE: 0.15,
 
-    MIN_X: -30,
-    MAX_X: 30,
-    MIN_Y: -30,
-    MAX_Y: 30,
+    MIN_X: -0.1,
+    MAX_X: 1.1,
+    MIN_Y: -0.1,
+    MAX_Y: 1.2,
 
     // Normal
     COLOR_CO: [51, 153, 255, 130],
@@ -36,6 +36,7 @@ const constants = {
     ACTIVATION_COLOR: [255, 0, 0, 50],
     CIRCLE_GROWTH_RATE: 6,
     MIN_SPEED: 30,
+    SAMPLES_SPEED: 10,
 
     BUBBLE_WIDTH: 200,
     BUBBLE_HEIGHT: 130,

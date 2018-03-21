@@ -10,6 +10,13 @@ function preload() {
 
 function setup() {
 
+    document.getElementById('defaultCanvas0').addEventListener('keydown', function (e) {
+        if (e.which == 9) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
     frameRate(30);
 
     // Csv to Json

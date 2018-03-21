@@ -155,8 +155,9 @@ class Sample {
         fill(this.color_d);
         textStyle(BOLD);
         textSize(constants.TEXT_SIZES[0] - 2);
-        text(this.Pair, this.true_x + 5, this.true_y - constants.TEXT_SIZES[0] - 2);
-        text(this.Name, this.true_x + 5, this.true_y - 2);
+        const x_flag = (this.true_x > constants.WIDTH / 2) ? this.true_x - textWidth(this.Name) - 5 : this.true_x + 5;
+        text(this.Pair, x_flag, this.true_y - constants.TEXT_SIZES[0] - 2);
+        text(this.Name, x_flag, this.true_y - 2);
         textStyle(NORMAL);
     }
 
