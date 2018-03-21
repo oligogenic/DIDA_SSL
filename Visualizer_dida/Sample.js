@@ -46,7 +46,7 @@ class Sample {
     updateDest(x, y) {
         this.dest_x = (x - constants.MIN_X) / (constants.MAX_X - constants.MIN_X) * constants.WIDTH;
         this.dest_y = (y - constants.MIN_Y) / (constants.MAX_Y - constants.MIN_Y) * constants.HEIGHT;
-        this.bubble_modifier_x = (x <= constants.WIDTH / 2)  ? 1 : -1;
+        this.bubble_modifier_x = (this.dest_x <= constants.WIDTH / 2)  ? 1 : -1;
         this.bubble_modifier_y = (this.dest_y <= constants.HEIGHT / 2) ? 1 : -1;
     }
 
