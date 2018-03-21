@@ -35,8 +35,8 @@ class Sample {
         this.bubble_width_t = 0;
         this.bubble_height_t = 0;
 
-        this.bubble_modifier_x = (constants.WIDTH - this.true_x <= constants.BUBBLE_WIDTH) ? -1 : 1;
-        this.bubble_modifier_y = (constants.HEIGHT - this.true_y <= constants.BUBBLE_HEIGHT) ? -1 : 1;
+        this.bubble_modifier_x = (this.true_x <= constants.WIDTH / 2)  ? 1 : -1;
+        this.bubble_modifier_y = (this.true_y <= constants.HEIGHT / 2) ? 1 : -1;
 
         this.name_shown = false;
 
@@ -46,6 +46,8 @@ class Sample {
     updateDest(x, y) {
         this.dest_x = (x - constants.MIN_X) / (constants.MAX_X - constants.MIN_X) * constants.WIDTH;
         this.dest_y = (y - constants.MIN_Y) / (constants.MAX_Y - constants.MIN_Y) * constants.HEIGHT;
+        this.bubble_modifier_x = (x <= constants.WIDTH / 2)  ? 1 : -1;
+        this.bubble_modifier_y = (this.dest_y <= constants.HEIGHT / 2) ? 1 : -1;
     }
 
     toggleHighlight(bool) {

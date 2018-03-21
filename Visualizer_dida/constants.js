@@ -21,9 +21,9 @@ const constants = {
     COLOR_UK: [100, 100, 100, 130],
 
     // Dark
-    COLOR_CO_D: [25, 75, 160, 130],
-    COLOR_TD_D: [127, 0, 0, 130],
-    COLOR_UK_D: [50, 50, 50, 130],
+    COLOR_CO_D: [25, 75, 160, 200],
+    COLOR_TD_D: [127, 0, 0, 200],
+    COLOR_UK_D: [50, 50, 50, 200],
 
     // Light
     COLOR_CO_L: [25, 75, 160, 30],
@@ -31,7 +31,7 @@ const constants = {
     COLOR_UK_L: [50, 50, 50, 30],
 
     ACTIVATION_DIST: 70,
-    ACTIVATION_DIST_MIN: 5,
+    ACTIVATION_DIST_MIN: 0,
     ACTIVATION_DIST_MAX: 450,
     ACTIVATION_COLOR: [255, 0, 0, 50],
     CIRCLE_GROWTH_RATE: 6,

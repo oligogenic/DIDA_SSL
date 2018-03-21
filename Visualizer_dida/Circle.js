@@ -145,7 +145,7 @@ class Circle {
     }
 
     draw() {
-        if (!this.shown || this.maxRadius == 0 && this.radius == 0) return;
+        if (!this.shown || this.maxRadius == 0 && this.radius == 0 || constants.ACTIVATION_DIST < 5) return;
         strokeWeight(4);
         stroke(color_from_array(constants.COLOR_CO));
         noFill();
