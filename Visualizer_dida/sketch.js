@@ -43,7 +43,16 @@ function draw() {
         constants.ACTIVATION_DIST*2
     );
 
+    // We draw normal samples before
     data_manager.data.map( sample => {
+        sample.update();
+        sample.draw(data_manager.data.some(sample => sample.highlighted));
+    });
+
+    // Then we draw only custom ones
+    data_manager.data.filter( sample =>
+        sample.custom_color
+    ).map( sample => {
         sample.update();
         sample.draw(data_manager.data.some(sample => sample.highlighted));
     });
@@ -124,27 +133,6 @@ function mouseMoved() {
         sample.toggleName(false);
     });
 
-    // We gather which samples are hovered
-    const samples_hovered = data_manager.data.filter( sample =>
-        pointInCircle(
-            sample.true_x,
-            sample.true_y,
-            mouseX,
-            mouseY,
-            constants.RADIUS
-        ) && !sample.isDisabled()
-    );
-
-    if (samples_hovered.length) {
-        cursor(HAND);
-        samples_hovered.sort( sample =>
-            distance(mouseX, mouseY, sample.true_x, sample.true_y)
-        )[0].toggleName(true);
-        return;
-    } else {
-        cursor(ARROW);
-    }
-
     // Searcher detection
     if (searcher.onto(mouseX, mouseY)) {
         cursor(TEXT);
@@ -216,9 +204,66 @@ function mouseMoved() {
         cursor(HAND);
         return;
     }
+
+    // Color chart
+    if (constants.COLOR_CHART_LINKED && pointInRect(
+        mouseX,
+        mouseY,
+        constants.COLOR_CHART_X,
+        constants.COLOR_CHART_Y,
+        constants.COLOR_CHART_SIDE*constants.RADIUS*8,
+        constants.COLOR_CHART_SIDE*constants.RADIUS*8
+    )) {
+        cursor(HAND);
+        return;
+    }
+
+    // We gather which samples are hovered
+    const samples_hovered = data_manager.data.filter( sample =>
+        pointInCircle(
+            sample.true_x,
+            sample.true_y,
+            mouseX,
+            mouseY,
+            constants.RADIUS
+        ) && !sample.isDisabled()
+    );
+
+    if (samples_hovered.length) {
+        cursor(HAND);
+        samples_hovered.sort( sample =>
+            distance(mouseX, mouseY, sample.true_x, sample.true_y)
+        )[0].toggleName(true);
+        return;
+    } else {
+        cursor(ARROW);
+    }
 }
 
 function mouseClicked() {
+
+    // Color chart
+    if (constants.COLOR_CHART_LINKED && pointInRect(
+        mouseX,
+        mouseY,
+        constants.COLOR_CHART_X,
+        constants.COLOR_CHART_Y,
+        constants.COLOR_CHART_SIDE*constants.RADIUS*8,
+        constants.COLOR_CHART_SIDE*constants.RADIUS*8
+    )) {
+        const relative_x = parseInt(
+            (mouseX - constants.COLOR_CHART_X) /
+            (constants.COLOR_CHART_SIDE*constants.RADIUS)
+        );
+        const relative_y = parseInt(
+            (mouseY - constants.COLOR_CHART_Y) /
+            (constants.COLOR_CHART_SIDE*constants.RADIUS)
+        );
+        const newColor = Object.values(colors)[4*relative_y + relative_x];
+        constants.COLOR_CHART_LINKED.setColor(newColor);
+        return;
+    }
+
     data_manager.data.map(s => s.toggleBubble(false));
     const close_samples = data_manager.data.filter( sample =>
         pointInCircle(
@@ -229,6 +274,7 @@ function mouseClicked() {
             constants.RADIUS
         ) && !sample.isDisabled()
     ).sort(sample => distance(mouseX, mouseY, sample.true_x, sample.true_y));
+
     if (close_samples.length > 0) {
         close_samples[0].toggleBubble(true);
         return;
@@ -316,8 +362,6 @@ function mouseClicked() {
         18 + constants.TEXT_SIZES[0] / 2,
         constants.TEXT_SIZES[0]/2, constants.TEXT_SIZES[0]/2
     );
-
-    // Feature selection panel
 }
 
 function mouseDragged() {

@@ -18,6 +18,7 @@ class Sample {
             (this.DE == 'CO') ? color_from_array(constants.COLOR_CO_L) :
             color_from_array(constants.COLOR_UK_L)
         );
+        this.custom_color = null;
         this.radius = constants.RADIUS;
 
         this.active = false;
@@ -46,6 +47,17 @@ class Sample {
         this.highlighted = false; // If seach engine suggests it
 
         this.bubbleAppeared = false;
+    }
+
+    setColor(color) {
+        if (this.custom_color && arraysEqual(color, this.custom_color.levels)) 
+            this.removeColor();
+        else
+            this.custom_color = color_from_array(color);
+    }
+
+    removeColor() {
+        this.custom_color = null;
     }
 
     updateDest(x, y) {
@@ -90,6 +102,12 @@ class Sample {
         this.bubble_width_t = 0;
         this.bubble_height_t = 0;
         this.bubbleAppeared = false;
+
+        if (constants.COLOR_CHART_LINKED === this) {
+            constants.COLOR_CHART_X = -1
+            constants.COLOR_CHART_Y = -1
+            constants.COLOR_CHART_LINKED = null;
+        }
     }
 
     bubbleCheck() {
@@ -141,15 +159,22 @@ class Sample {
 
         if (this.isDisabled()) return;
 
-        if (!highlighted_samples) {
-            stroke(this.color);
-            fill(this.color);
-        } else if (!this.highlighted) {
-            stroke(this.color_l);
-            fill(this.color_l);
+        if (this.custom_color) {
+            strokeWeight(0.5);
+            stroke(0);
+            fill(this.custom_color);
         } else {
-            stroke(this.color_d);
-            fill(this.color_d);
+
+            if (!highlighted_samples) {
+                stroke(this.color);
+                fill(this.color);
+            } else if (!this.highlighted) {
+                stroke(this.color_l);
+                fill(this.color_l);
+            } else {
+                stroke(this.color_d);
+                fill(this.color_d);
+            }
         }
 
         strokeWeight(1);
@@ -348,6 +373,22 @@ class Sample {
             constants.BUBBLE_WIDTH - textWidth(this.DE) - 5,
             constants.BUBBLE_HEIGHT - 5 - constants.TEXT_SIZES[0]
         );
+
+        const color_chart_offx = (
+            5 + 4*constants.COLOR_CHART_SIDE*constants.RADIUS
+        );
+        const color_chart_offy = (
+            20 + constants.TEXT_SIZES[0] + 4*constants.COLOR_CHART_SIDE*constants.RADIUS
+        );
+        drawColorChart(color_chart_offx, color_chart_offy);
+
+        constants.COLOR_CHART_X = (
+            this.true_x + tx + constants.BUBBLE_WIDTH - color_chart_offx
+        );
+        constants.COLOR_CHART_Y = (
+            this.true_y + ty + constants.BUBBLE_HEIGHT - color_chart_offy
+        );
+        constants.COLOR_CHART_LINKED = this;
 
         translate(- (this.true_x + tx), - (this.true_y + ty) );
     }

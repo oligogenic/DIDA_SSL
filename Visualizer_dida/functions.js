@@ -263,3 +263,38 @@ function updateHelp() {
 function get_scale(x, min, max, coef) {
     return (x - min) / (max - min) * coef;
 }
+
+function drawColorChart(offset_x, offset_y) {
+    translate(
+        constants.BUBBLE_WIDTH  - offset_x,
+        constants.BUBBLE_HEIGHT - offset_y
+    );
+
+    stroke(125);
+    let counter = 0;
+    for (let color in colors) {
+        const x = constants.COLOR_CHART_SIDE * constants.RADIUS * (counter % 4);
+        const y = constants.COLOR_CHART_SIDE * constants.RADIUS * parseInt(counter / 4);
+        fill(colors[color]);
+        rect(
+            x,
+            y,
+            constants.RADIUS*constants.COLOR_CHART_SIDE,
+            constants.RADIUS*constants.COLOR_CHART_SIDE
+        );
+        counter += 1;
+    }
+
+    translate(
+        offset_x - constants.BUBBLE_WIDTH,
+        offset_y - constants.BUBBLE_HEIGHT
+    );
+}
+
+function arraysEqual(a1, a2) {
+    if (!a1 instanceof Array) return !a2 instanceof Array;
+    for (let i=0; i < a1.length; ++i) {
+        if (a1[i] != a2[i]) return false;
+    }
+    return true;
+}

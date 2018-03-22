@@ -96,5 +96,10 @@ const constants = {
     // Data manager keys
     PATHWAY: 0,
     COEXPRESSION: 1,
-    ALLELICSTATE: 2
+    ALLELICSTATE: 2,
+
+    COLOR_CHART_SIDE: 3,
+    COLOR_CHART_X: -1,
+    COLOR_CHART_Y: -1,
+    COLOR_CHART_LINKED: null
 };
