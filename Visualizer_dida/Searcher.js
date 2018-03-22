@@ -9,19 +9,30 @@ class Searcher {
 
         this.text = "";
         this.suggestedtext = "";
+
+        this.data = undefined;
     }
 
     // Is mouse onto it ?
     onto(x, y) {
         return(pointInRect(
-            x, y,
-            constants.SEARCHER_LEFT_MARGIN, constants.HEIGHT - constants.SEARCHER_BOTTOM_MARGIN - constants.SEARCHER_FONT_SIZE - 5,
-            constants.SEARCHER_WIDTH, constants.SEARCHER_FONT_SIZE + 5)
+            x,
+            y,
+            constants.SEARCHER_LEFT_MARGIN,
+            (
+                constants.HEIGHT -
+                constants.SEARCHER_BOTTOM_MARGIN -
+                constants.SEARCHER_FONT_SIZE -
+                5
+            ),
+            constants.SEARCHER_WIDTH,
+            constants.SEARCHER_FONT_SIZE + 5)
         );
     }
 
     feed(data) {
-        for (key in data) {
+        this.data = data;
+        for (key in this.data) {
             this.trie.feed(data[key].DidaID.toLowerCase(), data[key]);
             this.trie.feed(data[key].Name.toLowerCase(), data[key]);
             const genes = data[key].Pair.split('/');
@@ -38,13 +49,15 @@ class Searcher {
 
         if (!this.toggled) {
             this.suggestedtext = "";
-            data.map( sample => sample.toggleHighlight(false));
+            this.data.map( sample => sample.toggleHighlight(false));
         } else {
             this.suggest();
         }
 
-        if (this.toggled && this.text == constants.SEARCHER_DEFAULT) this.text = "";
-        if (!this.toggled && this.text == "") this.text = constants.SEARCHER_DEFAULT;
+        if (this.toggled && this.text == constants.SEARCHER_DEFAULT)
+            this.text = "";
+        if (!this.toggled && this.text == "")
+            this.text = constants.SEARCHER_DEFAULT;
     }
 
     resetRemoveDelay() {
@@ -55,7 +68,7 @@ class Searcher {
         if (!this.toggled) return;
 
         if (this.text.length == 0) {
-            data.map( sample => sample.toggleHighlight(false));
+            this.data.map( sample => sample.toggleHighlight(false));
             return;
         }
 
@@ -81,24 +94,33 @@ class Searcher {
         const suggestions = this.trie.getChilds(this.text.toLowerCase());
         if (suggestions.length == 0) {
             this.suggestedtext = "";
-            data.map( sample => sample.toggleHighlight(false));
+            this.data.map( sample => sample.toggleHighlight(false));
             return;
         }
         const suggested_child = suggestions[0];
         const child_id = suggested_child.DidaID;
         const child_name = suggested_child.Name;
         const child_genes = suggested_child.Pair.split('/');
-        if (child_id.toLowerCase().substr(0, this.text.length) == this.text.toLowerCase()) {
+        if (
+            child_id.toLowerCase().substr(0, this.text.length) ===
+            this.text.toLowerCase()
+        ) {
             this.suggestedtext = child_id.substr(this.text.length);
-        } else if (child_name.toLowerCase().substr(0, this.text.length) == this.text.toLowerCase()) {
+        } else if (
+            child_name.toLowerCase().substr(0, this.text.length) ===
+            this.text.toLowerCase()
+        ) {
             this.suggestedtext = child_name.substr(this.text.length);
-        } else if (child_genes[0].toLowerCase().substr(0, this.text.length) == this.text.toLowerCase()) {
+        } else if (
+            child_genes[0].toLowerCase().substr(0, this.text.length) ===
+            this.text.toLowerCase()
+        ) {
             this.suggestedtext = child_genes[0].substr(this.text.length);
         } else {
             this.suggestedtext = child_genes[1].substr(this.text.length);
         }
 
-        data.map( sample => sample.toggleHighlight(false));
+        this.data.map( sample => sample.toggleHighlight(false));
         suggestions.map( sample => sample.toggleHighlight(true));
     }
 
@@ -113,9 +135,22 @@ class Searcher {
         fill(255);
         strokeWeight(1);
         stroke(color_from_array(constants.COLOR_UK_D));
-        translate(constants.SEARCHER_LEFT_MARGIN, constants.HEIGHT - constants.SEARCHER_BOTTOM_MARGIN - constants.SEARCHER_FONT_SIZE - 5 );
+        translate(
+            constants.SEARCHER_LEFT_MARGIN,
+            (
+                constants.HEIGHT -
+                constants.SEARCHER_BOTTOM_MARGIN -
+                constants.SEARCHER_FONT_SIZE -
+                5
+            )
+        );
 
-        rect(0, 0, constants.SEARCHER_WIDTH, constants.SEARCHER_FONT_SIZE + 5);
+        rect(
+            0,
+            0,
+            constants.SEARCHER_WIDTH,
+            constants.SEARCHER_FONT_SIZE + 5
+        );
 
         if (this.toggled) {
             textStyle(NORMAL);
@@ -132,12 +167,17 @@ class Searcher {
 
         stroke(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
         fill(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
-        text(this.suggestedtext, 5 + textWidth(this.text), constants.SEARCHER_FONT_SIZE);
+        text(
+            this.suggestedtext,
+            5 + textWidth(this.text),
+            constants.SEARCHER_FONT_SIZE
+        );
 
         // Line blinking
         if (this.toggled) {
             const width = textWidth(this.text);
-            if (this.barShown) line(5 + width, 3, 5 + width, constants.SEARCHER_FONT_SIZE + 2);
+            if (this.barShown)
+                line(5 + width, 3, 5 + width, constants.SEARCHER_FONT_SIZE + 2);
             this.barCounter -= 1;
             if (this.barCounter <= 0) {
                 this.barCounter = constants.SEARCHER_BAR_SPEED;
@@ -145,7 +185,15 @@ class Searcher {
             }
         }
 
-        translate(-constants.SEARCHER_LEFT_MARGIN, - constants.HEIGHT + constants.SEARCHER_BOTTOM_MARGIN + constants.SEARCHER_FONT_SIZE + 5);
+        translate(
+            -constants.SEARCHER_LEFT_MARGIN,
+            (
+                - constants.HEIGHT +
+                constants.SEARCHER_BOTTOM_MARGIN +
+                constants.SEARCHER_FONT_SIZE +
+                5
+            )
+        );
         textStyle(NORMAL);
     }
 }

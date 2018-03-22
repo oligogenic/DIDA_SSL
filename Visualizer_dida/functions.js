@@ -90,7 +90,12 @@ function drawLegend() {
         stroke(color_from_array(constants.COLOR_TD));
         fill(color_from_array(constants.COLOR_TD));
     }
-    ellipse(20, offset_y - constants.RADIUS, 2*constants.RADIUS, 2*constants.RADIUS);
+    ellipse(
+        20,
+        offset_y - constants.RADIUS,
+        2*constants.RADIUS,
+        2*constants.RADIUS
+    );
 
     // Co
 
@@ -108,7 +113,12 @@ function drawLegend() {
         stroke(color_from_array(constants.COLOR_CO));
         fill(color_from_array(constants.COLOR_CO));
     }
-    ellipse(20, offset_y - constants.RADIUS, 2*constants.RADIUS, 2*constants.RADIUS);
+    ellipse(
+        20,
+        offset_y - constants.RADIUS,
+        2*constants.RADIUS,
+        2*constants.RADIUS
+    );
 
     // Uk
 
@@ -126,57 +136,130 @@ function drawLegend() {
         stroke(color_from_array(constants.COLOR_UK));
         fill(color_from_array(constants.COLOR_UK));
     }
-    ellipse(20, offset_y - constants.RADIUS, 2*constants.RADIUS, 2*constants.RADIUS);
+    ellipse(
+        20,
+        offset_y - constants.RADIUS,
+        2*constants.RADIUS,
+        2*constants.RADIUS
+    );
 
 
     translate(-10, -10);
 }
 
+function drawFeaturesPanel() {
+
+    translate(constants.WIDTH - 10 - constants.LEGEND_WIDTH, 10);
+
+    stroke(color_from_array(constants.COLOR_CO));
+    strokeWeight(2);
+    fill(255);
+
+    rect(0, 0, constants.LEGEND_WIDTH, constants.LEGEND_HEIGHT);
+
+    strokeWeight(1);
+    stroke(color_from_array(constants.COLOR_CO_D));
+    fill(color_from_array(constants.COLOR_CO_D));
+    textSize(constants.TEXT_SIZES[0]);
+
+    // Title
+    let offset_y = 5 + constants.TEXT_SIZES[0];
+    text("Features", 10, offset_y)
+
+    // TD
+    offset_y += 2*constants.TEXT_SIZES[0];
+    textSize(constants.TEXT_SIZES[1]);
+    text("Pathway", 30, offset_y)
+
+    if (!+data_manager.key[constants.PATHWAY]) {
+        stroke(constants.COLOR_UK_L);
+        noFill();
+    } else {
+        stroke(color_from_array(constants.COLOR_UK));
+        fill(color_from_array(constants.COLOR_UK));
+    }
+    ellipse(
+        20,
+        offset_y - constants.RADIUS,
+        2*constants.RADIUS,
+        2*constants.RADIUS
+    );
+
+    // Co
+
+    stroke(color_from_array(constants.COLOR_CO_D));
+    fill(color_from_array(constants.COLOR_CO_D));
+
+    offset_y += constants.TEXT_SIZES[0];
+    textSize(constants.TEXT_SIZES[1]);
+    text("Co-expression", 30, offset_y)
+
+    if (!+data_manager.key[constants.COEXPRESSION]) {
+        stroke(constants.COLOR_UK_L);
+        noFill();
+    } else {
+        stroke(color_from_array(constants.COLOR_UK));
+        fill(color_from_array(constants.COLOR_UK));
+    }
+    ellipse(
+        20,
+        offset_y - constants.RADIUS,
+        2*constants.RADIUS,
+        2*constants.RADIUS
+    );
+
+    // Uk
+
+    stroke(color_from_array(constants.COLOR_CO_D));
+    fill(color_from_array(constants.COLOR_CO_D));
+
+    offset_y += constants.TEXT_SIZES[0];
+    textSize(constants.TEXT_SIZES[1]);
+    text("Allelic state", 30, offset_y)
+
+    if (!+data_manager.key[constants.ALLELICSTATE]) {
+        stroke(constants.COLOR_UK_L);
+        noFill();
+    } else {
+        stroke(color_from_array(constants.COLOR_UK));
+        fill(color_from_array(constants.COLOR_UK));
+    }
+    ellipse(
+        20,
+        offset_y - constants.RADIUS,
+        2*constants.RADIUS,
+        2*constants.RADIUS
+    );
+
+
+    translate(- (constants.WIDTH - 10 - constants.LEGEND_WIDTH), -10);
+}
+
 function updateHelp() {
     if (constants.HELP_SHOWN) {
-        constants.HELP_ALPHA = Math.min(255, constants.HELP_ALPHA + constants.HELP_SPEED);
+        constants.HELP_ALPHA = Math.min(
+            255,
+            constants.HELP_ALPHA + constants.HELP_SPEED
+        );
     } else {
-        constants.HELP_ALPHA = Math.max(0, constants.HELP_ALPHA - constants.HELP_SPEED);
+        constants.HELP_ALPHA = Math.max(
+            0,
+            constants.HELP_ALPHA - constants.HELP_SPEED
+        );
     }
 
     if (!constants.HELP_ALPHA) return;
     tint(255, constants.HELP_ALPHA);
-    image(constants.IMAGES.HELP_WINDOW, 0, 0, constants.WIDTH + 2, constants.HEIGHT + 2);
+    image(
+        constants.IMAGES.HELP_WINDOW,
+        0,
+        0,
+        constants.WIDTH + 2,
+        constants.HEIGHT + 2
+    );
     tint(255, 255);
 }
 
-
-
-function loadData(string, container) {
-    const attributes = string[0].split(',');
-    for (let values of string.map(x => x.split(','))) {
-        const current_obj = {}
-        for (let i=0; i<attributes.length; ++i) {
-            current_obj[attributes[i]] = values[i];
-        }
-        container.push(new Sample(current_obj));
-    }
-
-    //Removes header
-    container.shift();
-}
-
-
-
-function switchData() {
-    constants.DATA = !constants.DATA;
-    data.map(sample => {sample.bubbleDisappear(); });
-    if (constants.DATA == 0) {
-        constants.BUBBLE_HEIGHT = constants.BUBBLE_HEIGHT_SIMPLE;
-        constants.BUBBLE_CIRCLE_HEIGHT = constants.BUBBLE_CIRCLE_HEIGHT_SIMPLE;
-        for (let i=0; i < data.length; ++i) {
-            data[i].updateDest(data_simple[i].x, data_simple[i].y);
-        }
-    } else {
-        constants.BUBBLE_HEIGHT = constants.BUBBLE_HEIGHT_COEXP;
-        constants.BUBBLE_CIRCLE_HEIGHT = constants.BUBBLE_CIRCLE_HEIGHT_COEXP;
-        for (let i=0; i < data.length; ++i) {
-            data[i].updateDest(data_coexp[i].x, data_coexp[i].y);
-        }
-    }
+function get_scale(x, min, max, coef) {
+    return (x - min) / (max - min) * coef;
 }

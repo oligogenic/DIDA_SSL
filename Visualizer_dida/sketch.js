@@ -1,40 +1,27 @@
-let data_str_simple, data_str_coexp, data;
-
-const data_simple = [], data_coexp = [];
+const data_manager = new DataManager();
 const circle = new Circle();
 const searcher = new Searcher();
 
 function preload() {
-    data_str_simple = loadStrings("Data/dida_v2_tsne.csv");
-    data_str_coexp = loadStrings("Data/dida_v2_tsne_coexp.csv");
+    data_manager.feed(constants.DATA_PATH, constants.DATA_STRINGS);
 }
 
 function setup() {
 
-    document.getElementById('defaultCanvas0').addEventListener('keydown', function (e) {
-        if (e.which == 9) {
-            e.preventDefault();
-            return false;
-        }
-    });
-
     frameRate(30);
 
-    loadData(data_str_simple, data_simple);
-    loadData(data_str_coexp, data_coexp);
-
-    data = data_coexp;
-    switchData();
-
-    // Initialize search system
-    searcher.feed(data_coexp);
+    // Initialize engines
+    data_manager.initialize();
+    searcher.feed(data_manager.data);
 
     // Canvas setup
     createCanvas(constants.WIDTH + 1, constants.HEIGHT + 1);
 
     // Imgs loading
     for (let key in constants.IMAGES) {
-        constants.IMAGES[key] = loadImage(constants.IMAGES_PATH + constants.IMAGES[key]);
+        constants.IMAGES[key] = loadImage(
+            constants.IMAGES_PATH + constants.IMAGES[key]
+        );
     }
 }
 
@@ -49,28 +36,34 @@ function draw() {
 
     noStroke();
     fill(color_from_array(constants.ACTIVATION_COLOR));
-    ellipse(mouseX, mouseY, constants.ACTIVATION_DIST*2, constants.ACTIVATION_DIST*2);
+    ellipse(
+        mouseX,
+        mouseY,
+        constants.ACTIVATION_DIST*2,
+        constants.ACTIVATION_DIST*2
+    );
 
-    data.map( sample => {
+    data_manager.data.map( sample => {
         sample.update();
-        sample.draw( data.some(sample => sample.highlighted) );
+        sample.draw(data_manager.data.some(sample => sample.highlighted));
     });
 
     // Legend
 
     drawLegend();
+    drawFeaturesPanel();
 
     // Circle
 
-    circle.update(data.filter(sample => sample.active));
+    circle.update(data_manager.data.filter(sample => sample.active));
     circle.updateBubble();
     circle.draw();
 
-    data.map( sample => {
+    data_manager.data.map( sample => {
         sample.drawName();
     });
 
-    data.map( sample => {
+    data_manager.data.map( sample => {
         sample.updateBubble();
         sample.drawBubble();
     });
@@ -79,13 +72,27 @@ function draw() {
 
     strokeWeight(4);
     stroke(color_from_array(constants.COLOR_UK));
-    line(constants.WIDTH - 50, constants.HEIGHT - 50, constants.WIDTH - 50, constants.HEIGHT - 150);
+    line(
+        constants.WIDTH - 50,
+        constants.HEIGHT - 50,
+        constants.WIDTH - 50,
+        constants.HEIGHT - 150
+    );
 
     strokeWeight(8);
     stroke(0);
 
-    const ratio = (constants.ACTIVATION_DIST - constants.ACTIVATION_DIST_MIN) / (constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN);
-    line(constants.WIDTH - 60, constants.HEIGHT - 50 - ratio*100, constants.WIDTH - 40, constants.HEIGHT - 50 - ratio*100);
+    const ratio = (
+        constants.ACTIVATION_DIST - constants.ACTIVATION_DIST_MIN
+    ) / (
+        constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN
+    );
+    line(
+        constants.WIDTH - 60,
+        constants.HEIGHT - 50 - ratio*100,
+        constants.WIDTH - 40,
+        constants.HEIGHT - 50 - ratio*100
+    );
 
     // Searcher
 
@@ -104,50 +111,98 @@ function draw() {
 
 function mouseMoved() {
     // We activate samples in selection radius (blobbing effect)
-    data.map( sample => {
+    data_manager.data.map( sample => {
         sample.toggleActive(
-            pointInCircle(sample.true_x, sample.true_y, mouseX, mouseY, constants.ACTIVATION_DIST
+            pointInCircle(
+                sample.true_x,
+                sample.true_y,
+                mouseX,
+                mouseY,
+                constants.ACTIVATION_DIST
             )
         );
         sample.toggleName(false);
     });
 
     // We gather which samples are hovered
-    const samples_hovered = data.filter( sample =>
-        pointInCircle(sample.true_x, sample.true_y, mouseX, mouseY, constants.RADIUS) &&
-        !sample.isDisabled()
+    const samples_hovered = data_manager.data.filter( sample =>
+        pointInCircle(
+            sample.true_x,
+            sample.true_y,
+            mouseX,
+            mouseY,
+            constants.RADIUS
+        ) && !sample.isDisabled()
     );
+
     if (samples_hovered.length) {
         cursor(HAND);
         samples_hovered.sort( sample =>
             distance(mouseX, mouseY, sample.true_x, sample.true_y)
         )[0].toggleName(true);
+        return;
     } else {
         cursor(ARROW);
     }
 
     // Searcher detection
-    if (searcher.onto(mouseX, mouseY)) cursor(TEXT);
+    if (searcher.onto(mouseX, mouseY)) {
+        cursor(TEXT);
+        return;
+    }
 
     // Legend dots
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
-            cursor(HAND)
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            cursor(HAND);
+            return;
+        }
         offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
-            cursor(HAND)
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            cursor(HAND);
+            return;
+        }
         offset_y += constants.TEXT_SIZES[0];
-            if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
-                cursor(HAND)
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y) {
+            cursor(HAND);
+            return;
+        }
+    }
+
+    // Features panel dots
+    const translation_x = constants.WIDTH + 10 - constants.LEGEND_WIDTH;
+    if (
+        mouseX >= translation_x - constants.RADIUS &&
+        mouseX <= translation_x + constants.RADIUS)
+    {
+        let offset_y = 15 + 3*constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            cursor(HAND);
+            return;
+        }
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            cursor(HAND);
+            return;
+        }
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y) {
+            cursor(HAND);
+            return;
+        }
     }
 
     // Slider
     if (pointInRect(
-        mouseX, mouseY,
-        constants.WIDTH - 55, constants.HEIGHT - 150,
-        10, 100)) {
-        cursor(HAND);
+        mouseX,
+        mouseY,
+        constants.WIDTH - 55,
+        constants.HEIGHT - 150,
+        10,
+        100)) {
+            cursor(HAND);
+            return;
     }
 
     // Help button
@@ -157,35 +212,77 @@ function mouseMoved() {
         constants.LEGEND_WIDTH + 5 - constants.TEXT_SIZES[0] / 2,
         18 + constants.TEXT_SIZES[0] / 2,
         constants.TEXT_SIZES[0]/2, constants.TEXT_SIZES[0]/2
-    )) cursor(HAND);
+    )) {
+        cursor(HAND);
+        return;
+    }
 }
 
 function mouseClicked() {
-    data.map(s => s.toggleBubble(false));
-    const close_samples = data.filter( sample =>
-        pointInCircle(sample.true_x, sample.true_y, mouseX, mouseY, constants.RADIUS) &&
-        !sample.isDisabled()
-    ).sort( sample => distance(mouseX, mouseY, sample.true_x, sample.true_y) );
+    data_manager.data.map(s => s.toggleBubble(false));
+    const close_samples = data_manager.data.filter( sample =>
+        pointInCircle(
+            sample.true_x,
+            sample.true_y,
+            mouseX,
+            mouseY,
+            constants.RADIUS
+        ) && !sample.isDisabled()
+    ).sort(sample => distance(mouseX, mouseY, sample.true_x, sample.true_y));
     if (close_samples.length > 0) {
         close_samples[0].toggleBubble(true);
+        return;
     }
 
     if (
         searcher.onto(mouseX, mouseY) ||
         close_samples.length && close_samples[0].highlighted
-    ) searcher.toggle(true);
+    ) {
+        searcher.toggle(true);
+        return;
+    }
     else searcher.toggle(false);
 
+    // Legend clicking
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
             constants.TD_DISABLED = !constants.TD_DISABLED;
+            return;
+        }
         offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
             constants.CO_DISABLED = !constants.CO_DISABLED;
+            return;
+        }
         offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y )
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
             constants.UK_DISABLED = !constants.UK_DISABLED;
+            return;
+        }
+    }
+
+    // Features panel dots
+    const translation_x = constants.WIDTH + 10 - constants.LEGEND_WIDTH;
+    if (
+        mouseX >= translation_x - constants.RADIUS &&
+        mouseX <= translation_x + constants.RADIUS)
+    {
+        let offset_y = 15 + 3*constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            data_manager.changeKey(constants.PATHWAY);
+            return;
+        }
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            data_manager.changeKey(constants.COEXPRESSION);
+            return;
+        }
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y) {
+            data_manager.changeKey(constants.ALLELICSTATE);
+            return;
+        }
     }
 
     // Slider clicked
@@ -198,9 +295,17 @@ function mouseClicked() {
             constants.ACTIVATION_DIST_MAX,
             Math.max(
                 constants.ACTIVATION_DIST_MIN,
-                (constants.HEIGHT - 50 - mouseY) / 100 * (constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN) + constants.ACTIVATION_DIST_MIN
+                (
+                    (constants.HEIGHT - 50 - mouseY) /
+                    100 *
+                    (
+                        constants.ACTIVATION_DIST_MAX -
+                        constants.ACTIVATION_DIST_MIN
+                    ) + constants.ACTIVATION_DIST_MIN
+                )
             )
         );
+        return;
     }
 
     // Help button clicked
@@ -211,6 +316,8 @@ function mouseClicked() {
         18 + constants.TEXT_SIZES[0] / 2,
         constants.TEXT_SIZES[0]/2, constants.TEXT_SIZES[0]/2
     );
+
+    // Feature selection panel
 }
 
 function mouseDragged() {
@@ -224,7 +331,13 @@ function mouseDragged() {
             constants.ACTIVATION_DIST_MAX,
             Math.max(
                 constants.ACTIVATION_DIST_MIN,
-                (constants.HEIGHT - 50 - mouseY) / 100 * (constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN) + constants.ACTIVATION_DIST_MIN
+                (
+                    (constants.HEIGHT - 50 - mouseY) /
+                    100 * (
+                        constants.ACTIVATION_DIST_MAX -
+                        constants.ACTIVATION_DIST_MIN
+                    ) + constants.ACTIVATION_DIST_MIN
+                )
             )
         );
     }
@@ -236,7 +349,6 @@ function keyTyped() {
 
 function keyPressed() {
     if (keyCode == TAB) searcher.validateSuggestion();
-    if (keyCode == 32 && !searcher.toggled) switchData();
 }
 
 // Ctrl + V

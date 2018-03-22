@@ -23,11 +23,14 @@ class Sample {
         this.active = false;
         this.sense = 0;
 
-        this.true_x = (this.x - constants.MIN_X) / (constants.MAX_X - constants.MIN_X) * constants.WIDTH;
-        this.true_y = (this.y - constants.MIN_Y) / (constants.MAX_Y - constants.MIN_Y) * constants.HEIGHT;
+        this.x = 0;
+        this.y = 0;
 
-        this.dest_x = this.true_x;
-        this.dest_y = this.true_y;
+        this.true_x = 0;
+        this.true_y = 0;
+
+        this.dest_x = 0;
+        this.dest_y = 0;
 
         this.bubble_width = 0;
         this.bubble_height = 0;
@@ -41,11 +44,23 @@ class Sample {
         this.name_shown = false;
 
         this.highlighted = false; // If seach engine suggests it
+
+        this.bubbleAppeared = false;
     }
 
     updateDest(x, y) {
-        this.dest_x = (x - constants.MIN_X) / (constants.MAX_X - constants.MIN_X) * constants.WIDTH;
-        this.dest_y = (y - constants.MIN_Y) / (constants.MAX_Y - constants.MIN_Y) * constants.HEIGHT;
+        this.dest_x = get_scale(
+            x,
+            constants.MIN_X,
+            constants.MAX_X,
+            constants.WIDTH
+        );
+        this.dest_y = get_scale(
+            y,
+            constants.MIN_Y,
+            constants.MAX_Y,
+            constants.HEIGHT
+        );;
         this.bubble_modifier_x = (this.dest_x <= constants.WIDTH / 2)  ? 1 : -1;
         this.bubble_modifier_y = (this.dest_y <= constants.HEIGHT / 2) ? 1 : -1;
     }
@@ -68,11 +83,20 @@ class Sample {
     bubbleAppear() {
         this.bubble_width_t = constants.BUBBLE_WIDTH;
         this.bubble_height_t = constants.BUBBLE_HEIGHT;
+        this.bubbleAppeared = true;
     }
 
     bubbleDisappear() {
         this.bubble_width_t = 0;
         this.bubble_height_t = 0;
+        this.bubbleAppeared = false;
+    }
+
+    bubbleCheck() {
+        if (this.bubbleAppeared)
+            this.bubbleAppear();
+        else
+            this.bubbleDisappear();
     }
 
     isDisabled() {
@@ -86,11 +110,17 @@ class Sample {
     update() {
 
         if (this.true_x != this.dest_x || this.true_y != this.dest_y) {
-            const dP = createVector(this.dest_x - this.true_x, this.dest_y - this.true_y);
+            const dP = createVector(
+                this.dest_x - this.true_x,
+                this.dest_y - this.true_y
+            );
             const dP_normed = dP.div(constants.SAMPLES_SPEED);
             this.true_x += dP_normed.x;
             this.true_y += dP_normed.y;
-            const dP2 = createVector(this.dest_x - this.true_x, this.dest_y - this.true_y);
+            const dP2 = createVector(
+                this.dest_x - this.true_x,
+                this.dest_y - this.true_y
+            );
             if (dP.x * dP2.x < 0) this.true_x = this.dest_x;
             if (dP.y * dP2.y < 0) this.true_y = this.dest_y;
         }
@@ -134,15 +164,27 @@ class Sample {
         const dy = this.bubble_height_t - this.bubble_height;
 
         if (dx > 0) {
-            this.bubble_width = Math.min(this.bubble_width_t, this.bubble_width + constants.BUBBLE_GROWTH_W);
+            this.bubble_width = Math.min(
+                this.bubble_width_t,
+                this.bubble_width + constants.BUBBLE_GROWTH_W
+            );
         } else if (dx < 0) {
-            this.bubble_width = Math.max(0, this.bubble_width - constants.BUBBLE_GROWTH_W);
+            this.bubble_width = Math.max(
+                0,
+                this.bubble_width - constants.BUBBLE_GROWTH_W
+            );
         }
 
         if (dy > 0) {
-            this.bubble_height = Math.min(this.bubble_height_t, this.bubble_height + constants.BUBBLE_GROWTH_H);
+            this.bubble_height = Math.min(
+                this.bubble_height_t,
+                this.bubble_height + constants.BUBBLE_GROWTH_H
+            );
         } else if (dy < 0) {
-            this.bubble_height = Math.max(0, this.bubble_height - constants.BUBBLE_GROWTH_H);
+            this.bubble_height = Math.max(
+                0,
+                this.bubble_height - constants.BUBBLE_GROWTH_H
+            );
         }
     }
 
@@ -162,7 +204,11 @@ class Sample {
         fill(this.color_d);
         textStyle(BOLD);
         textSize(constants.TEXT_SIZES[0] - 2);
-        const x_flag = (this.true_x > constants.WIDTH / 2) ? this.true_x - textWidth(this.Name) - 5 : this.true_x + 5;
+        const x_flag = (
+            (this.true_x > constants.WIDTH / 2) ?
+            this.true_x - textWidth(this.Name) - 5 :
+            this.true_x + 5
+        );
         text(this.Pair, x_flag, this.true_y - constants.TEXT_SIZES[0] - 2);
         text(this.Name, x_flag, this.true_y - 2);
         textStyle(NORMAL);
@@ -181,88 +227,128 @@ class Sample {
             this.bubble_modifier_y * this.bubble_height
         );
 
-        // Bubble is full, we write the text.
-        if (this.bubble_width == this.bubble_width_t) {
-            const tx = (this.bubble_modifier_x == 1) ? 0 : -constants.BUBBLE_WIDTH;
-            const ty = (this.bubble_modifier_y == 1) ? 0 : -constants.BUBBLE_HEIGHT;
+        // Bubble is not full, we do not write the text.
+        if (this.bubble_width !== this.bubble_width_t) return;
 
-            translate(this.true_x + tx, this.true_y + ty);
+        // Bubble is full
+        const tx = (this.bubble_modifier_x == 1) ? 0 : -constants.BUBBLE_WIDTH;
+        const ty = (this.bubble_modifier_y == 1) ? 0 : -constants.BUBBLE_HEIGHT;
 
-            fill(this.color_d);
-            stroke(this.color_d);
+        translate(this.true_x + tx, this.true_y + ty);
 
-            // Disease
+        fill(this.color_d);
+        stroke(this.color_d);
 
-            strokeWeight(1);
-            let size = constants.TEXT_SIZES[0];
+        // Disease
+
+        strokeWeight(1);
+        let size = constants.TEXT_SIZES[0];
+        textSize(size);
+        while (textWidth(this.Name) >= constants.BUBBLE_WIDTH - 10) {
+            size -= 0.2;
             textSize(size);
-            while (textWidth(this.Name) >= constants.BUBBLE_WIDTH - 10) {
-                size -= 0.2;
-                textSize(size);
-            }
-            text(this.Name, 2, size);
+        }
+        text(this.Name, 2, size);
 
-            let offset_y = size + 10;
+        let offset_y = size + 10;
 
-            // GENE 1
+        // GENE 1
 
-            const gene_names = this.Pair.split('/');
+        const gene_names = this.Pair.split('/');
 
-            strokeWeight(1);
-            textSize(constants.TEXT_SIZES[1]);
-            text(gene_names[0], 3, constants.TEXT_SIZES[1] + offset_y);
+        strokeWeight(1);
+        textSize(constants.TEXT_SIZES[1]);
+        text(gene_names[0], 3, constants.TEXT_SIZES[1] + offset_y);
 
-            offset_y += constants.TEXT_SIZES[1] + 2;
+        offset_y += constants.TEXT_SIZES[1] + 2;
 
-            textSize(constants.TEXT_SIZES[2]);
-            text("Essential (mouse): " + (this.EssA == 1 ? "Yes" : "No"), 3, constants.TEXT_SIZES[2] + offset_y);
+        textSize(constants.TEXT_SIZES[2]);
+        text(
+            "Essential (mouse): " + (this.EssA == 1 ? "Yes" : "No"),
+            3,
+            constants.TEXT_SIZES[2] + offset_y
+        );
 
-            offset_y += constants.TEXT_SIZES[2] + 2;
+        offset_y += constants.TEXT_SIZES[2] + 2;
 
-            textSize(constants.TEXT_SIZES[2]);
-            text("Recessiveness: " + Math.round(this.RecA * 100)/100, 3, constants.TEXT_SIZES[2] + offset_y);
+        textSize(constants.TEXT_SIZES[2]);
+        text(
+            "Recessiveness: " + Math.round(this.RecA * 100)/100,
+            3,
+            constants.TEXT_SIZES[2] + offset_y
+        );
 
-            offset_y += constants.TEXT_SIZES[2] + 5;
+        offset_y += constants.TEXT_SIZES[2] + 5;
 
-            // GENE 2
+        // GENE 2
 
-            strokeWeight(1);
-            textSize(constants.TEXT_SIZES[1]);
-            text(gene_names[1], 3, constants.TEXT_SIZES[1] + offset_y);
+        strokeWeight(1);
+        textSize(constants.TEXT_SIZES[1]);
+        text(gene_names[1], 3, constants.TEXT_SIZES[1] + offset_y);
 
-            offset_y += constants.TEXT_SIZES[1] + 2;
+        offset_y += constants.TEXT_SIZES[1] + 2;
 
-            textSize(constants.TEXT_SIZES[2]);
-            text("Essential (mouse): " + (this.EssB == 1 ? "Yes" : "No"), 3, constants.TEXT_SIZES[2] + offset_y);
+        textSize(constants.TEXT_SIZES[2]);
+        text(
+            "Essential (mouse): " + (this.EssB == 1 ? "Yes" : "No"),
+            3,
+            constants.TEXT_SIZES[2] + offset_y
+        );
 
-            offset_y += constants.TEXT_SIZES[2] + 2;
+        offset_y += constants.TEXT_SIZES[2] + 2;
 
-            textSize(constants.TEXT_SIZES[2]);
-            text("Recessiveness: " + Math.round(this.RecB * 100)/100, 3, constants.TEXT_SIZES[2] + offset_y);
+        textSize(constants.TEXT_SIZES[2]);
+        text(
+            "Recessiveness: " + Math.round(this.RecB * 100)/100,
+            3,
+            constants.TEXT_SIZES[2] + offset_y
+        );
 
-            // Pathway
-
-
+        if (+data_manager.key[constants.PATHWAY]) { // Pathway
             offset_y += constants.TEXT_SIZES[2] + 10;
             textSize(constants.TEXT_SIZES[2]);
-            text("Pathway related: " + (this.Path == 1 ? "Yes" : "No"), 3, constants.TEXT_SIZES[2] + offset_y);
-
-            if (constants.DATA == 1) {
-                offset_y += constants.TEXT_SIZES[2] + 10;
-                textSize(constants.TEXT_SIZES[2]);
-                text("Co-expression: " + (this.CoExp == 1 ? "Yes" : "No"), 3, constants.TEXT_SIZES[2] + offset_y);
-            }
-
-            // Digenic combination
-
-            strokeWeight(1.5);
-            textSize(constants.TEXT_SIZES[0]);
-            text(this.DidaID, constants.BUBBLE_WIDTH - textWidth(this.DidaID) - 5, constants.BUBBLE_HEIGHT - 5);
-
-            // Digenic effect
-            text(this.DE, constants.BUBBLE_WIDTH - textWidth(this.DE) - 5, constants.BUBBLE_HEIGHT - 5 - constants.TEXT_SIZES[0]);
-
-            translate(- (this.true_x + tx), - (this.true_y + ty) );
+            text(
+                "Pathway related: " + (this.Path == 1 ? "Yes" : "No"),
+                3,
+                constants.TEXT_SIZES[2] + offset_y
+            );
         }
+        if (+data_manager.key[constants.COEXPRESSION]) { // Co-expression
+            offset_y += constants.TEXT_SIZES[2] + 10;
+            textSize(constants.TEXT_SIZES[2]);
+            text(
+                "Co-expression: " + (this.CoExp == 1 ? "Yes" : "No"),
+                3,
+                constants.TEXT_SIZES[2] + offset_y
+            );
+        }
+        if (+data_manager.key[constants.ALLELICSTATE]) { // Allelic state
+            offset_y += constants.TEXT_SIZES[2] + 10;
+            textSize(constants.TEXT_SIZES[2]);
+            text(
+                "Number of alleles: " + this.AllelicState,
+                3,
+                constants.TEXT_SIZES[2] + offset_y
+            );
+        }
+
+        // Digenic combination
+
+        strokeWeight(1.5);
+        textSize(constants.TEXT_SIZES[0]);
+        text(
+            this.DidaID,
+            constants.BUBBLE_WIDTH - textWidth(this.DidaID) - 5,
+            constants.BUBBLE_HEIGHT - 5
+        );
+
+        // Digenic effect
+        text(
+            this.DE,
+            constants.BUBBLE_WIDTH - textWidth(this.DE) - 5,
+            constants.BUBBLE_HEIGHT - 5 - constants.TEXT_SIZES[0]
+        );
+
+        translate(- (this.true_x + tx), - (this.true_y + ty) );
     }
 }

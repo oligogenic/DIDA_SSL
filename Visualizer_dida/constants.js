@@ -11,7 +11,7 @@ const constants = {
     SAMPLE_GROWTH_RATE: 0.15,
 
     MIN_X: -0.1,
-    MAX_X: 1.1,
+    MAX_X: 1.25,
     MIN_Y: -0.1,
     MAX_Y: 1.2,
 
@@ -39,18 +39,14 @@ const constants = {
     SAMPLES_SPEED: 10,
 
     BUBBLE_WIDTH: 200,
-    BUBBLE_HEIGHT: 130,
-    BUBBLE_HEIGHT_SIMPLE: 130,
-    BUBBLE_HEIGHT_COEXP: 150,
-    BUBBLE_GROWTH_W: 20,
-    BUBBLE_GROWTH_H: 14,
+    BUBBLE_HEIGHT: 110,
 
     BUBBLE_CIRCLE_WIDTH: 200,
     BUBBLE_CIRCLE_HEIGHT: 140,
-    BUBBLE_CIRCLE_HEIGHT_SIMPLE: 140,
-    BUBBLE_CIRCLE_HEIGHT_COEXP: 170,
     BUBBLE_CIRCLE_MAXDIST: 60,
 
+    BUBBLE_GROWTH_W: 20,
+    BUBBLE_GROWTH_H: 14,
 
     TEXT_SIZES: [
         15, // Dida ID
@@ -85,5 +81,20 @@ const constants = {
     HELP_ALPHA: 0,
     HELP_SPEED: 15,
 
-    DATA: 1 // 0 for simple, 1 for coexp
+    DATA_PATH: "Data/",
+    DATA_STRINGS: {
+        "000": "v2_vs_nopath_nocoexp_noallstate.csv",
+        "001": "v2_vs_nopath_nocoexp_allstate.csv",
+        "010": "v2_vs_nopath_coexp_noallstate.csv",
+        "011": "v2_vs_nopath_coexp_allstate.csv",
+        "100": "v2_vs_path_nocoexp_noallstate.csv",
+        "101": "v2_vs_path_nocoexp_allstate.csv",
+        "110": "v2_vs_path_coexp_noallstate.csv",
+        "111": "v2_vs_path_coexp_allstate.csv",
+    },
+
+    // Data manager keys
+    PATHWAY: 0,
+    COEXPRESSION: 1,
+    ALLELICSTATE: 2
 };
