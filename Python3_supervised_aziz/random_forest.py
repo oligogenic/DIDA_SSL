@@ -14,6 +14,7 @@ def main():
 
     # Csv gathering, it needs to be ordered.
     df_data = pd.read_csv(sys.argv[1])
+    df_data = df_data.drop(['Orphanet', 'Name'], axis=1)
 
     X, y, gene_pairs = (
         array(df_data)[:,1:-2].astype(float),
@@ -23,6 +24,7 @@ def main():
 
     X, y, gene_pairs = X[y != -1], y[y != -1], gene_pairs[y != -1]
 
+    assert len(sys.argv[5]) == len(X.T), "Features selector must fit features amount."
     X = dot(X, diag(list(map(int, sys.argv[5]))))
 
     def getScores(pred, real, threshold=None):
@@ -64,8 +66,6 @@ def main():
     def LOGO_crossValidation(X, y, groups, N=50, threshold=None):
         """ Leave one group out cross validation. """
 
-        clf = RandomForestClassifier(n_estimators=int(sys.argv[2]), max_depth=10, criterion='gini', min_samples_split=2, min_samples_leaf=2,
-                                    bootstrap=True, n_jobs=1)
         logo = LeaveOneGroupOut()
 
         sum_sen, sum_spe, sum_mcc, sum_auc = 0, 0, 0, 0
@@ -77,6 +77,9 @@ def main():
             print("#"*10, "Trial %i" % i, "#"*10)
             # We leave one group out
             for train_index, test_index in logo.split(X, y, groups):
+
+                clf = RandomForestClassifier(n_estimators=int(sys.argv[2]), max_depth=10, criterion='gini', min_samples_split=2, min_samples_leaf=2,
+                                            bootstrap=True, n_jobs=1)
 
                 X_fit, y_fit, X_train, y_train = (
                     X[train_index], y[train_index],
