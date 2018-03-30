@@ -251,9 +251,9 @@ class Circle {
         // DE
 
         const de_meanround = [
-            Math.round(this.means[7] * 1000) / 1000, // TD
-            Math.round(this.means[8] * 1000) / 1000, // CO
-            Math.round(this.means[9] * 1000) / 1000 // UK
+            Math.round(this.means[12] * 1000) / 1000, // TD
+            Math.round(this.means[13] * 1000) / 1000, // CO
+            Math.round(this.means[14] * 1000) / 1000 // UK
         ]
 
         const de_meanround_str = (
