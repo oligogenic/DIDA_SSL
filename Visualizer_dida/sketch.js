@@ -3,7 +3,7 @@ const circle = new Circle();
 const searcher = new Searcher();
 
 function preload() {
-    data_manager.feed(constants.DATA_PATH, constants.DATA_STRINGS);
+    data_manager.feed(constants.FEATURES_FILE);
 }
 
 function setup() {
@@ -142,42 +142,28 @@ function mouseMoved() {
     // Legend dots
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            cursor(HAND);
-            return;
-        }
-        offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            cursor(HAND);
-            return;
-        }
-        offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y) {
-            cursor(HAND);
-            return;
+        for (let i = 0; i < 3; ++i) {
+            if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+                cursor(HAND);
+                return;
+            }
+            offset_y += constants.TEXT_SIZES[0];
         }
     }
 
     // Features panel dots
-    const translation_x = constants.WIDTH + 10 - constants.LEGEND_WIDTH;
+    const translation_x = constants.WIDTH + 10 - constants.LEGEND_F_WIDTH;
     if (
         mouseX >= translation_x - constants.RADIUS &&
         mouseX <= translation_x + constants.RADIUS)
     {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            cursor(HAND);
-            return;
-        }
-        offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            cursor(HAND);
-            return;
-        }
-        offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y) {
-            cursor(HAND);
-            return;
+        for (let i = 0; i < constants.FEATURES_AMOUNT; ++i) {
+            if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+                cursor(HAND);
+                return;
+            }
+            offset_y += 1.2*constants.TEXT_SIZES[0];
         }
     }
 
@@ -309,25 +295,18 @@ function mouseClicked() {
     }
 
     // Features panel dots
-    const translation_x = constants.WIDTH + 10 - constants.LEGEND_WIDTH;
+    const translation_x = constants.WIDTH + 10 - constants.LEGEND_F_WIDTH;
     if (
         mouseX >= translation_x - constants.RADIUS &&
         mouseX <= translation_x + constants.RADIUS)
     {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            data_manager.changeKey(constants.PATHWAY);
-            return;
-        }
-        offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            data_manager.changeKey(constants.COEXPRESSION);
-            return;
-        }
-        offset_y += constants.TEXT_SIZES[0];
-        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y) {
-            data_manager.changeKey(constants.ALLELICSTATE);
-            return;
+        for (let i = 0; i < constants.FEATURES_AMOUNT; ++i) {
+            if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+                data_manager.changeKey(i);
+                return;
+            }
+            offset_y += 1.2*constants.TEXT_SIZES[0];
         }
     }
 

@@ -1,96 +1,91 @@
 class DataManager {
 
     constructor() {
-        this.data_str = {};
-        this.data_full = {};
+        this.data_str = "";
 
         this.positions = {};
-        this.data_only = [];
+        this.samples = [];
+        this.lookup = {};
 
-        this.current_key = [];
-        this.setKey("000");
+        this.key_str = "";
+        this.key_tab = [];
     }
 
-    feed(data_path, data_strings) {
-        for (let key in data_strings) {
-            this.data_str[key.split('')] = loadStrings(
-                data_path + data_strings[key]
-            );
-        }
+    feed(features_path) {
+        this.data_str = loadStrings(constants.DATA_PATH + features_path);
     }
 
     initialize() {
-        for (let key in this.data_str) {
-            this.data_full[key] = this.loadData(this.data_str[key]);
+        const features_tab = this.loadData(this.data_str);
+
+        for (let obj of features_tab) {
+            const sample = new Sample(obj);
+            this.lookup[obj.DidaID] = sample;
+            this.samples.push(sample);
         }
 
-        // Splitting infos and positions
+        // Retrieving initial positions
+        this.setKey("100010000000");
 
-        // Positions
-        for (let key in this.data_full) {
-            this.positions[key] = this.data_full[key].map( sample => {
-                return {
-                    DidaID: sample.DidaID,
-                    x: +sample.x,
-                    y: +sample.y
-                };
-            });
-        }
-
-        // Infos
-        this.data_only = this.data_full['111'.split('')].map( sample => {
-            const newObject = {};
-            for (let key in sample) {
-                if (key != 'x' && key != 'y')
-                    newObject[key] = sample[key];
-            }
-            return new Sample(newObject);
-        });
 
         // We free useless memory
         delete this.data_str;
-        delete this.data_full;
-
-        this.moveData();
     }
 
     get key() {
-        return this.current_key;
+        return {
+            str: this.key_str,
+            tab: this.key_tab
+        };
     }
 
     get data() {
-        return this.data_only;
+        return this.samples;
     }
 
-    moveData() {
+    moveData(positions_str) {
+
+        const positions_tab = this.loadData(positions_str);
+        for (let obj of positions_tab) {
+            this.positions[obj.DidaID] = obj;
+        }
+
         this.data.map( (sample, index) => {
-            const position = this.positions[this.key][index];
+            const pos = this.positions[sample.DidaID];
             sample.updateDest(
-                position.x, position.y
+                +pos.x + randomGaussian(0, constants.RAND_STD),
+                +pos.y + randomGaussian(0, constants.RAND_STD)
             );
         });
-    }
-
-    setKey(key) {
-        if (typeof key === "string") key = key.split('').map(k => +k);
-        this.current_key = key;
-        this.moveData();
 
         // Bubble size update
-        constants.BUBBLE_HEIGHT = 110 + 20 * this.key.reduce(
+        constants.BUBBLE_HEIGHT = 100 + 11 * this.key.tab.reduce(
             (prev, curr)  => prev + (+curr), 0
         );
-        constants.BUBBLE_CIRCLE_HEIGHT = 115 + 25 * this.key.reduce(
+        constants.BUBBLE_CIRCLE_HEIGHT = 20 + 20 * this.key.tab.reduce(
             (prev, curr)  => prev + (+curr), 0
         );
 
         this.data.map(sample => sample.bubbleCheck());
     }
 
+    setKey(key) {
+        this.key_str = key;
+        this.key_tab = key.split('').map(x => parseFloat(x));
+
+        const that = this;
+        loadStrings(
+            constants.DATA_PATH + constants.POSITION_REGX.replace(
+                '*', this.key.str
+            ),
+            (return_val) => {that.moveData(return_val);}
+        );
+    }
+
     changeKey(pos) {
-        const newKey = this.key;
-        newKey[pos] = 1 - +newKey[pos];
-        this.setKey(newKey);
+        this.key_tab[pos] = 1 - this.key_tab[pos];
+        this.key_str = this.key_tab.join('');
+        this.setKey(this.key_str);
     }
 
     loadData(string) {

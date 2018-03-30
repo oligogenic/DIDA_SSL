@@ -47,10 +47,25 @@ class Sample {
         this.highlighted = false; // If seach engine suggests it
 
         this.bubbleAppeared = false;
+
+        this.features_tab = [
+            this.CADD1,
+            this.CADD2,
+            this.RecA,
+            this.EssA,
+            this.CADD3,
+            this.CADD4,
+            this.RecB,
+            this.EssB,
+            this.Distance,
+            this.Path,
+            this.CoExp,
+            this.AllelicState
+        ].map(x => parseFloat(x));
     }
 
     setColor(color) {
-        if (this.custom_color && arraysEqual(color, this.custom_color.levels)) 
+        if (this.custom_color && arraysEqual(color, this.custom_color.levels))
             this.removeColor();
         else
             this.custom_color = color_from_array(color);
@@ -118,10 +133,12 @@ class Sample {
     }
 
     isDisabled() {
-        return (
-            this.DE == 'UK' && constants.UK_DISABLED ||
-            this.DE == 'CO' && constants.CO_DISABLED ||
-            this.DE == 'TD' && constants.TD_DISABLED
+        return (!this.custom_color &&
+            (
+                this.DE == 'UK' && constants.UK_DISABLED ||
+                this.DE == 'CO' && constants.CO_DISABLED ||
+                this.DE == 'TD' && constants.TD_DISABLED
+            )
         );
     }
 
@@ -277,84 +294,72 @@ class Sample {
 
         let offset_y = size + 10;
 
-        // GENE 1
-
         const gene_names = this.Pair.split('/');
+
+        // GENE 1
 
         strokeWeight(1);
         textSize(constants.TEXT_SIZES[1]);
         text(gene_names[0], 3, constants.TEXT_SIZES[1] + offset_y);
-
         offset_y += constants.TEXT_SIZES[1] + 2;
 
         textSize(constants.TEXT_SIZES[2]);
-        text(
-            "Essential (mouse): " + (this.EssA == 1 ? "Yes" : "No"),
-            3,
-            constants.TEXT_SIZES[2] + offset_y
-        );
+        for (let i=0; i < 4; ++i) {
 
-        offset_y += constants.TEXT_SIZES[2] + 2;
+            if (!+data_manager.key.tab[i]) continue;
+            text(
+                constants.FEATURES_TEXTS_S[i] + ": " + this.features_tab[i],
+                3,
+                constants.TEXT_SIZES[2] + offset_y
+            );
 
-        textSize(constants.TEXT_SIZES[2]);
-        text(
-            "Recessiveness: " + Math.round(this.RecA * 100)/100,
-            3,
-            constants.TEXT_SIZES[2] + offset_y
-        );
-
-        offset_y += constants.TEXT_SIZES[2] + 5;
+            offset_y += constants.TEXT_SIZES[2] + 2;
+        }
 
         // GENE 2
+
+        offset_y += 5;
 
         strokeWeight(1);
         textSize(constants.TEXT_SIZES[1]);
         text(gene_names[1], 3, constants.TEXT_SIZES[1] + offset_y);
-
         offset_y += constants.TEXT_SIZES[1] + 2;
 
         textSize(constants.TEXT_SIZES[2]);
-        text(
-            "Essential (mouse): " + (this.EssB == 1 ? "Yes" : "No"),
-            3,
-            constants.TEXT_SIZES[2] + offset_y
-        );
+        for (let i=4; i < 8; ++i) {
 
-        offset_y += constants.TEXT_SIZES[2] + 2;
+            if (!+data_manager.key.tab[i]) continue;
+
+            text(
+                constants.FEATURES_TEXTS_S[i] + ": " + this.features_tab[i],
+                3,
+                constants.TEXT_SIZES[2] + offset_y
+            );
+
+            offset_y += constants.TEXT_SIZES[2] + 2;
+        }
+
+        // Combinations
+
+        offset_y += 5;
+
+        strokeWeight(1);
+        textSize(constants.TEXT_SIZES[1]);
+        text("Combination-related", 3, constants.TEXT_SIZES[1] + offset_y);
+        offset_y += constants.TEXT_SIZES[1] + 2;
 
         textSize(constants.TEXT_SIZES[2]);
-        text(
-            "Recessiveness: " + Math.round(this.RecB * 100)/100,
-            3,
-            constants.TEXT_SIZES[2] + offset_y
-        );
+        for (let i=8; i < 12; ++i) {
 
-        if (+data_manager.key[constants.PATHWAY]) { // Pathway
-            offset_y += constants.TEXT_SIZES[2] + 10;
-            textSize(constants.TEXT_SIZES[2]);
+            if (!+data_manager.key.tab[i]) continue;
+
             text(
-                "Pathway related: " + (this.Path == 1 ? "Yes" : "No"),
+                constants.FEATURES_TEXTS_S[i] + ": " + this.features_tab[i],
                 3,
                 constants.TEXT_SIZES[2] + offset_y
             );
-        }
-        if (+data_manager.key[constants.COEXPRESSION]) { // Co-expression
-            offset_y += constants.TEXT_SIZES[2] + 10;
-            textSize(constants.TEXT_SIZES[2]);
-            text(
-                "Co-expression: " + (this.CoExp == 1 ? "Yes" : "No"),
-                3,
-                constants.TEXT_SIZES[2] + offset_y
-            );
-        }
-        if (+data_manager.key[constants.ALLELICSTATE]) { // Allelic state
-            offset_y += constants.TEXT_SIZES[2] + 10;
-            textSize(constants.TEXT_SIZES[2]);
-            text(
-                "Number of alleles: " + this.AllelicState,
-                3,
-                constants.TEXT_SIZES[2] + offset_y
-            );
+
+            offset_y += constants.TEXT_SIZES[2] + 2;
         }
 
         // Digenic combination

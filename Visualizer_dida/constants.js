@@ -10,9 +10,9 @@ const constants = {
     MAX_RADIUS: 5,
     SAMPLE_GROWTH_RATE: 0.15,
 
-    MIN_X: -0.1,
-    MAX_X: 1.25,
-    MIN_Y: -0.1,
+    MIN_X: -0.3,
+    MAX_X: 1.3,
+    MIN_Y: -0.2,
     MAX_Y: 1.2,
 
     // Normal
@@ -41,7 +41,7 @@ const constants = {
     BUBBLE_WIDTH: 200,
     BUBBLE_HEIGHT: 110,
 
-    BUBBLE_CIRCLE_WIDTH: 200,
+    BUBBLE_CIRCLE_WIDTH: 210,
     BUBBLE_CIRCLE_HEIGHT: 140,
     BUBBLE_CIRCLE_MAXDIST: 60,
 
@@ -82,24 +82,44 @@ const constants = {
     HELP_SPEED: 15,
 
     DATA_PATH: "Data/",
-    DATA_STRINGS: {
-        "000": "v2_vs_nopath_nocoexp_noallstate.csv",
-        "001": "v2_vs_nopath_nocoexp_allstate.csv",
-        "010": "v2_vs_nopath_coexp_noallstate.csv",
-        "011": "v2_vs_nopath_coexp_allstate.csv",
-        "100": "v2_vs_path_nocoexp_noallstate.csv",
-        "101": "v2_vs_path_nocoexp_allstate.csv",
-        "110": "v2_vs_path_coexp_noallstate.csv",
-        "111": "v2_vs_path_coexp_allstate.csv",
-    },
-
-    // Data manager keys
-    PATHWAY: 0,
-    COEXPRESSION: 1,
-    ALLELICSTATE: 2,
+    FEATURES_FILE: "dida_v2_full.csv",
+    POSITION_REGX: 'v2_vs_*.csv',
+    FEATURES_AMOUNT: 12,
+    FEATURES_NAMES: [
+        "CADD1",
+        "CADD2",
+        "Recessive A",
+        "Essential A",
+        "CADD3",
+        "CADD4",
+        "Recessive B",
+        "Essential B",
+        "Biological distance",
+        "Pathway-related",
+        "Co-expression",
+        "Allelic state"
+    ],
+    FEATURES_TEXTS_S: [
+        "Pathogenicity A1",
+        "Pathogenicity A2",
+        "Recessiveness",
+        "Essentiality (mouse)",
+        "Pathogenicity B1",
+        "Pathogenicity B2",
+        "Recessiveness",
+        "Essentiality (mouse)",
+        "Genes distance",
+        "Pathway-related",
+        "Co-expressed",
+        "Number of alleles"
+    ],
+    LEGEND_F_WIDTH: 140,
+    LEGEND_F_HEIGHT: 270,
 
     COLOR_CHART_SIDE: 3,
     COLOR_CHART_X: -1,
     COLOR_CHART_Y: -1,
-    COLOR_CHART_LINKED: null
+    COLOR_CHART_LINKED: null,
+
+    RAND_STD: 0.008
 };

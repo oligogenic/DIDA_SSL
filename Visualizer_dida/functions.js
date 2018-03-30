@@ -149,13 +149,13 @@ function drawLegend() {
 
 function drawFeaturesPanel() {
 
-    translate(constants.WIDTH - 10 - constants.LEGEND_WIDTH, 10);
+    translate(constants.WIDTH - 10 - constants.LEGEND_F_WIDTH, 10);
 
     stroke(color_from_array(constants.COLOR_CO));
     strokeWeight(2);
     fill(255);
 
-    rect(0, 0, constants.LEGEND_WIDTH, constants.LEGEND_HEIGHT);
+    rect(0, 0, constants.LEGEND_F_WIDTH, constants.LEGEND_F_HEIGHT);
 
     strokeWeight(1);
     stroke(color_from_array(constants.COLOR_CO_D));
@@ -165,74 +165,34 @@ function drawFeaturesPanel() {
     // Title
     let offset_y = 5 + constants.TEXT_SIZES[0];
     text("Features", 10, offset_y)
-
-    // TD
-    offset_y += 2*constants.TEXT_SIZES[0];
-    textSize(constants.TEXT_SIZES[1]);
-    text("Pathway", 30, offset_y)
-
-    if (!+data_manager.key[constants.PATHWAY]) {
-        stroke(constants.COLOR_UK_L);
-        noFill();
-    } else {
-        stroke(color_from_array(constants.COLOR_UK));
-        fill(color_from_array(constants.COLOR_UK));
-    }
-    ellipse(
-        20,
-        offset_y - constants.RADIUS,
-        2*constants.RADIUS,
-        2*constants.RADIUS
-    );
-
-    // Co
-
-    stroke(color_from_array(constants.COLOR_CO_D));
-    fill(color_from_array(constants.COLOR_CO_D));
-
     offset_y += constants.TEXT_SIZES[0];
-    textSize(constants.TEXT_SIZES[1]);
-    text("Co-expression", 30, offset_y)
 
-    if (!+data_manager.key[constants.COEXPRESSION]) {
-        stroke(constants.COLOR_UK_L);
-        noFill();
-    } else {
-        stroke(color_from_array(constants.COLOR_UK));
-        fill(color_from_array(constants.COLOR_UK));
+    for (let i = 0; i < constants.FEATURES_AMOUNT; ++i) {
+
+        stroke(color_from_array(constants.COLOR_CO_D));
+        fill(color_from_array(constants.COLOR_CO_D));
+
+        // TD
+        offset_y += 1.2*constants.TEXT_SIZES[0];
+        textSize(constants.TEXT_SIZES[1]);
+        text(constants.FEATURES_NAMES[i], 30, offset_y)
+
+        if (!+data_manager.key.tab[i]) {
+            stroke(constants.COLOR_UK_L);
+            noFill();
+        } else {
+            stroke(color_from_array(constants.COLOR_UK));
+            fill(color_from_array(constants.COLOR_UK));
+        }
+        ellipse(
+            20,
+            offset_y - constants.RADIUS,
+            2*constants.RADIUS,
+            2*constants.RADIUS
+        );
     }
-    ellipse(
-        20,
-        offset_y - constants.RADIUS,
-        2*constants.RADIUS,
-        2*constants.RADIUS
-    );
 
-    // Uk
-
-    stroke(color_from_array(constants.COLOR_CO_D));
-    fill(color_from_array(constants.COLOR_CO_D));
-
-    offset_y += constants.TEXT_SIZES[0];
-    textSize(constants.TEXT_SIZES[1]);
-    text("Allelic state", 30, offset_y)
-
-    if (!+data_manager.key[constants.ALLELICSTATE]) {
-        stroke(constants.COLOR_UK_L);
-        noFill();
-    } else {
-        stroke(color_from_array(constants.COLOR_UK));
-        fill(color_from_array(constants.COLOR_UK));
-    }
-    ellipse(
-        20,
-        offset_y - constants.RADIUS,
-        2*constants.RADIUS,
-        2*constants.RADIUS
-    );
-
-
-    translate(- (constants.WIDTH - 10 - constants.LEGEND_WIDTH), -10);
+    translate(- (constants.WIDTH - 10 - constants.LEGEND_F_WIDTH), -10);
 }
 
 function updateHelp() {
@@ -298,3 +258,25 @@ function arraysEqual(a1, a2) {
     }
     return true;
 }
+
+function binarize_rec(n) {
+    return (n == 0) ? '0' : (n == 1) ? '1' : binarize_rec(parseInt(n / 2)) + binarize_rec(n % 2);
+}
+
+function binarize(n) {
+    const bin = binarize_rec(n);
+    return '0'.repeat(constants.FEATURES_AMOUNT - bin.length) + bin;
+}
+
+
+function zeros(n) {
+    if (typeof(n) === 'undefined' || isNaN(n)) { return []; }
+    if (typeof ArrayBuffer === 'undefined') {
+        // lacking browser support
+        const arr = new Array(n);
+        for (let i = 0; i < n; i++) { arr[i] = 0; }
+        return arr;
+    } else {
+        return new Float64Array(n); // typed arrays are faster
+    }
+};
