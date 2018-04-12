@@ -1,0 +1,259 @@
+DidaID,CADD1,CADD2,RecA,EssA,CADD3,CADD4,RecB,EssB,Distance,Path,CoExp,AllelicState,DE,Pair,Orphanet,Name
+dd001,22.5,0,0.34,0,18.3,0,0.3,1,1.11,1,1,2,CO,KCNQ1/KCNH2,768,Familial long QT syndrome
+dd002,3.476,0,0.16,1,34.0,0,0.51,1,1.25,1,0,2,TD,GJB3/GJB2,87884,Non-syndromic genetic deafness
+dd003,0.894,0,0.16,1,34.0,0,0.51,1,1.25,1,0,2,TD,GJB3/GJB2,87884,Non-syndromic genetic deafness
+dd004,0.894,0,0.16,1,26.2,0,0.51,1,1.25,1,0,2,TD,GJB3/GJB2,87884,Non-syndromic genetic deafness
+dd005,0.011,0,0.2,1,15.31,0,0.44,0,1.25,0,1,2,TD,FOXI1/SLC26A4,87884,Non-syndromic genetic deafness
+dd006,16.76,0,0.18,0,21.9,21.9,0.2,0,14.51,0,1,3,CO,ATP2B2/CDH23,87884,Non-syndromic genetic deafness
+dd007,12.76,0,0.18,0,36.0,0,0.2,0,1.23,0,1,2,TD,PCDH15/CDH23,886,Usher syndrome
+dd008,25.8,0,0.18,0,22.8,0,0.2,0,1.23,0,1,2,TD,PCDH15/CDH23,886,Usher syndrome
+dd009,12.76,0,0.18,0,18.93,0,0.2,0,1.23,0,1,2,CO,PCDH15/CDH23,886,Usher syndrome
+dd010,28.1,0,0.09,1,14.81,0,0.11,1,13.06,0,0,2,TD,NEK1/DYNC2H1,1505,Short rib-polydactyly syndrome
+dd011,23.4,23.4,0.27,1,22.4,0,0.54,1,1.11,1,0,3,CO,NPHS2/NPHS1,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd012,13.42,0,0.21,0.292,18.53,0,0.13,1,10.83,0,0,2,UK,KAL1/PROKR2,478,Kallmann syndrome
+dd013,13.99,0,0.24,0.292,23.0,0,0.79,1,6.06,0,0,2,CO,NSMF/FGFR1,478,Kallmann syndrome
+dd014,14.11,35.0,0.24,0,16.58,0,0.79,1,4.72,0,1,3,UK,GNRHR/FGFR1,174590,Congenital hypogonadotropic hypogonadism
+dd015,16.41,0,0.21,0.292,18.53,0,0.13,1,10.83,0,0,2,UK,KAL1/PROKR2,478,Kallmann syndrome
+dd016,24.7,0,0.24,0.292,13.38,0,0.21,0.292,12.84,0,0,2,UK,NSMF/KAL1,478,Kallmann syndrome
+dd017,0.527,0,0.24,0.292,39.0,0,0.14,0,17.89,0,0,2,UK,NSMF/TACR3,478,Kallmann syndrome
+dd018,31.0,0,0.79,1,18.53,0,0.13,1,4.72,0,0,2,CO,FGFR1/PROKR2,478,Kallmann syndrome
+dd019,17.36,0,0.11,0.292,32.0,32.0,0.25,1,4.72,0,0,3,CO,BAAT/TJP2,238475,Familial hypercholanemia
+dd020,17.36,17.36,0.11,0.292,32.0,0,0.25,1,4.72,0,0,3,CO,BAAT/TJP2,238475,Familial hypercholanemia
+dd021,18.35,18.35,0.13,0.292,29.4,29.4,0.09,0.292,12.58,0,0,4,TD,OTUD4/RNF216,174590,Congenital hypogonadotropic hypogonadism
+dd022,8.656,0,0.73,1,6.083,0,0.68,1,5.69,0,1,2,TD,EDNRB/RET,388,Hirschsprung disease
+dd023,2.915,0,0.54,0,33.0,0,0.18,0,1.25,1,0,2,TD,PARK7/PINK1,2828,Young-onset Parkinson disease
+dd024,34.0,34.0,0.48,0,1.05,0,0.18,0,1.74,1,0,3,CO,PARK2/PINK1,2828,Young-onset Parkinson disease
+dd026,20.6,0,0.41,0,24.9,0,0.62,0,18.89,0,1,2,CO,MYOC/CYP1B1,98977,Juvenile glaucoma
+dd027,11.07,0,0.41,0,24.9,0,0.62,0,18.89,0,1,2,TD,MYOC/CYP1B1,98976,Congenital glaucoma
+dd028,37.0,0,0.42,1,29.5,0,0.89,1,10.42,1,0,2,UK,MITF/TYR,352740,Ocular albinism with congenital sensorineural deafness
+dd029,15.52,29.5,0.89,1,32.0,0,0.37,1,71.37,1,0,3,CO,TYR/OCA2,55,Oculocutaneous albinism
+dd030,4.023,0,0.89,1,9.068,9.068,0.37,1,71.37,1,0,3,CO,TYR/OCA2,55,Oculocutaneous albinism
+dd031,41.0,44.0,0.28,1,35.0,0,0.33,1,1.11,1,1,3,UK,COL17A1/LAMB3,305,Junctional epidermolysis bullosa
+dd032,28.2,0,0.35,1,18.86,0,0.42,0,1.11,1,1,2,CO,FGG/FGA,98881,Familial dysfibrinogenemia
+dd033,20.2,0,0.43,0,20.4,23.5,0.27,0,1.11,1,1,3,CO,SLC3A1/SLC7A9,214,Cystinuria
+dd034,20.2,0,0.43,0,23.5,23.5,0.27,0,1.11,1,1,3,CO,SLC3A1/SLC7A9,214,Cystinuria
+dd035,20.2,0,0.43,0,23.5,0,0.27,0,1.11,1,1,2,CO,SLC3A1/SLC7A9,214,Cystinuria
+dd036,21.5,20.2,0.43,0,23.5,0,0.27,0,1.11,1,1,3,CO,SLC3A1/SLC7A9,214,Cystinuria
+dd037,24.9,0,0.21,0,17.27,0,0.1,1,1.11,1,0,2,CO,FZD4/LRP5,891,Familial exudative vitreoretinopathy
+dd038,4.642,0,0.54,0,22.8,22.8,0.99,0,23.44,1,0,3,CO,EMD/LMNA,261,Emery-Dreifuss muscular dystrophy
+dd039,35.0,0,0.54,0,4.455,0,0.99,0,23.44,1,0,2,CO,EMD/LMNA,261,Emery-Dreifuss muscular dystrophy
+dd040,19.16,0,0.16,0.292,37.0,0,0.09,1,6.91,0,1,2,CO,GDAP1/MFN2,166,Charcot-Marie-Tooth disease
+dd041,23.0,0,0.56,0.292,31.0,0,0.14,0.292,13.25,1,1,2,CO,ALAD/CPOX,738,Porphyria
+dd042,14.51,0,0.15,0.292,34.0,0,0.34,1,10.34,0,0,2,UK,C10orf2/POLG,254892,Autosomal dominant progressive external ophthalmoplegia
+dd043,28.9,0,0.21,1,10.91,0,0.34,1,2.78,1,1,2,CO,SCN1A/SCN2A,36387,Generalized epilepsy with febrile seizures-plus
+dd045,29.3,0,0.14,1,41.0,0,0.246,0,11.83,0,1,2,UK,GGCX/ABCC6,758,Pseudoxanthoma elasticum
+dd046,22.1,0,0.63,1,20.5,0,0.3,1,1.25,0,0,2,CO,PITX2/FOXC1,782,Axenfeld-Rieger syndrome
+dd047,25.2,0,0.59,1,20.2,0,0.246,1,1.25,1,1,2,CO,KRT5/KRT14,304,Epidermolysis bullosa simplex
+dd048,31.0,0,0.11,0,20.5,0,0.26,1,11.25,0,1,2,CO,KCNE2/SCN5A,768,Familial long QT syndrome
+dd049,36.0,0,0.21,0,0.0,0,0.246,1,10.0,0,0,2,CO,FZD4/F5,891,Familial exudative vitreoretinopathy
+dd050,18.37,0,0.69,1,13.78,0,0.23,1,25.96,1,1,2,CO,HMBS/UROD,738,Porphyria
+dd051,12.65,0,0.54,0,17.19,0,0.73,0,1.25,0,1,2,TD,HAMP/HFE,220489,Rare hereditary hemochromatosis
+dd052,13.92,0,0.54,0,17.19,17.19,0.73,0,1.25,0,1,3,CO,HAMP/HFE,220489,Rare hereditary hemochromatosis
+dd053,11.83,0,0.33,0,24.7,0,0.34,0,1.25,1,1,2,UK,KCNE1/KCNQ1,768,Familial long QT syndrome
+dd054,9.997,0,0.33,0,29.7,0,0.34,0,1.25,1,1,2,CO,KCNE1/KCNQ1,768,Familial long QT syndrome
+dd055,9.997,0,0.33,0,19.83,0,0.34,0,1.25,1,1,2,UK,KCNE1/KCNQ1,768,Familial long QT syndrome
+dd056,9.997,0,0.33,0,35.0,0,0.34,0,1.25,1,1,2,CO,KCNE1/KCNQ1,768,Familial long QT syndrome
+dd058,18.16,0,0.33,0,16.19,0,0.3,1,1.74,1,1,2,CO,KCNE1/KCNH2,768,Familial long QT syndrome
+dd059,9.997,0,0.33,0,24.3,0,0.3,1,1.74,1,1,2,CO,KCNE1/KCNH2,768,Familial long QT syndrome
+dd060,9.997,9.997,0.33,0,25.0,0,0.3,1,1.74,1,1,3,CO,KCNE1/KCNH2,768,Familial long QT syndrome
+dd061,9.997,0,0.33,0,40.0,0,0.3,1,1.74,1,1,2,UK,KCNE1/KCNH2,768,Familial long QT syndrome
+dd062,9.997,0,0.33,0,19.96,0,0.3,1,1.74,1,1,2,CO,KCNE1/KCNH2,768,Familial long QT syndrome
+dd063,9.997,0,0.33,0,19.45,0,0.3,1,1.74,1,1,2,UK,KCNE1/KCNH2,768,Familial long QT syndrome
+dd064,9.997,0,0.33,0,20.6,0,0.3,1,1.74,1,1,2,CO,KCNE1/KCNH2,768,Familial long QT syndrome
+dd065,25.4,0,0.33,0,24.9,0,0.26,1,5.0,0,1,2,UK,KCNE1/SCN5A,768,Familial long QT syndrome
+dd066,9.997,0,0.33,0,20.5,0,0.26,1,5.0,0,1,2,CO,KCNE1/SCN5A,768,Familial long QT syndrome
+dd067,29.7,0,0.34,0,37.0,0,0.3,1,1.11,1,1,2,UK,KCNQ1/KCNH2,768,Familial long QT syndrome
+dd068,24.4,0,0.34,0,14.39,0,0.3,1,1.11,1,1,2,UK,KCNQ1/KCNH2,768,Familial long QT syndrome
+dd069,22.8,0,0.26,1,18.82,0,0.3,1,6.94,0,1,2,UK,SCN5A/KCNH2,768,Familial long QT syndrome
+dd070,16.45,0,0.56,0,13.2,0,0.3,1,1.77,0,1,2,UK,CAV3/KCNH2,768,Familial long QT syndrome
+dd071,0.0,0,0.1,0,16.98,16.98,0.31,1,4.72,1,1,3,UK,BBS2/MKKS,110,Bardet-Biedl syndrome
+dd072,21.2,38.0,0.1,0,21.7,0,0.31,1,4.72,1,1,3,UK,BBS2/MKKS,110,Bardet-Biedl syndrome
+dd073,42.0,42.0,0.1,0,27.8,0,0.31,1,4.72,1,1,3,UK,BBS2/MKKS,110,Bardet-Biedl syndrome
+dd074,42.0,38.0,0.1,0,39.0,0,0.31,1,4.72,1,1,3,TD,BBS2/MKKS,110,Bardet-Biedl syndrome
+dd075,25.1,25.1,0.1,0,33.0,33.0,0.33,1,1.11,1,0,4,TD,BBS2/BBS4,110,Bardet-Biedl syndrome
+dd076,35.0,0,0.246,1,32.0,32.0,0.18,0.292,1.11,1,0,3,UK,BBS1/BBS7,110,Bardet-Biedl syndrome
+dd077,19.17,0,0.246,1,33.0,0.0,0.1,0,1.11,1,1,3,UK,BBS1/BBS2,110,Bardet-Biedl syndrome
+dd078,36.0,19.17,0.246,1,6.57,0,0.31,1,4.72,1,1,3,UK,BBS1/MKKS,110,Bardet-Biedl syndrome
+dd079,19.17,38.0,0.246,1,11.68,0,0.31,1,4.72,1,1,3,UK,BBS1/MKKS,110,Bardet-Biedl syndrome
+dd080,19.17,19.17,0.246,1,26.7,0,0.1,0,1.11,1,1,3,UK,BBS1/BBS2,110,Bardet-Biedl syndrome
+dd081,19.17,19.17,0.246,1,16.33,0,0.33,1,1.11,1,0,3,UK,BBS1/BBS4,110,Bardet-Biedl syndrome
+dd082,41.0,0,0.1,0,15.66,0,0.33,1,1.11,1,0,2,TD,BBS2/BBS4,110,Bardet-Biedl syndrome
+dd083,17.98,0,0.1,0,15.66,0,0.33,1,1.11,1,0,2,TD,BBS2/BBS4,110,Bardet-Biedl syndrome
+dd084,23.8,19.17,0.246,1,4.505,0,0.18,0.292,1.76,0,0,3,CO,BBS1/CCDC28B,110,Bardet-Biedl syndrome
+dd085,19.17,38.0,0.246,1,4.505,0,0.18,0.292,1.76,0,0,3,CO,BBS1/CCDC28B,110,Bardet-Biedl syndrome
+dd086,25.2,19.34,0.18,0.292,22.8,0,0.33,1,1.11,1,0,3,CO,BBS7/BBS4,110,Bardet-Biedl syndrome
+dd087,9.292,0,0.18,0.292,25.2,27.9,0.1,0,1.11,1,0,3,UK,BBS7/BBS2,110,Bardet-Biedl syndrome
+dd088,12.15,12.15,0.12,0.292,25.3,0,0.31,0,4.72,1,1,3,UK,CEP41/CEP290,475,Joubert syndrome
+dd089,28.7,0,0.22,0.292,14.41,19.61,0.15,0.292,4.72,1,0,3,UK,BBS5/BBS10,110,Bardet-Biedl syndrome
+dd090,15.49,16.59,0.15,0.292,27.8,0,0.31,1,1.25,1,0,3,UK,BBS10/MKKS,110,Bardet-Biedl syndrome
+dd091,0.0,20.1,0.15,0.292,21.9,0,0.17,0.292,5.0,1,0,3,UK,BBS10/BBS12,110,Bardet-Biedl syndrome
+dd092,0.0,20.1,0.15,0.292,0.495,0,0.17,0.292,5.0,1,0,3,UK,BBS10/BBS12,110,Bardet-Biedl syndrome
+dd093,15.49,9.385,0.15,0.292,27.8,0,0.31,1,1.25,1,0,3,UK,BBS10/MKKS,110,Bardet-Biedl syndrome
+dd094,17.34,17.34,0.17,0.292,9.578,0,0.33,1,4.72,1,1,3,UK,BBS12/BBS4,110,Bardet-Biedl syndrome
+dd095,29.1,19.17,0.246,1,9.913,0,0.15,0.292,4.72,1,0,3,UK,BBS1/BBS10,110,Bardet-Biedl syndrome
+dd096,26.4,26.4,0.246,1,0.041,0,0.15,0.292,4.72,1,0,3,UK,BBS1/BBS10,110,Bardet-Biedl syndrome
+dd097,38.0,0.0,0.1,0,27.8,0,0.31,1,4.72,1,1,3,UK,BBS2/MKKS,110,Bardet-Biedl syndrome
+dd098,38.0,35.0,0.1,0,27.8,0,0.31,1,4.72,1,1,3,UK,BBS2/MKKS,110,Bardet-Biedl syndrome
+dd099,0.018,0,0.15,0.292,35.0,35.0,0.1,0,4.72,1,0,3,UK,BBS10/BBS2,110,Bardet-Biedl syndrome
+dd100,35.0,43.0,0.1,0,11.84,0,0.17,0.292,4.72,1,1,3,UK,BBS2/BBS12,110,Bardet-Biedl syndrome
+dd101,17.75,17.75,0.1,0,16.69,0,0.17,0.292,4.72,1,1,3,UK,BBS2/BBS12,110,Bardet-Biedl syndrome
+dd102,15.49,15.49,0.15,0.292,6.028,0,0.31,1,1.25,1,0,3,UK,BBS10/MKKS,110,Bardet-Biedl syndrome
+dd103,15.49,32.0,0.15,0.292,36.0,0,0.1,0,4.72,1,0,3,UK,BBS10/BBS2,110,Bardet-Biedl syndrome
+dd104,24.5,24.5,0.15,0.292,27.8,0,0.31,1,1.25,1,0,3,UK,BBS10/MKKS,110,Bardet-Biedl syndrome
+dd105,38.0,38.0,0.246,1,10.31,0,0.1,0,1.11,1,1,3,UK,BBS1/BBS2,110,Bardet-Biedl syndrome
+dd106,4.349,4.349,0.246,1,21.1,0,0.2,1,1.11,1,1,3,UK,BBS1/TTC8,110,Bardet-Biedl syndrome
+dd107,19.17,38.0,0.246,1,24.1,0,0.2,0.292,1.11,1,1,3,UK,BBS1/BBS9,110,Bardet-Biedl syndrome
+dd108,11.11,11.11,0.15,0.292,21.9,0,0.17,0.292,5.0,1,0,3,UK,BBS10/BBS12,110,Bardet-Biedl syndrome
+dd109,20.6,20.6,0.15,0.292,4.702,0,0.31,1,1.25,1,0,3,UK,BBS10/MKKS,110,Bardet-Biedl syndrome
+dd110,0.015,0,0.15,0.292,25.2,27.9,0.1,0,4.72,1,0,3,UK,BBS10/BBS2,110,Bardet-Biedl syndrome
+dd111,21.5,21.5,0.21,0,14.63,0,0.2,1,10.83,1,1,3,UK,ARL6/TTC8,110,Bardet-Biedl syndrome
+dd112,32.0,32.0,0.18,0.292,10.81,0,0.2,1,1.11,1,0,3,UK,BBS7/TTC8,110,Bardet-Biedl syndrome
+dd113,19.17,0,0.246,1,41.0,10.9,0.17,0.292,1.25,1,1,3,UK,BBS1/BBS12,110,Bardet-Biedl syndrome
+dd114,22.3,0,0.38,0,9.836,0,0.27,1,1.11,1,0,2,TD,CD2AP/NPHS2,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd115,23.4,15.68,0.27,1,4.815,0,0.54,1,1.11,1,0,3,TD,NPHS2/NPHS1,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd116,16.33,0,0.87,1,15.27,0,0.54,1,1.25,0,1,2,TD,WT1/NPHS1,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd117,34.0,0,0.89,1,19.67,0,0.59,0,18.89,1,0,2,TD,TYR/SLC45A2,55,Oculocutaneous albinism
+dd118,42.0,0,0.89,1,26.7,0,0.59,0,18.89,1,0,2,TD,TYR/SLC45A2,55,Oculocutaneous albinism
+dd119,6.721,0,0.37,1,26.7,26.7,0.59,0,91.48,1,1,3,TD,OCA2/SLC45A2,55,Oculocutaneous albinism
+dd120,29.5,0,0.89,1,29.8,0,0.59,0,18.89,1,0,2,TD,TYR/SLC45A2,55,Oculocutaneous albinism
+dd121,38.0,0,0.89,1,27.2,0,0.37,1,71.37,1,0,2,TD,TYR/OCA2,55,Oculocutaneous albinism
+dd122,14.9,0,0.69,0,13.45,7.318,0.41,0,4.72,0,1,3,UK,NOD2/IL10RA,238569,Autosomal recessive early-onset inflammatory bowel disease
+dd123,35.0,0,0.1,0.292,34.0,0,0.69,1,13.09,1,0,2,TD,LMBRD1/MTR,622,Homocystinuria without methylmalonic aciduria
+dd124,16.28,0,0.34,0,24.9,0,0.18,0,15.79,0,1,2,TD,MYO7A/PCDH15,886,Usher syndrome
+dd125,21.1,0,0.1,1,18.34,0,0.2,0.292,4.72,0,0,2,CO,EDA/WNT10A,2227,Hypodontia
+dd126,16.69,0,0.1,1,18.34,0,0.2,0.292,4.72,0,0,2,CO,EDA/WNT10A,2227,Hypodontia
+dd127,27.2,0,0.1,1,18.34,0,0.2,0.292,4.72,0,0,2,UK,EDA/WNT10A,2227,Hypodontia
+dd128,14.59,0,0.1,1,34.0,0,0.2,0.292,4.72,0,0,2,CO,EDA/WNT10A,2227,Hypodontia
+dd129,15.51,0,0.1,1,34.0,0,0.2,0.292,4.72,0,0,2,UK,EDA/WNT10A,2227,Hypodontia
+dd130,33.0,0,0.1,1,18.34,0,0.2,0.292,4.72,0,0,2,UK,EDA/WNT10A,2227,Hypodontia
+dd131,21.0,0,0.27,1,18.44,18.44,0.54,1,1.11,1,0,3,UK,NPHS2/NPHS1,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd132,35.0,35.0,0.27,1,11.69,0,0.54,1,1.11,1,0,3,UK,NPHS2/NPHS1,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd133,23.4,23.4,0.27,1,4.324,4.324,0.54,1,1.11,1,0,4,UK,NPHS2/NPHS1,656,Familial idiopathic steroid-resistant nephrotic syndrome
+dd134,16.76,0,0.18,0,22.1,0,0.32,0,5.73,0,0,2,CO,ATP2B2/MYO6,87884,Non-syndromic genetic deafness
+dd135,40.0,0,0.13,0.292,33.0,0,0.1,0.292,18.33,0,0,2,UK,PYGM/CPT2,368,Glycogen storage disease due to muscle glycogen phosphorylase deficiency
+dd136,35.0,0,0.21,0.292,18.53,0,0.13,1,10.83,0,0,2,CO,KAL1/PROKR2,478,Kallmann syndrome
+dd137,23.0,0,0.21,0.292,18.79,0,0.79,1,1.25,1,0,2,UK,KAL1/FGFR1,174590,Congenital hypogonadotropic hypogonadism
+dd138,16.82,14.11,0.24,0,13.32,0,0.79,1,4.72,0,1,3,UK,GNRHR/FGFR1,432,Normosmic congenital hypogonadotropic hypogonadism
+dd139,11.32,0,0.21,0.292,14.63,0,0.13,1,10.83,0,0,2,UK,KAL1/PROKR2,174590,Congenital hypogonadotropic hypogonadism
+dd140,0.242,0,0.16,1,31.0,0,0.79,1,4.72,0,0,2,UK,KISS1R/FGFR1,432,Normosmic congenital hypogonadotropic hypogonadism
+dd141,4.994,0,0.12,0,17.58,0,0.13,1,1.11,1,0,2,UK,PROK2/PROKR2,432,Normosmic congenital hypogonadotropic hypogonadism
+dd142,11.32,0,0.21,0.292,20.3,0,0.79,1,1.25,1,0,2,UK,KAL1/FGFR1,478,Kallmann syndrome
+dd143,8.333,0,0.21,0.292,44.0,0,0.14,1,11.25,0,0,2,UK,KAL1/CHD7,478,Kallmann syndrome
+dd144,19.0,0,0.34,0,7.804,0,0.26,1,5.0,0,1,2,CO,KCNQ1/SCN5A,768,Familial long QT syndrome
+dd145,11.68,0,0.38,1,19.62,0,0.44,0,20.0,0,0,2,TD,KCNJ10/SLC26A4,87884,Non-syndromic genetic deafness
+dd146,14.2,0,0.38,1,16.3,0,0.44,0,20.0,0,0,2,TD,KCNJ10/SLC26A4,87884,Non-syndromic genetic deafness
+dd147,37.0,0,0.34,0,11.78,0,0.26,1,5.0,0,1,2,CO,KCNQ1/SCN5A,768,Familial long QT syndrome
+dd148,16.06,0,0.71,1,39.0,0,0.68,1,1.25,1,0,2,TD,GDNF/RET,388,Hirschsprung disease
+dd152,36.0,36.0,0.16,0.292,18.44,0,0.09,1,6.91,0,1,3,CO,GDAP1/MFN2,166,Charcot-Marie-Tooth disease
+dd153,43.0,19.77,0.34,0,20.8,0,0.2,0,8.06,0,1,3,TD,MYO7A/CDH23,886,Usher syndrome
+dd154,19.77,19.77,0.17,0,20.3,0,0.2,0,1.25,0,1,3,TD,USH1C/CDH23,886,Usher syndrome
+dd155,11.2,11.2,0.34,0,20.3,0,0.17,0,8.06,0,0,3,TD,MYO7A/GPR98,886,Usher syndrome
+dd156,19.66,0,0.16,0,23.5,55.0,0.17,0,2.78,0,0,3,TD,DFNB31/GPR98,886,Usher syndrome
+dd157,24.6,0,0.34,0,44.0,16.15,0.246,0,8.06,0,1,3,TD,MYO7A/USH2A,886,Usher syndrome
+dd158,4.642,0,0.54,0,22.8,0,0.99,0,23.44,1,0,2,CO,EMD/LMNA,334,Familial atrial fibrillation
+dd159,4.642,0,0.54,0,22.8,0,0.99,0,23.44,1,0,2,CO,EMD/LMNA,334,Familial atrial fibrillation
+dd160,4.642,0,0.54,0,22.8,22.8,0.99,0,23.44,1,0,3,CO,EMD/LMNA,166,Charcot-Marie-Tooth disease
+dd161,19.24,0,0.11,0.292,41.0,41.0,0.246,0,1.25,0,0,3,CO,PDZD7/USH2A,886,Usher syndrome
+dd162,22.7,0,0.11,0.292,42.0,19.71,0.246,0,1.25,0,0,3,TD,PDZD7/USH2A,886,Usher syndrome
+dd163,12.99,0,0.11,0.292,55.0,0,0.17,0,1.25,0,0,2,TD,PDZD7/GPR98,886,Usher syndrome
+dd164,33.0,0,0.79,1,17.56,0,0.12,0,1.25,0,1,2,TD,FGFR1/IL17RD,478,Kallmann syndrome
+dd165,11.64,0,0.16,1,15.35,0,0.12,0,10.83,0,0,2,UK,KISS1R/IL17RD,478,Kallmann syndrome
+dd166,27.2,0,0.79,1,27.5,0,0.37,1,5.0,1,0,2,UK,FGFR1/DUSP6,478,Kallmann syndrome
+dd167,23.8,0,0.14,1,2.056,0,0.37,1,10.0,0,0,2,UK,SPRY4/DUSP6,478,Kallmann syndrome
+dd168,23.8,0,0.14,1,14.7,0,0.37,1,10.0,0,0,2,UK,SPRY4/DUSP6,478,Kallmann syndrome
+dd169,23.8,0,0.14,1,27.2,0,0.79,1,10.0,0,1,2,UK,SPRY4/FGFR1,478,Kallmann syndrome
+dd170,36.0,0,0.79,1,14.84,0,0.12,1,25.03,1,1,2,UK,FGFR1/FLRT3,478,Kallmann syndrome
+dd171,15.11,15.11,0.37,1,19.7,19.7,0.32,0.292,11.22,0,1,4,UK,ITGA7/MYH7B,54260,Left ventricular non-compaction
+dd172,21.1,0,0.94,1,11.75,0,0.246,1,1.25,1,1,2,CO,HNF4A/HNF1A,552,MODY
+dd173,15.84,0,0.57,0,38.0,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd174,19.66,0,0.57,0,10.35,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd175,15.41,0,0.57,0,14.43,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd176,19.66,0,0.57,0,9.618,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd177,19.66,0,0.57,0,5.902,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd178,19.66,0,0.57,0,5.532,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd179,14.79,0,0.57,0,18.72,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd180,19.66,0,0.57,0,11.79,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd181,15.79,0,0.57,0,20.5,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd182,19.66,0,0.57,0,19.99,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd184,16.2,0,0.57,0,11.73,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd185,18.78,0,0.57,0,19.99,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd187,19.66,0,0.57,0,17.62,0,0.16,0,19.44,0,0,2,TD,PRF1/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd188,19.66,0,0.57,0,14.8,0,0.13,0.292,10.63,0,1,2,TD,PRF1/STXBP2,540,Familial hemophagocytic lymphohistiocytosis
+dd190,25.0,0,0.57,0,14.8,0,0.13,0.292,10.63,0,1,2,TD,PRF1/STXBP2,540,Familial hemophagocytic lymphohistiocytosis
+dd191,19.66,0,0.57,0,15.96,0,0.13,0.292,10.63,0,1,2,TD,PRF1/STXBP2,540,Familial hemophagocytic lymphohistiocytosis
+dd192,16.2,0,0.57,0,14.72,0,0.13,0.292,10.63,0,1,2,TD,PRF1/STXBP2,540,Familial hemophagocytic lymphohistiocytosis
+dd193,19.66,0,0.57,0,3.998,0,0.13,0.292,10.63,0,1,2,TD,PRF1/STXBP2,540,Familial hemophagocytic lymphohistiocytosis
+dd194,17.94,0,0.13,0.292,19.99,0,0.16,0,21.1,0,0,2,TD,STXBP2/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd195,5.447,0,0.13,0.292,11.04,0,0.16,0,21.1,0,0,2,TD,STXBP2/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd196,5.447,0,0.13,0.292,19.99,0,0.16,0,21.1,0,0,2,TD,STXBP2/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd197,17.36,0,0.13,0.292,19.99,0,0.16,0,21.1,0,0,2,TD,STXBP2/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd198,17.86,0,0.18,0.292,17.31,0,0.16,0,22.82,0,0,2,TD,STX11/UNC13D,540,Familial hemophagocytic lymphohistiocytosis
+dd199,13.71,0,0.13,0.292,19.08,0,0.18,0.292,2.23,0,0,2,TD,STXBP2/STX11,540,Familial hemophagocytic lymphohistiocytosis
+dd200,33.0,0,0.39,0,14.8,0,0.13,0.292,12.07,0,1,2,TD,RAB27A/STXBP2,540,Familial hemophagocytic lymphohistiocytosis
+dd201,26.6,0,0.79,1,28.1,0,0.13,1,4.72,0,0,2,UK,FGFR1/PROKR2,478,Kallmann syndrome
+dd202,0.242,0,0.16,1,21.3,0,0.13,1,1.11,1,0,2,UK,KISS1R/PROKR2,478,Kallmann syndrome
+dd203,9.119,0,0.24,0,8.526,0,0.13,1,1.11,1,0,2,UK,GNRHR/PROKR2,478,Kallmann syndrome
+dd204,19.17,19.17,0.246,1,4.505,0,0.18,0.292,1.76,0,0,3,TD,BBS1/CCDC28B,110,Bardet-Biedl syndrome
+dd205,17.99,0,0.15,0.292,25.5,0,0.34,1,10.34,0,0,2,UK,C10orf2/POLG,254892,Autosomal dominant progressive external ophthalmoplegia
+dd206,15.76,0,0.51,1,34.0,0,0.11,0,18.68,0,0,2,TD,GJB2/TMPRSS3,87884,Non-syndromic genetic deafness
+dd207,32.0,0,0.15,0.292,14.48,25.0,0.246,1,15.68,0,1,3,TD,ATP2B3/LAMA1,314978,X-linked non progressive cerebellar ataxia
+dd208,24.4,24.4,0.24,0,20.1,0,0.12,0,1.11,1,1,3,UK,GNRHR/PROK2,174590,Congenital hypogonadotropic hypogonadism
+dd209,14.6,0,0.37,1,12.56,0,0.38,1,5.76,0,0,2,UK,DSP/TTN,155,Familial isolated hypertrophic cardiomyopathy
+dd210,20.7,0,0.17,0.292,13.38,0,0.1,0.292,10.3,0,0,2,UK,MYH7/NEXN,155,Familial isolated hypertrophic cardiomyopathy
+dd211,27.1,0,0.17,0.292,25.7,0,0.246,0.292,4.72,0,0,2,UK,MYH7/RBM20,154,Familial isolated dilated cardiomyopathy
+dd212,29.6,0,0.34,1,23.5,0,0.37,1,1.74,1,0,2,UK,JUP/DSP,247,Arrhythmogenic right ventricular dysplasia
+dd213,23.2,0,0.34,1,33.0,0,0.37,1,1.74,1,0,2,UK,JUP/DSP,247,Arrhythmogenic right ventricular dysplasia
+dd215,14.44,0,0.16,0,15.98,14.69,0.38,1,17.78,0,1,3,UK,ABCC9/TTN,54260,Left ventricular non-compaction
+dd216,12.41,0,0.37,1,15.98,14.69,0.38,1,5.76,0,0,3,UK,DSP/TTN,154,Familial isolated dilated cardiomyopathy
+dd217,15.04,0,0.1,0.292,10.85,12.52,0.38,1,18.68,0,0,3,UK,NEXN/TTN,155,Familial isolated hypertrophic cardiomyopathy
+dd218,24.8,0,0.5,1,35.0,0,0.21,0,10.42,0,0,2,CO,BMPR2/KCNA5,275777,Heritable pulmonary arterial hypertension
+dd219,12.8,0,0.74,1,16.41,0,0.6,1,4.44,1,0,2,CO,NEUROD1/PDX1,552,MODY
+dd220,12.21,0,0.74,1,16.41,0,0.6,1,4.44,1,0,2,CO,NEUROD1/PDX1,552,MODY
+dd221,26.3,0,0.11,0.292,21.9,0,0.17,0,1.25,0,0,2,TD,PDZD7/GPR98,87884,Non-syndromic genetic deafness
+dd222,23.2,0,0.21,0,15.03,0,0.23,0,1.25,0,1,2,TD,PRPH2/ROM1,791,Retinitis pigmentosa
+dd223,23.2,0,0.21,0,9.03,0,0.23,0,1.25,0,1,2,TD,PRPH2/ROM1,791,Retinitis pigmentosa
+dd224,33.0,0,0.14,0,36.0,36.0,0.39,0,1.77,0,0,3,TD,TRIM54/TRIM63,172973,Congenital myopathy with protein accumulation
+dd225,14.78,0,0.4,0.292,32.0,0,0.246,0,1.61,1,0,2,TD,PSMA3/PSMB8,325004,CANDLE syndrome
+dd226,18.32,0,0.4,0.292,32.0,0,0.246,0,1.61,1,0,2,TD,PSMA3/PSMB8,325004,CANDLE syndrome
+dd227,14.59,0,0.3,0.292,13.33,0,0.246,0,1.61,1,0,2,TD,PSMB4/PSMB9,325004,CANDLE syndrome
+dd228,26.6,0,0.3,0.292,28.7,0,0.246,0,1.61,1,0,2,TD,PSMB4/PSMB8,325004,CANDLE syndrome
+dd229,17.09,0,0.08,1,36.0,0,0.1,0.292,1.11,1,1,2,TD,CDK5RAP2/CEP152,808,Seckel syndrome
+dd230,17.89,0,0.25,0,10.38,0,0.34,0,1.11,1,1,2,CO,COL4A4/COL4A3,63,Alport syndrome
+dd231,18.97,0,0.25,0,16.41,0,0.34,0,1.11,1,1,2,CO,COL4A4/COL4A3,63,Alport syndrome
+dd232,39.0,0,0.25,0,15.39,0,0.34,0,1.11,1,1,2,CO,COL4A4/COL4A3,63,Alport syndrome
+dd233,13.84,0,0.25,0,9.259,0,0.34,0,1.11,1,1,2,CO,COL4A4/COL4A3,63,Alport syndrome
+dd234,19.47,0,0.25,0,17.37,0,0.34,0,1.11,1,1,2,CO,COL4A4/COL4A3,63,Alport syndrome
+dd235,17.31,0,0.246,0,18.42,0,0.25,0,1.11,1,1,2,CO,COL4A5/COL4A4,63,Alport syndrome
+dd236,19.64,0,0.246,0,17.32,0,0.25,0,1.11,1,1,2,CO,COL4A5/COL4A4,63,Alport syndrome
+dd237,22.3,0,0.246,0,21.1,0,0.25,0,1.11,1,1,2,CO,COL4A5/COL4A4,63,Alport syndrome
+dd238,18.63,0,0.246,0,8.621,0.778,0.25,0,1.11,1,1,3,CO,COL4A5/COL4A4,63,Alport syndrome
+dd239,0.0,0.0,0.246,0.292,20.1,20.1,0.17,0.292,9.8,0,0,4,TD,MAN1B1/SEC23A,93460,Overgrowth syndrome
+dd240,35.0,0,0.246,0.292,10.97,46.0,0.246,0,4.72,0,0,3,TD,C2orf71/RP1L1,98661,Syndromic retinitis pigmentosa
+dd241,17.33,0,0.89,1,17.29,0,0.11,0.292,1.11,0,1,2,TD,SHH/DISP1,2162,Holoprosencephaly
+dd242,24.3,0,0.42,1,34.0,0,0.51,1,10.83,0,0,2,TD,MITF/GJB2,87884,Non-syndromic genetic deafness
+dd243,1.948,0,0.11,0,0.003,0,0.21,1,4.72,1,1,2,TD,NLRP3/MEFV,342,Familial Mediterranean fever
+dd244,10.45,0,0.11,0,16.28,0,0.21,1,4.72,1,1,2,TD,NLRP3/MEFV,342,Familial Mediterranean fever
+dd245,11.81,0,0.92,0,3.622,0,0.21,1,10.42,0,0,2,TD,TNFRSF1A/MEFV,342,Familial Mediterranean fever
+dd246,19.1,0,0.25,0,15.43,0,0.34,0,1.11,1,1,2,UK,COL4A4/COL4A3,63,Alport syndrome
+dd247,10.75,0,0.25,0,15.43,0,0.34,0,1.11,1,1,2,UK,COL4A4/COL4A3,63,Alport syndrome
+dd248,21.1,0,0.246,0,15.43,0,0.34,0,1.11,1,1,2,UK,COL4A5/COL4A3,63,Alport syndrome
+dd249,22.9,0,0.25,0,15.65,0,0.34,0,1.11,1,1,2,CO,COL4A4/COL4A3,63,Alport syndrome
+dd250,12.56,0,0.246,0,3.688,0,0.25,0,1.11,1,1,2,TD,COL4A5/COL4A4,63,Alport syndrome
+dd251,21.9,0,0.246,0,15.25,0,0.34,0,1.11,1,1,2,CO,COL4A5/COL4A3,63,Alport syndrome
+dd252,20.6,0,0.59,1,22.7,0,0.246,1,1.25,1,1,2,TD,KRT5/KRT14,304,Epidermolysis bullosa simplex
+dd253,28.9,0,0.59,1,18.55,0,0.246,1,1.25,1,1,2,CO,KRT5/KRT14,304,Epidermolysis bullosa simplex
+dd254,9.338,0,0.19,0,18.42,0,0.08,0,19.44,0,0,2,CO,BMP15/SMC1B,619,Primary ovarian insufficiency
+dd255,24.0,0,0.09,1,22.6,0,0.246,0,10.83,0,1,2,CO,REC8/GDF9,619,Primary ovarian insufficiency
+dd256,32.0,0,0.1,0,19.19,0,0.42,1,10.83,0,0,2,CO,GALT/FOXL2,619,Primary ovarian insufficiency
+dd257,15.71,0,0.1,0,20.5,0,0.246,0,18.83,0,0,2,CO,FIGLA/GDF9,619,Primary ovarian insufficiency
+dd258,9.338,0,0.19,0,11.92,0,0.246,0,11.25,0,0,2,CO,BMP15/NOBOX,619,Primary ovarian insufficiency
+dd259,7.419,5.011,0.246,0,8.852,0,0.08,0,10.83,0,0,3,CO,NOBOX/SMC1B,619,Primary ovarian insufficiency
+dd260,9.338,0,0.19,0,7.419,0,0.246,0,11.25,0,0,2,CO,BMP15/NOBOX,619,Primary ovarian insufficiency
+dd261,14.64,0,0.246,0.292,31.0,0,0.15,0,12.71,0,0,2,TD,TRAPPC9/PDE3A,432,Normosmic congenital hypogonadotropic hypogonadism
+dd262,21.2,0,0.1,1,15.5,0,0.62,0,4.72,0,1,2,TD,TEK/CYP1B1,98976,Congenital glaucoma
+dd263,8.334,0,0.1,1,24.9,0,0.62,0,4.72,0,1,2,TD,TEK/CYP1B1,98976,Congenital glaucoma
+dd264,14.4,0,0.1,1,20.7,0,0.62,0,4.72,0,1,2,TD,TEK/CYP1B1,98976,Congenital glaucoma
+dd265,6.958,0,0.1,1,20.7,0,0.62,0,4.72,0,1,2,TD,TEK/CYP1B1,98976,Congenital glaucoma
+dd266,6.53,0,0.14,0,19.34,0,0.13,1,17.22,0,0,2,TD,WDR11/PROKR2,95496,Pituitary stalk interruption syndrome
+dd267,18.74,0,0.51,1,20.6,0,0.11,0,18.68,0,0,2,UK,GJB2/TMPRSS3,87884,Non-syndromic genetic deafness
+dd268,21.6,0,0.1,1,0.0,0,0.08,0,17.37,0,0,2,TD,LRP5/EYS,791,Retinitis pigmentosa
