@@ -3,6 +3,7 @@ class Sample {
         for (let key in obj) {
             this[key] = obj[key];
         }
+        if (this.DE == 'CO2' || this.DE == 'TD2') this.DE = 'UK';
         this.color = (
             (this.DE == 'TD') ? color_from_array(constants.COLOR_TD) :
             (this.DE == 'CO') ? color_from_array(constants.COLOR_CO) :
