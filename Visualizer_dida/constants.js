@@ -19,16 +19,22 @@ const constants = {
     COLOR_CO: [51, 153, 255, 130],
     COLOR_TD: [255, 0, 0, 130],
     COLOR_UK: [100, 100, 100, 130],
+    COLOR_CO_F: [30, 250, 120, 130],
+    COLOR_TD_F: [250, 120, 30, 130],
 
     // Dark
     COLOR_CO_D: [25, 75, 160, 200],
     COLOR_TD_D: [127, 0, 0, 200],
     COLOR_UK_D: [50, 50, 50, 200],
+    COLOR_CO_FD: [15, 125, 60, 200],
+    COLOR_TD_FD: [125, 60, 15, 200],
 
     // Light
     COLOR_CO_L: [25, 75, 160, 30],
     COLOR_TD_L: [127, 0, 0, 30],
     COLOR_UK_L: [50, 50, 50, 30],
+    COLOR_CO_FL: [30, 250, 120, 30],
+    COLOR_TD_FL: [250, 120, 30, 30],
 
     ACTIVATION_DIST: 70,
     ACTIVATION_DIST_MIN: 0,
@@ -82,8 +88,8 @@ const constants = {
     HELP_SPEED: 15,
 
     DATA_PATH: "Data/",
-    FEATURES_FILE: "dida_v2_full.csv",
-    POSITION_REGX: 'v2_vs_*.csv',
+    FEATURES_FILE: "dida_v2_full_010100100000.csv",
+    POSITION_REGX: 'positions/v2_vs_*.csv',
     FEATURES_AMOUNT: 12,
     FEATURES_NAMES: [
         "CADD1",
