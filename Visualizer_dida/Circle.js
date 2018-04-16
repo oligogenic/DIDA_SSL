@@ -88,10 +88,9 @@ class Circle {
 
             this.means[12] += (sample.DE == "TD");
             this.means[13] += (sample.DE == "CO");
-            this.means[14] += (sample.DE == "UK");
+            this.means[14] += (sample.DE == "UK") + (sample.DE == "TD2") + (sample.DE == "CO2");
         });
         this.samplesCount = this.means[12] + this.means[13] + this.means[14];
-        console.log(this.samplesCount);
         this.means = this.means.map(x => x/this.samplesCount);
 
         // RecA, EssA, RecB, EssB, Path, coexp, allst
