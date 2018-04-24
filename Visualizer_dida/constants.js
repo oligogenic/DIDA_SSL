@@ -88,8 +88,8 @@ const constants = {
     HELP_SPEED: 15,
 
     DATA_PATH: "Data/",
-    FEATURES_FILE: "dida_v2_full_010100100000.csv",
-    POSITION_REGX: 'positions/v2_vs_*.csv',
+    FEATURES_FILE: "dida_v2_full.csv",
+    POSITION_REGX: 'dida_v2_full_*.csv',
     FEATURES_AMOUNT: 12,
     FEATURES_NAMES: [
         "CADD1",
