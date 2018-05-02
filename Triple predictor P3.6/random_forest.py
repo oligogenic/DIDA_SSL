@@ -14,7 +14,7 @@
 ##  (2) https://www.nejm.org/doi/full/10.1056/NEJMoa1516767
 ##
 ##  It performs stratified cross-validations and averages results over a given
-    ##  amount of repeats. dida_dualdiag.csv is an instance of valid CSV file.
+##  amount of repeats. dida_dualdiag.csv is an instance of valid CSV file.
 ##
 ################################################################################
 
