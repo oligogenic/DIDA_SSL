@@ -13,8 +13,10 @@
 ##  (1) https://academic.oup.com/nar/article/45/15/e140/3894171
 ##  (2) https://www.nejm.org/doi/full/10.1056/NEJMoa1516767
 ##
+##  A first step relabels unlabaled data following a distance-based nearest
+##  neighbor rule, to add them to unlabeled data.
 ##  It performs stratified cross-validations and averages results over a given
-    ##  amount of repeats. dida_dualdiag.csv is an instance of valid CSV file.
+##  amount of repeats. dida_dualdiag.csv is an instance of valid CSV file.
 ##
 ################################################################################
 
@@ -23,14 +25,27 @@ import time
 import pandas as pd
 
 from math import sqrt
-from numpy import array, concatenate, dot, diag, mean, std
+from numpy import array, concatenate, dot, diag, mean, std, zeros, vectorize
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import LeaveOneGroupOut
 from sklearn.metrics.pairwise import rbf_kernel
 from sklearn.metrics import roc_curve, roc_auc_score, auc, matthews_corrcoef
 
-def main(f_name, n_trees, n_epochs, threshold, selector):
+def getYSup(X_train, y_train, X_sup, gamma, thresholds):
+
+    amounts = [ sum(y_train[:,i]) for i in range(3) ]
+
+    similarities = rbf_kernel(X_train, X_sup, gamma=gamma)
+
+    y_sup = []
+    for i, x_i in enumerate(X_sup):
+        y_i = [y_ij/amounts[j] for j, y_ij in enumerate(dot( similarities[:,i], y_train ))]
+        y_sup.append([y_ij == max(y_i) for y_ij in y_i])
+
+    return array(y_sup).astype(int)
+
+def main(f_name, n_trees, n_epochs, gamma, thresholds, selector):
     """
 
     Loads csv, launches cross-validation, displays scores
@@ -74,8 +89,11 @@ def main(f_name, n_trees, n_epochs, threshold, selector):
     )
     gene_pairs = array(df_data['Pair'])
 
+    X_sup = X[y == -1]
     X, y, gene_pairs = X[y != -1], y[y != -1], gene_pairs[y != -1]
+
     y = array([ [i == y_i for i in range(3)] for y_i in y])
+    y_sup = getYSup(X, y, X_sup, gamma, thresholds)
 
     print('Training on subspace {', ', '.join( to_keep ), '}.' )
 
@@ -155,7 +173,10 @@ def main(f_name, n_trees, n_epochs, threshold, selector):
                     X[test_index],  y[test_index]
                 )
 
-                clf = clf.fit(X_fit, y_fit)
+                clf = clf.fit(
+                    concatenate( (X_fit, X_sup) ),
+                    concatenate( (y_fit, y_sup) )
+                )
 
                 y_predicted = clf.predict_proba(X_train)
 
@@ -187,7 +208,7 @@ def main(f_name, n_trees, n_epochs, threshold, selector):
         print('Spe DD: %f, std: %f' % (mean(sum_dd_sp), std(sum_dd_sp)) )
         print('Spe CO: %f, std: %f' % (mean(sum_co_sp), std(sum_co_sp)) )
         print('Spe TD: %f, std: %f' % (mean(sum_td_sp), std(sum_td_sp)) )
-
+        
         geo_mn = (
             mean(sum_dd_se)*mean(sum_co_se)*mean(sum_td_se)*
             mean(sum_dd_sp)*mean(sum_co_sp)*mean(sum_td_sp)
@@ -202,13 +223,14 @@ def main(f_name, n_trees, n_epochs, threshold, selector):
 
 if __name__ == "__main__":
     if sys.argv[1] in ("-h", "help"):
-        print("Usage: python random_forest.py {file_name}.csv n_trees n_epochs thresholds feature_selector \n \
+        print("Usage: python random_forest.py {file_name}.csv n_trees n_epochs thresholds gamma feature_selector \n \
                 file: a csv file with DIDAID, features, DE, gene pair \n \
                 n_trees: How many trees are contained in a forest. \n \
                 n_epochs: How many pass you want to do. \n \
                 thresholds: relative thresholds for each digenic effect \n \
                 thresholds are multiplicative and must be hyphen-separated such as 1.2-1.1-1 \n \
                 thresholds = -1 => default, otherwise [dd,co,td] \n \
+                gamma: RBF gamma value for relabeling \n \
                 feature_selector: binary string of size #features corresponding to activated features.")
     else:
         # Arguments control
@@ -228,6 +250,12 @@ if __name__ == "__main__":
         except ValueError:
             raise f'Arg 3 must be an integer. Found: {n_epochs}'
 
+        gamma = sys.argv[4]
+        try:
+            gamma = float(gamma)
+        except ValueError:
+            raise f'Arg 3 must be an integer. Found: {gamma}'
+
         def thr_parse(thresholds):
             if thresholds == '-1': return [1,1,1];
             thresholds = thresholds.split('-')
@@ -239,13 +267,13 @@ if __name__ == "__main__":
                 raise ValueError()
             return  thresholds
 
-        thresholds = sys.argv[4]
+        thresholds = sys.argv[5]
         try:
             thresholds = thr_parse(thresholds)
         except ValueError:
-            raise f'Arg 4 must be either -1 or shaped f-f-f. Found: {threshold}'
+            raise f'Arg 5 must be either -1 or shaped f-f-f. Found: {threshold}'
 
-        selector = sys.argv[5]
-        assert all(c in ('0', '1') for c in selector), f'Arg 5 must be a selector composed of 0s and 1s. Found: {selector}'
+        selector = sys.argv[6]
+        assert all(c in ('0', '1') for c in selector), f'Arg - must be a selector composed of 0s and 1s. Found: {selector}'
 
-        main(f_name, n_trees, n_epochs, thresholds, selector)
+        main(f_name, n_trees, n_epochs, gamma, thresholds, selector)
