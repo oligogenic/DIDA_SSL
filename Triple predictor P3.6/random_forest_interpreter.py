@@ -142,6 +142,7 @@ def main(f_name, n_trees, n_epochs, threshold, selector):
                         else:
                             sum_pros_c[i] += cont[j]*p_j
                             sum_pros_b[i] += bias[j]*p_j
+                        print(','.join(map(lambda x: str(round(x * 100)/100), cont[j]*p_j)))
 
             print('Duration:', round( (time.time() - start_time) * 100) / 100, 's')
 
