@@ -32,7 +32,8 @@ This repository regroups work done by IB² about digenic diseases study, using m
 - Scripts to generate visualizer t-SNE data
 
 ### annotation
-- ?
+- Scripts to add pathway information to gene pairs
+- Datasets of pathways from KEGG and Reactome
 
 ### results
 - CSV results of experiments.
