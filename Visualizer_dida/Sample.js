@@ -64,10 +64,7 @@ class Sample {
             this.CADD4,
             this.RecB,
             this.EssB,
-            this.Distance,
-            this.Path,
-            this.CoExp,
-            this.AllelicState
+            this.Path
         ].map(x => parseFloat(x));
     }
 
@@ -357,7 +354,7 @@ class Sample {
         offset_y += constants.TEXT_SIZES[1] + 2;
 
         textSize(constants.TEXT_SIZES[2]);
-        for (let i=8; i < 12; ++i) {
+        for (let i=8; i < this.features_tab.length; ++i) {
 
             if (!+data_manager.key.tab[i]) continue;
 
