@@ -79,30 +79,7 @@ function draw() {
 
     // Slider
 
-    strokeWeight(4);
-    stroke(color_from_array(constants.COLOR_UK));
-    line(
-        constants.WIDTH - 50,
-        constants.HEIGHT - 50,
-        constants.WIDTH - 50,
-        constants.HEIGHT - 150
-    );
-
-    strokeWeight(8);
-    stroke(0);
-
-    const ratio = (
-        constants.ACTIVATION_DIST - constants.ACTIVATION_DIST_MIN
-    ) / (
-        constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN
-    );
-    line(
-        constants.WIDTH - 60,
-        constants.HEIGHT - 50 - ratio*100,
-        constants.WIDTH - 40,
-        constants.HEIGHT - 50 - ratio*100
-    );
-
+    drawSlider();
     // Searcher
 
     searcher.draw();
@@ -111,11 +88,6 @@ function draw() {
 
     if (keyIsDown(BACKSPACE)) searcher.removeLastChar();
     else searcher.resetRemoveDelay();
-
-    // Help drawing
-
-    updateHelp();
-
 }
 
 function mouseMoved() {

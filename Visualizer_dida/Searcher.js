@@ -102,22 +102,19 @@ class Searcher {
         const child_name = suggested_child.Name;
         const child_genes = suggested_child.Pair.split('/');
         if (
-            child_id.toLowerCase().substr(0, this.text.length) ===
-            this.text.toLowerCase()
+            child_id.toLowerCase().includes(this.text.toLowerCase())
         ) {
-            this.suggestedtext = child_id.substr(this.text.length);
+            this.suggestedtext = child_id;
         } else if (
-            child_name.toLowerCase().substr(0, this.text.length) ===
-            this.text.toLowerCase()
+            child_name.toLowerCase().includes(this.text.toLowerCase())
         ) {
-            this.suggestedtext = child_name.substr(this.text.length);
+            this.suggestedtext = child_name;
         } else if (
-            child_genes[0].toLowerCase().substr(0, this.text.length) ===
-            this.text.toLowerCase()
+            child_genes[0].toLowerCase().includes(this.text.toLowerCase())
         ) {
-            this.suggestedtext = child_genes[0].substr(this.text.length);
+            this.suggestedtext = child_genes[0];
         } else {
-            this.suggestedtext = child_genes[1].substr(this.text.length);
+            this.suggestedtext = child_genes[1];
         }
 
         this.data.map( sample => sample.toggleHighlight(false));
@@ -126,7 +123,7 @@ class Searcher {
 
     validateSuggestion() {
         if (!this.toggled) return;
-        this.text = this.text + this.suggestedtext;
+        this.text = this.suggestedtext;
         this.suggestedtext = "";
         this.suggest();
     }
@@ -169,8 +166,8 @@ class Searcher {
         fill(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
         text(
             this.suggestedtext,
-            5 + textWidth(this.text),
-            constants.SEARCHER_FONT_SIZE
+            5,
+            -2
         );
 
         // Line blinking
@@ -184,6 +181,16 @@ class Searcher {
                 this.barShown = !this.barShown;
             }
         }
+
+        strokeWeight(1);
+        textSize(12);
+        stroke(100);
+        fill(100);
+        textStyle(ITALIC);
+        textAlign(LEFT);
+        text(constants.SEARCHER_PANEL_TEXT, 0, constants.SEARCHER_FONT_SIZE + 18);
+        textAlign(LEFT);
+        textStyle(NORMAL);
 
         translate(
             -constants.SEARCHER_LEFT_MARGIN,

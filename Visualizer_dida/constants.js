@@ -10,6 +10,9 @@ const constants = {
     MAX_RADIUS: 5,
     SAMPLE_GROWTH_RATE: 0.15,
 
+    LEGEND_DOT_SIZE: 4,
+    LEGEND_DOT_GRAD: 0.15,
+
     MIN_X: -0.3,
     MAX_X: 1.3,
     MIN_Y: -0.2,
@@ -119,5 +122,10 @@ const constants = {
     COLOR_CHART_Y: -1,
     COLOR_CHART_LINKED: null,
 
-    RAND_STD: 0.008
+    RAND_STD: 0.008,
+
+    SLIDER_TEXT: "Change area \nsize",
+    CLASS_PANEL_TEXT: "Toggle classes by \nclicking the dots",
+    FEATURE_PANEL_TEXT: "Toggle features by \nclicking the dots",
+    SEARCHER_PANEL_TEXT: "Search for a sample, press TAB to validate suggestion."
 };

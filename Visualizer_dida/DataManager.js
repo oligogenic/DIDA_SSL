@@ -25,7 +25,7 @@ class DataManager {
         }
 
         // Retrieving initial positions
-        this.setKey("011100000");
+        this.setKey("111111111");
 
 
         // We free useless memory

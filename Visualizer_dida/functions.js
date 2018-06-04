@@ -70,19 +70,20 @@ function drawLegend() {
     // Title
     let offset_y = 5 + constants.TEXT_SIZES[0];
     text("Digenic effect", 10, offset_y)
-    tint(255, 127);
-    image(constants.IMAGES.HELP_BUTTON,
-        constants.LEGEND_WIDTH - 5 - constants.TEXT_SIZES[0],
-        offset_y - 12,
-        constants.TEXT_SIZES[0], constants.TEXT_SIZES[0]
-    );
-    tint(255, 255);
 
     offset_y += constants.TEXT_SIZES[0];
 
     const texts = ["Unknown", "True digenic", "Modifier", "Dual molecular\ndiagnosis"];
     const colors = [constants.COLOR_UK, constants.COLOR_TD, constants.COLOR_CO, constants.COLOR_DD];
     const deactivated = [constants.UK_DISABLED, constants.TD_DISABLED, constants.CO_DISABLED, constants.DD_DISABLED];
+
+    constants.LEGEND_DOT_SIZE += constants.LEGEND_DOT_GRAD;
+    if (
+        constants.LEGEND_DOT_SIZE > constants.MAX_RADIUS ||
+        constants.LEGEND_DOT_SIZE < constants.MIN_RADIUS
+    ) {
+        constants.LEGEND_DOT_GRAD *= -1;
+    }
 
     for (let i=0; i < 4; ++i) {
         stroke(color_from_array(constants.COLOR_CO_D));
@@ -92,23 +93,37 @@ function drawLegend() {
         textSize(constants.TEXT_SIZES[1]);
         text(texts[i], 30, offset_y)
 
+        let size = 0;
         if (deactivated[i]) {
             stroke(constants.COLOR_UK_D);
             strokeWeight(2);
             noFill();
+            size = constants.RADIUS;
         } else {
             stroke(color_from_array(colors[i]));
             fill(color_from_array(colors[i]));
             strokeWeight(1);
+            size = constants.LEGEND_DOT_SIZE;
         }
         ellipse(
             20,
             offset_y - constants.RADIUS,
-            2*constants.RADIUS,
-            2*constants.RADIUS
+            2*size
         );
         strokeWeight(1);
     }
+
+    offset_y += 40;
+
+    strokeWeight(1);
+    textSize(15);
+    stroke(100);
+    fill(100);
+    textStyle(ITALIC);
+    textAlign(CENTER);
+    text(constants.CLASS_PANEL_TEXT, constants.LEGEND_WIDTH/2, offset_y)
+    textAlign(LEFT);
+    textStyle(NORMAL);
 
     translate(-10, -10);
 }
@@ -138,52 +153,40 @@ function drawFeaturesPanel() {
         stroke(color_from_array(constants.COLOR_CO_D));
         fill(color_from_array(constants.COLOR_CO_D));
 
-        // TD
         offset_y += 1.2*constants.TEXT_SIZES[0];
         textSize(constants.TEXT_SIZES[1]);
         text(constants.FEATURES_NAMES[i], 30, offset_y)
 
+        let size = 0;
         if (!+data_manager.key.tab[i]) {
             stroke(constants.COLOR_UK_L);
             noFill();
+            size = constants.RADIUS;
         } else {
             stroke(color_from_array(constants.COLOR_UK));
             fill(color_from_array(constants.COLOR_UK));
+            size = constants.LEGEND_DOT_SIZE;
         }
         ellipse(
             20,
             offset_y - constants.RADIUS,
-            2*constants.RADIUS,
-            2*constants.RADIUS
+            2*size
         );
     }
+
+    offset_y += 30;
+
+    strokeWeight(1);
+    textSize(15);
+    stroke(100);
+    fill(100);
+    textStyle(ITALIC);
+    textAlign(CENTER);
+    text(constants.FEATURE_PANEL_TEXT, constants.LEGEND_F_WIDTH/2, offset_y)
+    textAlign(LEFT);
+    textStyle(NORMAL);
 
     translate(- (constants.WIDTH - 10 - constants.LEGEND_F_WIDTH), -10);
-}
-
-function updateHelp() {
-    if (constants.HELP_SHOWN) {
-        constants.HELP_ALPHA = Math.min(
-            255,
-            constants.HELP_ALPHA + constants.HELP_SPEED
-        );
-    } else {
-        constants.HELP_ALPHA = Math.max(
-            0,
-            constants.HELP_ALPHA - constants.HELP_SPEED
-        );
-    }
-
-    if (!constants.HELP_ALPHA) return;
-    tint(255, constants.HELP_ALPHA);
-    image(
-        constants.IMAGES.HELP_WINDOW,
-        0,
-        0,
-        constants.WIDTH + 2,
-        constants.HEIGHT + 2
-    );
-    tint(255, 255);
 }
 
 function get_scale(x, min, max, coef) {
@@ -215,6 +218,40 @@ function drawColorChart(offset_x, offset_y) {
         offset_x - constants.BUBBLE_WIDTH,
         offset_y - constants.BUBBLE_HEIGHT
     );
+}
+function drawSlider() {
+    strokeWeight(4);
+    stroke(color_from_array(constants.COLOR_UK));
+    line(
+        constants.WIDTH - 50,
+        constants.HEIGHT - 50,
+        constants.WIDTH - 50,
+        constants.HEIGHT - 150
+    );
+
+    strokeWeight(8);
+    stroke(30);
+
+    const ratio = (
+        constants.ACTIVATION_DIST - constants.ACTIVATION_DIST_MIN
+    ) / (
+        constants.ACTIVATION_DIST_MAX - constants.ACTIVATION_DIST_MIN
+    );
+    line(
+        constants.WIDTH - 60,
+        constants.HEIGHT - 50 - ratio*100,
+        constants.WIDTH - 40,
+        constants.HEIGHT - 50 - ratio*100
+    );
+
+    strokeWeight(1);
+    textSize(15);
+    stroke(100);
+    fill(100);
+    textStyle(ITALIC);
+    textAlign(CENTER);
+    text(constants.SLIDER_TEXT, constants.WIDTH - 50, constants.HEIGHT - 30)
+    textAlign(LEFT);
 }
 
 function arraysEqual(a1, a2) {
