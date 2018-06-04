@@ -20,7 +20,7 @@ function pointInCircle(x, y, cenx, ceny, r) {
 function drawGrid() {
 
     strokeWeight(1);
-    stroke(color_from_array(constants.COLOR_CO));
+    stroke(color_from_array(constants.COLOR_TEXT));
     // Vertical
     const offset_w = constants.WIDTH / constants.SQUARES_W;
     for (let i = 1; i < constants.SQUARES_W; ++i) {
@@ -56,15 +56,15 @@ function drawLegend() {
 
     translate(10, 10);
 
-    stroke(color_from_array(constants.COLOR_CO));
+    stroke(color_from_array(constants.COLOR_TEXT));
     strokeWeight(2);
     fill(255);
 
     rect(0, 0, constants.LEGEND_WIDTH, constants.LEGEND_HEIGHT);
 
     strokeWeight(1);
-    stroke(color_from_array(constants.COLOR_CO_D));
-    fill(color_from_array(constants.COLOR_CO_D));
+    stroke(color_from_array(constants.COLOR_TEXT));
+    fill(color_from_array(constants.COLOR_TEXT));
     textSize(constants.TEXT_SIZES[0]);
 
     // Title
@@ -86,8 +86,8 @@ function drawLegend() {
     }
 
     for (let i=0; i < 4; ++i) {
-        stroke(color_from_array(constants.COLOR_CO_D));
-        fill(color_from_array(constants.COLOR_CO_D));
+        stroke(color_from_array(constants.COLOR_TEXT));
+        fill(color_from_array(constants.COLOR_TEXT));
 
         offset_y += constants.TEXT_SIZES[0];
         textSize(constants.TEXT_SIZES[1]);
@@ -132,15 +132,15 @@ function drawFeaturesPanel() {
 
     translate(constants.WIDTH - 10 - constants.LEGEND_F_WIDTH, 10);
 
-    stroke(color_from_array(constants.COLOR_CO));
+    stroke(color_from_array(constants.COLOR_TEXT));
     strokeWeight(2);
     fill(255);
 
     rect(0, 0, constants.LEGEND_F_WIDTH, constants.LEGEND_F_HEIGHT);
 
     strokeWeight(1);
-    stroke(color_from_array(constants.COLOR_CO_D));
-    fill(color_from_array(constants.COLOR_CO_D));
+    stroke(color_from_array(constants.COLOR_TEXT));
+    fill(color_from_array(constants.COLOR_TEXT));
     textSize(constants.TEXT_SIZES[0]);
 
     // Title
@@ -150,8 +150,8 @@ function drawFeaturesPanel() {
 
     for (let i = 0; i < constants.FEATURES_AMOUNT; ++i) {
 
-        stroke(color_from_array(constants.COLOR_CO_D));
-        fill(color_from_array(constants.COLOR_CO_D));
+        stroke(color_from_array(constants.COLOR_TEXT));
+        fill(color_from_array(constants.COLOR_TEXT));
 
         offset_y += 1.2*constants.TEXT_SIZES[0];
         textSize(constants.TEXT_SIZES[1]);

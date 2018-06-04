@@ -18,23 +18,25 @@ const constants = {
     MIN_Y: -0.2,
     MAX_Y: 1.2,
 
+    COLOR_TEXT: [50, 50, 130, 255],
+
     // Normal
-    COLOR_CO: [51, 153, 255, 130],
-    COLOR_TD: [255, 0, 0, 130],
-    COLOR_UK: [100, 100, 100, 130],
-    COLOR_DD: [30, 200, 120, 200],
+    COLOR_CO: [182, 109, 255, 160],
+    COLOR_TD: [219, 130, 0, 160],
+    COLOR_UK: [100, 100, 100, 160],
+    COLOR_DD: [0, 146, 146, 160],
 
     // Dark
-    COLOR_CO_D: [25, 75, 160, 200],
-    COLOR_TD_D: [127, 0, 0, 200],
-    COLOR_UK_D: [50, 50, 50, 200],
-    COLOR_DD_D: [15, 125, 60, 200],
+    COLOR_CO_D: [182, 109, 255, 255],
+    COLOR_TD_D: [219, 130, 0, 255],
+    COLOR_UK_D: [100, 100, 100, 255],
+    COLOR_DD_D: [0, 146, 146, 255],
 
     // Light
-    COLOR_CO_L: [25, 75, 160, 30],
-    COLOR_TD_L: [127, 0, 0, 30],
-    COLOR_UK_L: [50, 50, 50, 30],
-    COLOR_DD_L: [30, 250, 120, 30],
+    COLOR_CO_L: [182, 109, 255, 100],
+    COLOR_TD_L: [219, 130, 0, 100],
+    COLOR_UK_L: [100, 100, 100, 100],
+    COLOR_DD_L: [0, 146, 146, 100],
 
     ACTIVATION_DIST: 70,
     ACTIVATION_DIST_MIN: 0,

@@ -28,7 +28,7 @@ function setup() {
 function draw() {
     fill(255);
     strokeWeight(4);
-    stroke(color_from_array(constants.COLOR_TD));
+    stroke(color_from_array(constants.COLOR_TEXT));
     rect(0, 0, constants.WIDTH, constants.HEIGHT);
 
     drawGrid();

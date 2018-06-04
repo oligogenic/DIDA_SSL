@@ -162,7 +162,7 @@ class Circle {
         // Circle drawing
 
         strokeWeight(4);
-        stroke(color_from_array(constants.COLOR_CO));
+        stroke(color_from_array(constants.COLOR_TEXT));
         noFill();
 
         translate(this.x, this.y);
@@ -205,7 +205,7 @@ class Circle {
 
         translate(this.x + tx, this.y + ty);
 
-        stroke(color_from_array(constants.COLOR_CO_D));
+        stroke(color_from_array(constants.COLOR_TEXT));
         fill(255);
         rect(0, 0, this.bubble_width, this.bubble_height);
 
