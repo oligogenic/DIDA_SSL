@@ -78,71 +78,37 @@ function drawLegend() {
     );
     tint(255, 255);
 
-    // TD
-    offset_y += 2*constants.TEXT_SIZES[0];
-    textSize(constants.TEXT_SIZES[1]);
-    text("True digenic", 30, offset_y)
-
-    if (constants.TD_DISABLED) {
-        stroke(constants.COLOR_UK_L);
-        noFill();
-    } else {
-        stroke(color_from_array(constants.COLOR_TD));
-        fill(color_from_array(constants.COLOR_TD));
-    }
-    ellipse(
-        20,
-        offset_y - constants.RADIUS,
-        2*constants.RADIUS,
-        2*constants.RADIUS
-    );
-
-    // Co
-
-    stroke(color_from_array(constants.COLOR_CO_D));
-    fill(color_from_array(constants.COLOR_CO_D));
-
     offset_y += constants.TEXT_SIZES[0];
-    textSize(constants.TEXT_SIZES[1]);
-    text("Composite", 30, offset_y)
 
-    if (constants.CO_DISABLED) {
-        stroke(constants.COLOR_UK_L);
-        noFill();
-    } else {
-        stroke(color_from_array(constants.COLOR_CO));
-        fill(color_from_array(constants.COLOR_CO));
+    const texts = ["Unknown", "True digenic", "Modifier", "Dual molecular\ndiagnosis"];
+    const colors = [constants.COLOR_UK, constants.COLOR_TD, constants.COLOR_CO, constants.COLOR_DD];
+    const deactivated = [constants.UK_DISABLED, constants.TD_DISABLED, constants.CO_DISABLED, constants.DD_DISABLED];
+
+    for (let i=0; i < 4; ++i) {
+        stroke(color_from_array(constants.COLOR_CO_D));
+        fill(color_from_array(constants.COLOR_CO_D));
+
+        offset_y += constants.TEXT_SIZES[0];
+        textSize(constants.TEXT_SIZES[1]);
+        text(texts[i], 30, offset_y)
+
+        if (deactivated[i]) {
+            stroke(constants.COLOR_UK_D);
+            strokeWeight(2);
+            noFill();
+        } else {
+            stroke(color_from_array(colors[i]));
+            fill(color_from_array(colors[i]));
+            strokeWeight(1);
+        }
+        ellipse(
+            20,
+            offset_y - constants.RADIUS,
+            2*constants.RADIUS,
+            2*constants.RADIUS
+        );
+        strokeWeight(1);
     }
-    ellipse(
-        20,
-        offset_y - constants.RADIUS,
-        2*constants.RADIUS,
-        2*constants.RADIUS
-    );
-
-    // Uk
-
-    stroke(color_from_array(constants.COLOR_CO_D));
-    fill(color_from_array(constants.COLOR_CO_D));
-
-    offset_y += constants.TEXT_SIZES[0];
-    textSize(constants.TEXT_SIZES[1]);
-    text("Unknown effect", 30, offset_y)
-
-    if (constants.UK_DISABLED) {
-        stroke(constants.COLOR_UK_L);
-        noFill();
-    } else {
-        stroke(color_from_array(constants.COLOR_UK));
-        fill(color_from_array(constants.COLOR_UK));
-    }
-    ellipse(
-        20,
-        offset_y - constants.RADIUS,
-        2*constants.RADIUS,
-        2*constants.RADIUS
-    );
-
 
     translate(-10, -10);
 }

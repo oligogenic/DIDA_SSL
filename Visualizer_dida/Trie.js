@@ -6,13 +6,20 @@ class Trie {
     }
 
     feed(string, value) {
+        for (let i=0; i < string.length; ++i) {
+            const to_feed = string.substr(i, string.length) + string.substr(0, i);
+            this.feed_rec(to_feed, value);
+        }
+    }
+
+    feed_rec(string, value) {
         if (string.length == 0) {
             this.values.push(value);
             return;
         }
         const firstChar = string[0];
         if (this.sons[firstChar] == undefined) this.sons[firstChar] = new Trie();
-        this.sons[firstChar].feed(string.substr(1, string.length - 1), value);
+        this.sons[firstChar].feed_rec(string.substr(1, string.length - 1), value);
     }
 
     getChilds(string) {

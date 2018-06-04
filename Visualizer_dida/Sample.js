@@ -8,22 +8,22 @@ class Sample {
             (this.DE == 'TD') ? color_from_array(constants.COLOR_TD) :
             (this.DE == 'CO') ? color_from_array(constants.COLOR_CO) :
             (this.DE == 'UK') ? color_from_array(constants.COLOR_UK) :
-            (this.DE == 'TD2') ? color_from_array(constants.COLOR_UK) :
-            color_from_array(constants.COLOR_UK)
+            (this.DE == 'DD') ? color_from_array(constants.COLOR_DD) :
+            color('white')
         );
         this.color_d = (
-            (this.DE == 'TD')   ? color_from_array(constants.COLOR_TD_D) :
-            (this.DE == 'CO')   ? color_from_array(constants.COLOR_CO_D) :
-            (this.DE == 'UK')   ? color_from_array(constants.COLOR_UK_D) :
-            (this.DE == 'TD2') ? color_from_array(constants.COLOR_TD_FD) :
-            color_from_array(constants.COLOR_CO_FD)
+            (this.DE == 'TD') ? color_from_array(constants.COLOR_TD_D) :
+            (this.DE == 'CO') ? color_from_array(constants.COLOR_CO_D) :
+            (this.DE == 'UK') ? color_from_array(constants.COLOR_UK_D) :
+            (this.DE == 'DD') ? color_from_array(constants.COLOR_DD_D) :
+            color('white')
         );
         this.color_l = (
             (this.DE == 'TD') ? color_from_array(constants.COLOR_TD_L) :
             (this.DE == 'CO') ? color_from_array(constants.COLOR_CO_L) :
-            (this.DE == 'UK')   ? color_from_array(constants.COLOR_UK_L) :
-            (this.DE == 'TD2') ? color_from_array(constants.COLOR_TD_FL) :
-            color_from_array(constants.COLOR_CO_FL)
+            (this.DE == 'UK') ? color_from_array(constants.COLOR_UK_L) :
+            (this.DE == 'DD') ? color_from_array(constants.COLOR_DD_L) :
+            color('white')
         );
         this.custom_color = null;
         this.radius = constants.RADIUS;
@@ -142,9 +142,10 @@ class Sample {
     isDisabled() {
         return (!this.custom_color &&
             (
-                this.DE == 'UK' && constants.UK_DISABLED ||
-                (this.DE == 'CO' || this.DE == 'CO2') && constants.CO_DISABLED ||
-                (this.DE == 'TD' || this.DE == 'TD2') && constants.TD_DISABLED
+                (this.DE == 'UK') && constants.UK_DISABLED ||
+                (this.DE == 'CO') && constants.CO_DISABLED ||
+                (this.DE == 'TD') && constants.TD_DISABLED ||
+                (this.DE == 'DD') && constants.DD_DISABLED
             )
         );
     }
@@ -315,7 +316,7 @@ class Sample {
 
             if (!+data_manager.key.tab[i]) continue;
             text(
-                constants.FEATURES_TEXTS_S[i] + ": " + this.features_tab[i],
+                constants.FEATURES_TEXTS_S[i] + ": " + Math.round(100*this.features_tab[i])/100,
                 3,
                 constants.TEXT_SIZES[2] + offset_y
             );
@@ -338,7 +339,7 @@ class Sample {
             if (!+data_manager.key.tab[i]) continue;
 
             text(
-                constants.FEATURES_TEXTS_S[i] + ": " + this.features_tab[i],
+                constants.FEATURES_TEXTS_S[i] + ": " + Math.round(100*this.features_tab[i])/100,
                 3,
                 constants.TEXT_SIZES[2] + offset_y
             );
@@ -374,8 +375,8 @@ class Sample {
         strokeWeight(1.5);
         textSize(constants.TEXT_SIZES[0]);
         text(
-            this.DidaID,
-            constants.BUBBLE_WIDTH - textWidth(this.DidaID) - 5,
+            this.id,
+            constants.BUBBLE_WIDTH - textWidth(this.id) - 5,
             constants.BUBBLE_HEIGHT - 5
         );
 

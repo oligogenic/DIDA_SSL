@@ -142,7 +142,7 @@ function mouseMoved() {
     // Legend dots
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
-        for (let i = 0; i < 3; ++i) {
+        for (let i = 0; i < 4; ++i) {
             if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
                 cursor(HAND);
                 return;
@@ -279,6 +279,11 @@ function mouseClicked() {
     if (mouseX >= 30 - constants.RADIUS && mouseX <= 30 + constants.RADIUS) {
         let offset_y = 15 + 3*constants.TEXT_SIZES[0];
         if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
+            constants.UK_DISABLED = !constants.UK_DISABLED;
+            return;
+        }
+        offset_y += constants.TEXT_SIZES[0];
+        if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
             constants.TD_DISABLED = !constants.TD_DISABLED;
             return;
         }
@@ -289,7 +294,7 @@ function mouseClicked() {
         }
         offset_y += constants.TEXT_SIZES[0];
         if ( mouseY >= offset_y - 2*constants.RADIUS && mouseY <= offset_y ) {
-            constants.UK_DISABLED = !constants.UK_DISABLED;
+            constants.DD_DISABLED = !constants.DD_DISABLED;
             return;
         }
     }

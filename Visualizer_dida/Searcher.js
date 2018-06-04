@@ -33,7 +33,7 @@ class Searcher {
     feed(data) {
         this.data = data;
         for (key in this.data) {
-            this.trie.feed(data[key].DidaID.toLowerCase(), data[key]);
+            this.trie.feed(data[key].id.toLowerCase(), data[key]);
             this.trie.feed(data[key].Name.toLowerCase(), data[key]);
             const genes = data[key].Pair.split('/');
             this.trie.feed(genes[0].toLowerCase(), data[key]);
@@ -98,7 +98,7 @@ class Searcher {
             return;
         }
         const suggested_child = suggestions[0];
-        const child_id = suggested_child.DidaID;
+        const child_id = suggested_child.id;
         const child_name = suggested_child.Name;
         const child_genes = suggested_child.Pair.split('/');
         if (

@@ -81,7 +81,7 @@ class Circle {
             if (dy * dy2 <= 0) this.y = this.dest_y;
         }
 
-        this.means = zeros(15);
+        this.means = zeros(17);
         samples.map( sample => {
             for (let i = 0; i < sample.features_tab.length; ++i)
                 this.means[i] += sample.features_tab[i];
@@ -89,8 +89,9 @@ class Circle {
             this.means[12] += (sample.DE == "TD");
             this.means[13] += (sample.DE == "CO");
             this.means[14] += (sample.DE == "UK");
+            this.means[15] += (sample.DE == "DD");
         });
-        this.samplesCount = this.means[12] + this.means[13] + this.means[14];
+        this.samplesCount = this.means[12] + this.means[13] + this.means[14] + this.means[15];
         this.means = this.means.map(x => x/this.samplesCount);
 
         // RecA, EssA, RecB, EssB, Path, coexp, allst
@@ -250,18 +251,20 @@ class Circle {
         // DE
 
         const de_meanround = [
-            Math.round(this.means[12] * 1000) / 1000, // TD
-            Math.round(this.means[13] * 1000) / 1000, // CO
-            Math.round(this.means[14] * 1000) / 1000 // UK
+            Math.round(this.means[12] * 100) / 100, // TD
+            Math.round(this.means[13] * 100) / 100, // CO
+            Math.round(this.means[14] * 100) / 100, // UK
+            Math.round(this.means[15] * 100) / 100, // DD
         ]
 
         const de_meanround_str = (
             'TD: ' + de_meanround[0] +
             ', CO: ' + de_meanround[1] +
             ', UK: ' + de_meanround[2] +
-            ', ' + this.samplesCount + ' pairs.'
+            ', DD: ' + de_meanround[3] +
+            '\n' + this.samplesCount + ' pairs.'
         );
-        text(de_meanround_str, 5, offset_y);
+        text(de_meanround_str, 5, offset_y+3);
 
         translate(- (this.x + tx), - (this.y + ty) );
     }

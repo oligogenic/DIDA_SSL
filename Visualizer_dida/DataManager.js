@@ -20,12 +20,12 @@ class DataManager {
 
         for (let obj of features_tab) {
             const sample = new Sample(obj);
-            this.lookup[obj.DidaID] = sample;
+            this.lookup[obj.id] = sample;
             this.samples.push(sample);
         }
 
         // Retrieving initial positions
-        this.setKey("010100100000");
+        this.setKey("011100000");
 
 
         // We free useless memory
@@ -47,11 +47,11 @@ class DataManager {
 
         const positions_tab = this.loadData(positions_str);
         for (let obj of positions_tab) {
-            this.positions[obj.DidaID] = obj;
+            this.positions[obj.id] = obj;
         }
 
         this.data.map( (sample, index) => {
-            const pos = this.positions[sample.DidaID];
+            const pos = this.positions[sample.id];
             sample.updateDest(
                 +pos.x + randomGaussian(0, constants.RAND_STD),
                 +pos.y + randomGaussian(0, constants.RAND_STD)
@@ -62,7 +62,7 @@ class DataManager {
         constants.BUBBLE_HEIGHT = 100 + 11 * this.key.tab.reduce(
             (prev, curr)  => prev + (+curr), 0
         );
-        constants.BUBBLE_CIRCLE_HEIGHT = 20 + 20 * this.key.tab.reduce(
+        constants.BUBBLE_CIRCLE_HEIGHT = 35 + 20 * this.key.tab.reduce(
             (prev, curr)  => prev + (+curr), 0
         );
 
@@ -75,7 +75,7 @@ class DataManager {
 
         const that = this;
         loadStrings(
-            constants.DATA_PATH + constants.POSITION_REGX.replace(
+                constants.DATA_PATH + constants.POSITION_REGX.replace(
                 '*', this.key.str
             ),
             (return_val) => {that.moveData(return_val);}

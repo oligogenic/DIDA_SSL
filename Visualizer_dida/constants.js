@@ -19,22 +19,19 @@ const constants = {
     COLOR_CO: [51, 153, 255, 130],
     COLOR_TD: [255, 0, 0, 130],
     COLOR_UK: [100, 100, 100, 130],
-    COLOR_CO_F: [30, 250, 120, 130],
-    COLOR_TD_F: [250, 120, 30, 130],
+    COLOR_DD: [30, 200, 120, 200],
 
     // Dark
     COLOR_CO_D: [25, 75, 160, 200],
     COLOR_TD_D: [127, 0, 0, 200],
     COLOR_UK_D: [50, 50, 50, 200],
-    COLOR_CO_FD: [15, 125, 60, 200],
-    COLOR_TD_FD: [125, 60, 15, 200],
+    COLOR_DD_D: [15, 125, 60, 200],
 
     // Light
     COLOR_CO_L: [25, 75, 160, 30],
     COLOR_TD_L: [127, 0, 0, 30],
     COLOR_UK_L: [50, 50, 50, 30],
-    COLOR_CO_FL: [30, 250, 120, 30],
-    COLOR_TD_FL: [250, 120, 30, 30],
+    COLOR_DD_L: [30, 250, 120, 30],
 
     ACTIVATION_DIST: 70,
     ACTIVATION_DIST_MIN: 0,
@@ -48,7 +45,7 @@ const constants = {
     BUBBLE_HEIGHT: 110,
 
     BUBBLE_CIRCLE_WIDTH: 210,
-    BUBBLE_CIRCLE_HEIGHT: 140,
+    BUBBLE_CIRCLE_HEIGHT: 160,
     BUBBLE_CIRCLE_MAXDIST: 60,
 
     BUBBLE_GROWTH_W: 20,
@@ -61,7 +58,7 @@ const constants = {
     ],
 
     LEGEND_WIDTH: 130,
-    LEGEND_HEIGHT: 90,
+    LEGEND_HEIGHT: 120,
     CIRCLE_DENSITY: 0.4,
 
     SEARCHER_BOTTOM_MARGIN: 20,
@@ -73,9 +70,10 @@ const constants = {
     SEARCHER_REMOVE_DELAY: 2,
     SEARCHER_SUGGEST_COLOR: [150, 150, 150, 130],
 
+    UK_DISABLED: true,
     TD_DISABLED: false,
     CO_DISABLED: false,
-    UK_DISABLED: true,
+    DD_DISABLED: false,
 
     IMAGES_PATH: "Images/",
     IMAGES: {
@@ -88,9 +86,9 @@ const constants = {
     HELP_SPEED: 15,
 
     DATA_PATH: "Data/",
-    FEATURES_FILE: "dida_v2_full.csv",
-    POSITION_REGX: 'dida_v2_full_*.csv',
-    FEATURES_AMOUNT: 12,
+    FEATURES_FILE: "f_file.csv",
+    POSITION_REGX: 'p_file_*.csv',
+    FEATURES_AMOUNT: 9,
     FEATURES_NAMES: [
         "CADD1",
         "CADD2",
@@ -100,27 +98,21 @@ const constants = {
         "CADD4",
         "Recessive B",
         "Essential B",
-        "Biological distance",
-        "Pathway-related",
-        "Co-expression",
-        "Allelic state"
+        "Pathway"
     ],
     FEATURES_TEXTS_S: [
         "Pathogenicity A1",
         "Pathogenicity A2",
-        "Recessiveness",
-        "Essentiality (mouse)",
+        "Recessiveness A",
+        "Essentiality A (mouse)",
         "Pathogenicity B1",
         "Pathogenicity B2",
-        "Recessiveness",
-        "Essentiality (mouse)",
-        "Genes distance",
+        "Recessiveness A",
+        "Essentiality A (mouse)",
         "Pathway-related",
-        "Co-expressed",
-        "Number of alleles"
     ],
     LEGEND_F_WIDTH: 140,
-    LEGEND_F_HEIGHT: 270,
+    LEGEND_F_HEIGHT: 210,
 
     COLOR_CHART_SIDE: 3,
     COLOR_CHART_X: -1,
