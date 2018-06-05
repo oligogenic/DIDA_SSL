@@ -84,7 +84,7 @@ function drawLegend() {
     ) {
         constants.LEGEND_DOT_GRAD *= -1;
     }
-
+    strokeWeight(0.8);
     for (let i=0; i < 4; ++i) {
         stroke(color_from_array(constants.COLOR_TEXT));
         fill(color_from_array(constants.COLOR_TEXT));
@@ -110,13 +110,13 @@ function drawLegend() {
             offset_y - constants.RADIUS,
             2*size
         );
-        strokeWeight(1);
+        strokeWeight(0.8);
     }
 
     offset_y += 40;
 
-    strokeWeight(1);
     textSize(15);
+    strokeWeight(0.8);
     stroke(100);
     fill(100);
     textStyle(ITALIC);
@@ -148,6 +148,7 @@ function drawFeaturesPanel() {
     text("Features", 10, offset_y)
     offset_y += constants.TEXT_SIZES[0];
 
+    strokeWeight(0.8);
     for (let i = 0; i < constants.FEATURES_AMOUNT; ++i) {
 
         stroke(color_from_array(constants.COLOR_TEXT));

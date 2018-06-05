@@ -27,16 +27,16 @@ const constants = {
     COLOR_DD: [0, 146, 146, 160],
 
     // Dark
-    COLOR_CO_D: [182, 109, 255, 255],
-    COLOR_TD_D: [219, 130, 0, 255],
-    COLOR_UK_D: [100, 100, 100, 255],
-    COLOR_DD_D: [0, 146, 146, 255],
+    COLOR_CO_D: [120, 60, 200, 255],
+    COLOR_TD_D: [170, 90, 0, 255],
+    COLOR_UK_D: [50, 50, 50, 255],
+    COLOR_DD_D: [0, 100, 100, 255],
 
     // Light
-    COLOR_CO_L: [182, 109, 255, 100],
-    COLOR_TD_L: [219, 130, 0, 100],
-    COLOR_UK_L: [100, 100, 100, 100],
-    COLOR_DD_L: [0, 146, 146, 100],
+    COLOR_CO_L: [182, 109, 255, 40],
+    COLOR_TD_L: [219, 130, 0, 40],
+    COLOR_UK_L: [100, 100, 100, 40],
+    COLOR_DD_L: [0, 146, 146, 40],
 
     ACTIVATION_DIST: 70,
     ACTIVATION_DIST_MIN: 0,
@@ -72,8 +72,9 @@ const constants = {
     SEARCHER_FONT_SIZE: 12,
     SEARCHER_BAR_SPEED: 15,
     SEARCHER_DEFAULT: "Ex: dd056, Alport syndrome, BBS2",
-    SEARCHER_REMOVE_DELAY: 2,
+    SEARCHER_REMOVE_DELAY: 4,
     SEARCHER_SUGGEST_COLOR: [150, 150, 150, 130],
+    SEARCHER_N_SUGGESTIONS: 12,
 
     UK_DISABLED: true,
     TD_DISABLED: false,
@@ -129,5 +130,5 @@ const constants = {
     SLIDER_TEXT: "Change area \nsize",
     CLASS_PANEL_TEXT: "Toggle classes by \nclicking the dots",
     FEATURE_PANEL_TEXT: "Toggle features by \nclicking the dots",
-    SEARCHER_PANEL_TEXT: "Search for a sample, press TAB to validate suggestion."
+    SEARCHER_PANEL_TEXT: "Search for a sample, choose with arrows, press ENTER to validate suggestion."
 };

@@ -222,9 +222,10 @@ class Circle {
 
         translate(this.x + tx, this.y + ty);
 
-        strokeWeight(1);
+        strokeWeight(0.8);
         noFill();
         textSize(constants.TEXT_SIZES[2]);
+        textStyle(NORMAL);
 
         let offset_y = 15;
         for (let i = 0; i < this.stds.length; ++i) {

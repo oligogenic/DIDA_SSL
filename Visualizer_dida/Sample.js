@@ -246,10 +246,9 @@ class Sample {
 
         stroke(this.color_d);
 
-        strokeWeight(2);
+        strokeWeight(3);
         stroke(255);
         fill(this.color_d);
-        textStyle(BOLD);
         textSize(constants.TEXT_SIZES[0] - 2);
         const x_flag = (
             (this.true_x > constants.WIDTH / 2) ?
@@ -258,7 +257,6 @@ class Sample {
         );
         text(this.Pair, x_flag, this.true_y - constants.TEXT_SIZES[0] - 2);
         text(this.Name, x_flag, this.true_y - 2);
-        textStyle(NORMAL);
     }
 
     drawBubble() {
@@ -267,7 +265,7 @@ class Sample {
         if (this.isDisabled()) return;
 
         fill(255);
-        stroke(this.color);
+        stroke(this.color_d);
         strokeWeight(2);
         rect(this.true_x, this.true_y,
             this.bubble_modifier_x * this.bubble_width,
@@ -288,7 +286,7 @@ class Sample {
 
         // Disease
 
-        strokeWeight(1);
+        strokeWeight(0.8);
         let size = constants.TEXT_SIZES[0];
         textSize(size);
         while (textWidth(this.Name) >= constants.BUBBLE_WIDTH - 10) {
@@ -303,7 +301,7 @@ class Sample {
 
         // GENE 1
 
-        strokeWeight(1);
+        strokeWeight(0.8);
         textSize(constants.TEXT_SIZES[1]);
         text(gene_names[0], 3, constants.TEXT_SIZES[1] + offset_y);
         offset_y += constants.TEXT_SIZES[1] + 2;
@@ -325,7 +323,6 @@ class Sample {
 
         offset_y += 5;
 
-        strokeWeight(1);
         textSize(constants.TEXT_SIZES[1]);
         text(gene_names[1], 3, constants.TEXT_SIZES[1] + offset_y);
         offset_y += constants.TEXT_SIZES[1] + 2;
@@ -348,7 +345,6 @@ class Sample {
 
         offset_y += 5;
 
-        strokeWeight(1);
         textSize(constants.TEXT_SIZES[1]);
         text("Combination-related", 3, constants.TEXT_SIZES[1] + offset_y);
         offset_y += constants.TEXT_SIZES[1] + 2;
@@ -369,7 +365,6 @@ class Sample {
 
         // Digenic combination
 
-        strokeWeight(1.5);
         textSize(constants.TEXT_SIZES[0]);
         text(
             this.id,

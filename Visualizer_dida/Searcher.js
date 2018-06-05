@@ -8,7 +8,8 @@ class Searcher {
         this.trie = new Trie();
 
         this.text = "";
-        this.suggestedtext = "";
+        this.suggestedtexts = [];
+        this.toggle_n = -1;
 
         this.data = undefined;
     }
@@ -48,7 +49,7 @@ class Searcher {
         this.barCounter = constants.SEARCHER_BAR_SPEED;
 
         if (!this.toggled) {
-            this.suggestedtext = "";
+            this.suggestedtexts = [];
             this.data.map( sample => sample.toggleHighlight(false));
         } else {
             this.suggest();
@@ -82,12 +83,18 @@ class Searcher {
 
     sendKey(key) {
         if (!this.toggled) return;
+        if (key === '\n') return;
         if (textWidth(this.text) >= constants.SEARCHER_WIDTH - 10) return;
         this.text += key;
 
         if (this.text.length == 0) return;
 
         this.suggest();
+    }
+
+    addSuggestion(text) {
+        if (this.suggestedtexts.includes(text)) return;
+        this.suggestedtexts.push(text);
     }
 
     suggest() {
@@ -97,34 +104,54 @@ class Searcher {
             this.data.map( sample => sample.toggleHighlight(false));
             return;
         }
-        const suggested_child = suggestions[0];
-        const child_id = suggested_child.id;
-        const child_name = suggested_child.Name;
-        const child_genes = suggested_child.Pair.split('/');
-        if (
-            child_id.toLowerCase().includes(this.text.toLowerCase())
-        ) {
-            this.suggestedtext = child_id;
-        } else if (
-            child_name.toLowerCase().includes(this.text.toLowerCase())
-        ) {
-            this.suggestedtext = child_name;
-        } else if (
-            child_genes[0].toLowerCase().includes(this.text.toLowerCase())
-        ) {
-            this.suggestedtext = child_genes[0];
-        } else {
-            this.suggestedtext = child_genes[1];
+        this.suggestedtexts = [];
+        let i = 0;
+        while (i < suggestions.length && this.suggestedtexts.length < constants.SEARCHER_N_SUGGESTIONS) {
+            const child = suggestions[i];
+            const child_id = child.id;
+            const child_name = child.Name;
+            const child_genes = child.Pair.split('/');
+            if (
+                child_id.toLowerCase().includes(this.text.toLowerCase())
+            ) {
+                this.addSuggestion(child_id);
+            } else if (
+                child_name.toLowerCase().includes(this.text.toLowerCase())
+            ) {
+                this.addSuggestion(child_name);
+            } else if (
+                child_genes[0].toLowerCase().includes(this.text.toLowerCase())
+            ) {
+                this.addSuggestion(child_genes[0]);
+            } else {
+                this.addSuggestion(child_genes[1]);
+            }
+            i++;
         }
+
 
         this.data.map( sample => sample.toggleHighlight(false));
         suggestions.map( sample => sample.toggleHighlight(true));
     }
 
+    moveUp() {
+        if (!this.toggled) return;
+        if (this.toggle_n < this.suggestedtexts.length - 1)
+            this.toggle_n += 1;
+    }
+
+    moveDown() {
+        if (!this.toggled) return;
+        if (this.toggle_n > -1)
+            this.toggle_n -= 1;
+    }
+
     validateSuggestion() {
         if (!this.toggled) return;
-        this.text = this.suggestedtext;
-        this.suggestedtext = "";
+        if (this.toggle_n == -1) return;
+        this.text = this.suggestedtexts[this.toggle_n];
+        this.suggestedtexts = [];
+        this.toggle_n = -1;
         this.suggest();
     }
 
@@ -149,7 +176,7 @@ class Searcher {
             constants.SEARCHER_FONT_SIZE + 5
         );
 
-        if (this.toggled) {
+        if (this.toggled && this.toggle_n === -1) {
             textStyle(NORMAL);
             stroke(color_from_array(constants.COLOR_UK_D));
             fill(color_from_array(constants.COLOR_UK_D));
@@ -160,15 +187,30 @@ class Searcher {
         }
 
         textSize(constants.SEARCHER_FONT_SIZE);
+        strokeWeight(0.8);
         text(this.text, 5, constants.SEARCHER_FONT_SIZE);
 
-        stroke(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
-        fill(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
-        text(
-            this.suggestedtext,
-            5,
-            -2
-        );
+        textStyle(NORMAL);
+
+        let offy = -2;
+        for (let i=0; i < this.suggestedtexts.length; ++i) {
+            if (i == this.toggle_n) {
+                stroke(color_from_array(constants.COLOR_UK_D));
+                fill(color_from_array(constants.COLOR_UK_D));
+            } else {
+                stroke(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
+                fill(color_from_array(constants.SEARCHER_SUGGEST_COLOR));
+            }
+            text(
+                this.suggestedtexts[i],
+                5,
+                offy
+            );
+            offy -= constants.SEARCHER_FONT_SIZE;
+        }
+
+        stroke(color_from_array(constants.COLOR_UK_D));
+        fill(color_from_array(constants.COLOR_UK_D));
 
         // Line blinking
         if (this.toggled) {
@@ -182,14 +224,13 @@ class Searcher {
             }
         }
 
-        strokeWeight(1);
+
+        stroke(color_from_array(constants.COLOR_UK));
         textSize(12);
+        strokeWeight(1);
         stroke(100);
-        fill(100);
         textStyle(ITALIC);
-        textAlign(LEFT);
         text(constants.SEARCHER_PANEL_TEXT, 0, constants.SEARCHER_FONT_SIZE + 18);
-        textAlign(LEFT);
         textStyle(NORMAL);
 
         translate(

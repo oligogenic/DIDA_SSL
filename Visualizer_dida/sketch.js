@@ -344,11 +344,15 @@ function mouseDragged() {
 }
 
 function keyTyped() {
+    if (keyCode === ENTER) return;
     searcher.sendKey(key);
 }
 
 function keyPressed() {
-    if (keyCode == TAB) searcher.validateSuggestion();
+    if (keyCode == ENTER) searcher.validateSuggestion();
+    if (keyCode == UP_ARROW) searcher.moveUp();
+    if (keyCode == DOWN_ARROW) searcher.moveDown();
+    if (keyCode == ESCAPE) searcher.toggle(false);
 }
 
 // Ctrl + V
