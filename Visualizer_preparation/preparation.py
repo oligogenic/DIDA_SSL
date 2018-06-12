@@ -9,23 +9,24 @@ import sys
 features = 'CADD1,CADD2,RecA,EssA,CADD3,CADD4,RecB,EssB,Path'.split(',')
 
 df_data = pd.read_csv("dida_posey_to_predict.csv")
-df_data.head()
 
 combination = list(map(int, sys.argv[1]))
 n_comb = sum(combination)
 X = array(df_data[features])
 X = dot(X, diag(combination))
 
-X[:,[0,1,4,5]] -= X[:,[0,1,4,5]].min()
-if X[:,[0,1,4,5]].max() != 0:
-    X[:,[0,1,4,5]] /= X[:,[0,1,4,5]].max()
+for i in (0,1,4,5):
+    if not combination[i]:
+        continue
+    X[:,i] += 1.701666
+    X[:,i] /= 15.746334
 
 if n_comb > 2:
     X = TSNE(n_components=2, init="pca").fit_transform(X)
     X = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
     X = nan_to_num(X)
 else:
-    X = X[:, combination]
+    X = X[:, [i for i, j in enumerate(combination) if j] ]
 
 df_data_vs = df_data.copy(False)
 df_data_vs['x'] = X[:,0]
