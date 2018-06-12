@@ -28,7 +28,7 @@ else:
 
 df_data_vs = df_data.copy(False)
 df_data_vs['x'] = X[:,0]
-df_data_vs['y'] = X[:,1] if len(X.T) > 1 else 0
+df_data_vs['y'] = X[:,1] if n_comb > 1 else 0
 df_data_vs = df_data_vs.drop('Pair', 1)
 
 with open("exports/p_file_" + ''.join(map(str, combination)) + ".csv", "w") as out:
