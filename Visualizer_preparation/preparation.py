@@ -13,7 +13,9 @@ df_data.head()
 
 combination = sys.argv[1]
 X = array(df_data[features])
-X = dot(X, diag([float(i) for i in combination]))
+X = X[ :,[c == '1' for c in combination] ]
+
+X = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
 
 X_transform = TSNE(n_components=2, init="pca").fit_transform(X)
 X_transform = (X_transform - X_transform.min(axis=0)) / (X_transform.max(axis=0) - X_transform.min(axis=0))
