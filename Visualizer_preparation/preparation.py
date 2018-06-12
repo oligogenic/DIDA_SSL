@@ -17,7 +17,8 @@ X = array(df_data[features])
 X = dot(X, diag(combination))
 
 X[:,[0,1,4,5]] -= X[:,[0,1,4,5]].min()
-X[:,[0,1,4,5]] /= X[:,[0,1,4,5]].max()
+if X[:,[0,1,4,5]].max() != 0:
+    X[:,[0,1,4,5]] /= X[:,[0,1,4,5]].max()
 
 if n_comb > 2:
     X = TSNE(n_components=2, init="pca").fit_transform(X)
