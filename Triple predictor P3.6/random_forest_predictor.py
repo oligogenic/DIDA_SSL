@@ -22,6 +22,7 @@ import pandas as pd
 
 from math import sqrt
 from numpy import array, concatenate, dot, diag, mean, std, zeros
+import pickle
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import LeaveOneGroupOut
@@ -54,7 +55,7 @@ def main(f_fit, f_prd, n_trees, n_epochs, selector):
 
     X_fit = array(df_data[to_keep])
     X_prd = array(df_pred[to_keep])
-    id_pred = df_pred['id']
+    id_pred = df_pred['ID']
 
     # TD: true digenic, CO: composite, UK: unknown
     # OV: OVerlapping dual diagnosis, DI: Distinct dual diagnosis
@@ -112,6 +113,12 @@ def main(f_fit, f_prd, n_trees, n_epochs, selector):
             print("#"*10, "Trial %i" % i, "#"*10)
 
             clf = clf.fit(X, y)
+            outfile = open('DIDA_pred', 'wb')
+            pickle.dump(clf, outfile)
+            #infile = open('DIDA_pred', 'rb')
+
+            #clf = pickle.load(infile)
+
             y_pred = clf.predict_proba(X_pred)
 
             for l in range(3):
